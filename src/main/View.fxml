@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: WHITE;" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/islaib.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Institut Supérieur des Langues Appliquées et Informatique de Béja">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="147.0" layoutY="60.0" text="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Université de Jendouba">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Line endX="118.0" startX="-281.5" stroke="#ffc220" strokeWidth="5.0" styleClass="topLine">
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/uj.png" />
+               </image>
+            </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <StackPane VBox.vgrow="ALWAYS">
+         <children>
+            <VBox fx:id="paneWelcome" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container" visible="false">
+               <children>
+                  <Label fx:id="lblBienvenue01">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnContinuer01" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="btnContinuer" text="Continuer" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <HBox fx:id="paneMain" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0" visible="false">
+               <children>
+                  <Label fx:id="btnRechercher02" contentDisplay="TOP" styleClass="btnRechercher" text="Rechercher">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="btnAjouter02" contentDisplay="TOP" layoutX="131.0" layoutY="52.0" styleClass="btnRechercher" text="Ajouter">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox fx:id="paneRechercher" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container" visible="false">
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <VBox maxWidth="-Infinity" spacing="20.0">
+                     <children>
+                        <Label contentDisplay="BOTTOM" text="CIN:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <TextField fx:id="txtCIN03" alignment="CENTER" prefHeight="27.0" prefWidth="262.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </graphic>
+                        </Label>
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <HBox alignment="CENTER" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="lblValider03" styleClass="lblPrimary" text="Valider">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="lblRetourner03" styleClass="btnRetourner" text="Retourner">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="lblMsg03" text="Erreur lors de la recherche." textFill="RED" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox fx:id="paneAjouter" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" visible="false">
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <HBox maxWidth="-Infinity" prefWidth="687.0" spacing="30.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="CIN:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtCIN04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Archive:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtArchive04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="211.0" maxWidth="-Infinity" spacing="30.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Nom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtNom04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Prénom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtPrenom04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Classe:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ComboBox fx:id="cbClasse04" editable="true" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Condition:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtCond04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox maxWidth="-Infinity" prefWidth="687.0" spacing="1.0">
+                     <children>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Label text="Documents:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label disable="true" styleClass="lblDoc" text="Ajouter">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/add-doc.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label disable="true" layoutX="109.0" layoutY="10.0" styleClass="lblDoc" text="Voir tous">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/view-docs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox />
+                        <HBox />
+                        <HBox />
+                        <HBox />
+                        <HBox layoutX="14.0" layoutY="106.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="14.0" layoutY="128.0" />
+                        <HBox layoutX="14.0" layoutY="150.0" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="4.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="4.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="687.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblAjouter04" styleClass="lblPrimary" text="Ajouter">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblRetourner04" layoutX="10.0" layoutY="10.0" styleClass="btnRetourner" text="Retourner">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblMsg04" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="paneResultat" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <HBox maxWidth="-Infinity" prefWidth="687.0" spacing="30.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="CIN:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtCIN05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Archive:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtArchive05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="211.0" maxWidth="-Infinity" spacing="30.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Nom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtNom05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Prénom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtPrenom05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Classe:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ComboBox fx:id="cbClasse05" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Condition:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtCond05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox maxWidth="-Infinity" prefWidth="687.0" spacing="1.0">
+                     <children>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Label text="Documents:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblAjouterDoc05" disable="true" styleClass="lblDoc" text="Ajouter">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/add-doc.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblVoirTousDocs05" layoutX="109.0" layoutY="10.0" styleClass="lblDoc" text="Voir tous">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/view-docs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox />
+                        <HBox />
+                        <HBox />
+                        <HBox />
+                        <HBox layoutX="14.0" layoutY="106.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="14.0" layoutY="128.0" />
+                        <HBox layoutX="14.0" layoutY="150.0" />
+                        <TextArea fx:id="txtDocs05" editable="false" maxWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" text="Aucun document." />
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="4.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="4.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="687.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblModifier05" styleClass="lblPrimary" text="Modifier">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblSupprimer05" layoutX="10.0" layoutY="10.0" styleClass="lblPrimary" text="Supprimer">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblRetourner05" layoutX="10.0" layoutY="10.0" styleClass="btnRetourner" text="Retourner">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblMsg05" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <AnchorPane prefHeight="36.0" prefWidth="557.0">
+         <children>
+            <Label fx:id="lblEnactusNYear">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../images/enactus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="34.0" layoutY="24.0" text="SG de Relevés de Notes (v1.0.0)" />
+         </children>
+      </AnchorPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+   </padding>
+</VBox>

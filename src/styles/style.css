@@ -1,0 +1,60 @@
+.btnContinuer {
+    -fx-background-color: #ffc220;
+}
+
+.btnContinuer:hover {
+    -fx-background-color: #dfb139;
+    -fx-cursor: hand;
+}
+
+.topLine {
+    -fx-stroke: #ffc22080;
+}
+
+.btnRechercher {
+    -fx-border-width: 5px;
+    -fx-border-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.btnRechercher:hover {
+    -fx-background-color: #ffc220;
+    -fx-cursor: hand;
+}
+
+.btnRetourner {
+    -fx-border-width: 0 0 5px 0;
+    -fx-border-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.btnRetourner:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffc22080;
+}
+
+.lblPrimary {
+    -fx-border-width: 0 0 5px 0;
+    -fx-border-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.lblPrimary:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffc220;
+}
+
+.lblDoc {
+    -fx-border-width: 3px;
+    -fx-border-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.lblDoc:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffc220;
+}

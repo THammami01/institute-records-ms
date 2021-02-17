@@ -1,0 +1,57 @@
+CREATE DATABASE SGRN;
+
+SHOW DATABASES;
+
+USE SGRN; # [!]
+
+CREATE TABLE Etudiant (
+	cin INT NOT NULL UNIQUE,
+    archive VARCHAR(30) NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    classe VARCHAR(8) NOT NULL,
+    cond VARCHAR(100) NOT NULL,
+    PRIMARY KEY(cin)
+);
+
+SHOW TABLES;
+
+DESC Etudiant;
+
+INSERT INTO Etudiant VALUES(09525787, "ABCD0123", "Tarek", "Hammami", "2GLSI3", "...");
+INSERT INTO Etudiant VALUES(09525700, "ABCD0124", "Emna", "Gattoussi", "2GLSI3", "...");
+
+SELECT * FROM Etudiant;
+
+CREATE TABLE Document (
+	idDoc INT NOT NULL UNIQUE AUTO_INCREMENT,
+	cinDoc INT NOT NULL,
+	nomDoc VARCHAR(100) NOT NULL,
+    PRIMARY KEY(idDoc),
+    FOREIGN KEY(cinDoc) REFERENCES Etudiant(cin) ON DELETE CASCADE
+);
+
+SHOW TABLES;
+
+DESC Document;
+
+SELECT * FROM Document;
+
+CREATE TABLE Classe (
+	id INT(3) NOT NULL UNIQUE AUTO_INCREMENT,
+	classe VARCHAR(8) NOT NULL UNIQUE,
+    PRIMARY KEY(id)
+);
+
+INSERT INTO Classe(classe) VALUES("1GLSI1"), ("1GLSI2"), ("1GLSI3"), ("1GLSI4"), ("2GLSI1"), ("2GLSI2"), ("2GLSI3"), ("3TMW"), ("1MIDS"), ("2MIDS");
+
+SHOW TABLES;
+
+DESC Classe;
+
+SELECT * FROM Classe ORDER BY id;
+
+INSERT INTO Document(cinDoc, nomDoc) VALUES(09525787, "RN3");
+SELECT nomDoc FROM Document WHERE cinDoc = 9525787 ORDER BY idDoc;
+
+DELETE FROM Etudiant;
