@@ -7,14 +7,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import models.DB;
-import models.Document;
-import models.Etudiant;
+import main.models.DB;
+import main.models.Document;
+import main.models.Etudiant;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 
 // TODO: SHOW ERROR IF ENTERED CIN, ARCHIVE OR CONDITION INVALID OR CLASS NOT IN CLASSES LIST (LOWERCASE)
@@ -100,6 +101,7 @@ public class Controller implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		ArrayList<String> classes = DB.getClasses();
 		if (classes != null) {
 //			cbClasse05.getItems().removeAll();
@@ -218,10 +220,10 @@ public class Controller implements Initializable {
 
 		lblSupprimer05.setOnMouseClicked(e -> {
 			try {
-				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText())))
+				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
 					lblMsg05.setText("Supprimé avec succès.");
-				else
-					lblMsg05.setText("Error lors de la suppression");
+					show(paneRechercher);
+				} else lblMsg05.setText("Error lors de la suppression");
 			} catch (Exception e1) {
 				lblMsg05.setText("Error lors de la suppression");
 			}
@@ -258,30 +260,39 @@ public class Controller implements Initializable {
 		pane.setVisible(true);
 	}
 
-	// TODO: Add Doc Name to DB
 	public void addDoc() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choisir Document");
-		File file = fileChooser.showOpenDialog(Main.primaryStage);
-		if (file == null)
-			lblMsg05.setText("Erreur lors de l'importation du document.");
+		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
+
+		if (files == null || files.size() == 0)
+			lblMsg05.setText("Erreur lors de l'importation des documents.");
 		else {
-			String command = String.format("copy \"%s\" \"C:\\SGRN\\%s\"", file.getPath(), txtCIN05.getText());
-			try {
-				Runtime.getRuntime().exec("cmd /c " + command);
+			for (File file : files) {
 				Document doc = new Document(Integer.parseInt(txtCIN05.getText()), file.getName());
-				if (DB.addDoc(doc))
-					lblMsg05.setText("Document ajouté avec succès.");
-				else
-					lblMsg05.setText("Erreur lors de l'ajout du document.");
-			} catch (Exception e) {
-				lblMsg05.setText("Erreur lors de l'ajout du document.");
+				if (!DB.addDoc(doc)) {
+					lblMsg05.setText("Erreur lors de l'ajout des documents.");
+					return;
+				}
 			}
+
+			for (File file : files) {
+				String command = String.format("copy \"%s\" \"%s%s\"", file.getPath(), Main.docsDir, txtCIN05.getText());
+				try {
+					Runtime.getRuntime().exec("cmd /c " + command);
+				} catch (Exception e) {
+					lblMsg05.setText("Erreur lors de l'ajout des documents.");
+					return;
+				}
+			}
+
+			String wordEnd = files.size() == 0 || files.size() == 1 ? "" : "s";
+			lblMsg05.setText(files.size() + " document" + wordEnd + " ajouté" + wordEnd + " avec succès.");
 		}
 	}
 
 	public void openDocsDir() {
-		String command = "start C:\\SGRN\\" + txtCIN05.getText();
+		String command = "start " + Main.docsDir + txtCIN05.getText();
 		try {
 			Runtime.getRuntime().exec("cmd /c " + command);
 		} catch (Exception e) {

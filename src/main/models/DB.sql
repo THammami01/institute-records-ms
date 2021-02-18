@@ -54,4 +54,7 @@ SELECT * FROM Classe ORDER BY id;
 INSERT INTO Document(cinDoc, nomDoc) VALUES(09525787, "RN3");
 SELECT nomDoc FROM Document WHERE cinDoc = 9525787 ORDER BY idDoc;
 
+SELECT * FROM Etudiant;
+SELECT * FROM Document;
 DELETE FROM Etudiant;
+DELETE FROM Document;

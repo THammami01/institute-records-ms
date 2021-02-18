@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class Test {
 	public static void main(String[] args) {
-		openDoc();
-		copyDoc();
+//		openDoc();
+//		copyDoc();
 	}
 
 	public static void openDoc() {

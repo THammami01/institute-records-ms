@@ -4,20 +4,20 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import models.DB;
-
-import java.io.File;
+import main.models.DB;
 
 public class Main extends Application {
 	public static Stage primaryStage;
+	public static final String docsDir = "C:\\SGRN\\";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
 		Main.primaryStage = primaryStage;
 		primaryStage.setTitle("SG de Relevés de Notes");
+		primaryStage.getIcons().add(new Image("enactus.png"));
 		primaryStage.setScene(new Scene(root, 800, 600));
 		primaryStage.show();
 

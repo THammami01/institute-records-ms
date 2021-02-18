@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: WHITE;" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: WHITE;" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -63,7 +63,7 @@
       </HBox>
       <StackPane VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="paneWelcome" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container" visible="false">
+            <VBox fx:id="paneWelcome" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container">
                <children>
                   <Label fx:id="lblBienvenue01">
                      <font>
@@ -174,26 +174,26 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="CIN:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtCIN04" alignment="BASELINE_LEFT" />
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Archive:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtArchive04" alignment="BASELINE_LEFT" />
                            </children>
@@ -204,52 +204,52 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Nom:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtNom04" alignment="BASELINE_LEFT" />
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Prénom:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtPrenom04" alignment="BASELINE_LEFT" />
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Classe:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <ComboBox fx:id="cbClasse04" editable="true" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Condition:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtCond04" alignment="BASELINE_LEFT" />
                            </children>
@@ -349,7 +349,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="paneResultat" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
+            <VBox fx:id="paneResultat" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" visible="false">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -358,26 +358,29 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="CIN:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="4.0" />
+                                    <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtCIN05" alignment="BASELINE_LEFT" editable="false" />
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Archive:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtArchive05" alignment="BASELINE_LEFT" editable="false" />
                            </children>
@@ -388,52 +391,52 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Nom:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtNom05" alignment="BASELINE_LEFT" editable="false" />
                            </children>
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Prénom:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtPrenom05" alignment="BASELINE_LEFT" editable="false" />
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Classe:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <ComboBox fx:id="cbClasse05" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" text="Condition:">
+                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets left="4.0" />
-                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
                               </Label>
                               <TextField fx:id="txtCond05" alignment="BASELINE_LEFT" editable="false" />
                            </children>

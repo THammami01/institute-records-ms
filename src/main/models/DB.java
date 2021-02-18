@@ -1,4 +1,6 @@
-package models;
+package main.models;
+
+import main.Main;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class DB {
 	public static boolean addEtudiant(Etudiant e1) {
 		query = "INSERT INTO Etudiant VALUES(?, ?, ?, ?, ?, ?);";
 		try {
-			String command = "mkdir c:\\" + e1.getCin();
+			String command = String.format("mkdir %s%08d", Main.docsDir, e1.getCin());
 			Runtime.getRuntime().exec("cmd /c " + command);
 
 			pst = connection.prepareStatement(query);
@@ -117,7 +119,7 @@ public class DB {
 	public static boolean deleteEtudiant(int cin) {
 		query = "DELETE FROM Document WHERE cinDoc = ?;";
 		try {
-			String command = "rmdir c:\\" + cin;
+			String command = String.format("rmdir /q /s %s%08d", Main.docsDir, cin);
 			Runtime.getRuntime().exec("cmd /c " + command);
 
 			pst = connection.prepareStatement(query);
@@ -136,8 +138,17 @@ public class DB {
 	}
 
 	public static boolean addDoc(Document doc) {
-		query = "INSERT INTO Document(cinDoc, nomDoc) VALUES(?, ?);";
+		query = "SELECT count(*) FROM Document WHERE cinDoc = ? AND nomDoc = ?;";
 		try {
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, doc.getCinDoc());
+			pst.setString(2, doc.getNomDoc());
+			rs = pst.executeQuery();
+
+			rs.next();
+			if(rs.getInt("count(*)") > 0) return false;
+
+			query = "INSERT INTO Document(cinDoc, nomDoc) VALUES(?, ?);";
 			pst = connection.prepareStatement(query);
 			pst.setInt(1, doc.getCinDoc());
 			pst.setString(2, doc.getNomDoc());
