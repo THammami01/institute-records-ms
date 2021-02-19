@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 // TODO: GIVE NAME FOR DOCUMENT
-// TODO: SCROLLPANE
 // TODO: SHOW ERROR IF ENTERED CIN, ARCHIVE OR CONDITION INVALID OR CLASS NOT IN CLASSES LIST (LOWERCASE)
-// TODO: SHOW DIALOG TO INFORM THEM THAT THEY'S GOING TO DELETE A STUDENT/DOCUMENT
 // TODO: ARABIC LANGUAGE SUPPORT
 // TODO: DELETE ALL MAY BE BETTER THAN SHOW ALL IN WINDOWS EXPLORER
 
@@ -110,14 +108,18 @@ public class Controller implements Initializable {
 	private ImageView img1;
 	@FXML
 	private ImageView img2;
+//	@FXML
+//	private ImageView enactus;
 
 	private static String img1URL;
 	private static String img2URL;
+//	public static String iconURL;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		img1URL = img1.getImage().getUrl();
 		img2URL = img2.getImage().getUrl();
+//		iconURL = enactus.getImage().getUrl();
 
 		ArrayList<String> classes = DB.getClasses();
 		if (classes != null) {
@@ -146,6 +148,11 @@ public class Controller implements Initializable {
 		// STARTING LOGIC
 		lblValider03.setOnMouseClicked(e -> {
 			Etudiant e1;
+
+			if (txtCIN03.getText().isEmpty()) {
+				lblMsg03.setText("Entrer un numéro de CIN d'abord.");
+				return;
+			}
 
 			try {
 				e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
@@ -237,9 +244,14 @@ public class Controller implements Initializable {
 		});
 
 		lblSupprimer05.setOnMouseClicked(e -> {
+			if(!ConfirmationBox.show("Supprimer Étudiant", "Voulez-vous vraiment supprimer cet étudiant ?")) {
+				lblMsg05.setText("");
+				return;
+			}
+
 			try {
 				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-					lblMsg05.setText("Supprimé avec succès.");
+					lblMsg03.setText("Supprimé avec succès.");
 					show(paneRechercher);
 				} else lblMsg05.setText("Error lors de la suppression");
 			} catch (Exception e1) {
@@ -313,6 +325,7 @@ public class Controller implements Initializable {
 		String command = String.format("start %s\"%s\"", Main.docsDir, txtCIN05.getText());
 		try {
 			Runtime.getRuntime().exec("cmd /c " + command);
+			lblMsg05.setText("");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -380,6 +393,11 @@ public class Controller implements Initializable {
 		}
 
 		public void delDocFile(Document doc) {
+			if(!ConfirmationBox.show("Supprimer Document", "Voulez-vous vraiment supprimer cet document ?")) {
+				lblMsg05.setText("");
+				return;
+			}
+
 			String command = String.format("del \"%s%08d\\%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
 			try {
 				Runtime.getRuntime().exec("cmd /c " + command);

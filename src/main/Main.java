@@ -19,6 +19,8 @@ public class Main extends Application {
 		primaryStage.setTitle("SG de Relevés de Notes");
 		primaryStage.getIcons().add(new Image("icon.png"));
 		primaryStage.setScene(new Scene(root, 800, 600));
+		primaryStage.setMinWidth(700);
+		primaryStage.setMinHeight(600);
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(e -> {
