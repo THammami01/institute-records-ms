@@ -3,6 +3,7 @@ package main;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -18,7 +19,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
+// TODO: GIVE NAME FOR DOCUMENT
+// TODO: SCROLLPANE
 // TODO: SHOW ERROR IF ENTERED CIN, ARCHIVE OR CONDITION INVALID OR CLASS NOT IN CLASSES LIST (LOWERCASE)
+// TODO: SHOW DIALOG TO INFORM THEM THAT THEY'S GOING TO DELETE A STUDENT/DOCUMENT
+// TODO: ARABIC LANGUAGE SUPPORT
+// TODO: DELETE ALL MAY BE BETTER THAN SHOW ALL IN WINDOWS EXPLORER
 
 public class Controller implements Initializable {
 	@FXML
@@ -88,8 +94,9 @@ public class Controller implements Initializable {
 	private Label lblAjouterDoc05;
 	@FXML
 	private Label lblVoirTousDocs05;
+
 	@FXML
-	private TextArea txtDocs05;
+	private VBox allDocuments05;
 	@FXML
 	private Label lblModifier05;
 	@FXML
@@ -99,12 +106,22 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblMsg05;
 
+	@FXML
+	private ImageView img1;
+	@FXML
+	private ImageView img2;
+
+	private static String img1URL;
+	private static String img2URL;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		img1URL = img1.getImage().getUrl();
+		img2URL = img2.getImage().getUrl();
 
 		ArrayList<String> classes = DB.getClasses();
 		if (classes != null) {
-//			cbClasse05.getItems().removeAll();
+//			cbClasse05.getItems().clear();
 			cbClasse04.getItems().addAll(classes);
 //			cbClasse05.getItems().removeAll();
 			cbClasse05.getItems().addAll(classes);
@@ -142,7 +159,7 @@ public class Controller implements Initializable {
 					txtPrenom05.setText(e1.getPrenom());
 					cbClasse05.setValue(e1.getClasse());
 					txtCond05.setText(e1.getCond());
-					txtDocs05.setText(getDocsString());
+					setDocs();
 				}
 			} catch (Exception e2) {
 				lblMsg03.setText("Erreur lors de la recherche.");
@@ -173,7 +190,7 @@ public class Controller implements Initializable {
 
 		lblAjouterDoc05.setOnMouseClicked(e -> {
 			addDoc();
-			txtDocs05.setText(getDocsString());
+			setDocs();
 		});
 
 		lblVoirTousDocs05.setOnMouseClicked(e -> openDocsDir());
@@ -186,6 +203,7 @@ public class Controller implements Initializable {
 				cbClasse05.setEditable(true);
 				txtCond05.setEditable(true);
 				lblModifier05.setText("Enregistrer");
+				lblMsg05.setText("");
 
 				lblAjouterDoc05.setDisable(false);
 			} else {
@@ -254,7 +272,7 @@ public class Controller implements Initializable {
 		cbClasse05.setEditable(false);
 		txtCond05.setEditable(false);
 		lblAjouterDoc05.setDisable(true);
-		txtDocs05.setText("Aucun document.");
+		initializeDocs();
 		lblModifier05.setText("Modifier");
 
 		pane.setVisible(true);
@@ -292,7 +310,7 @@ public class Controller implements Initializable {
 	}
 
 	public void openDocsDir() {
-		String command = "start " + Main.docsDir + txtCIN05.getText();
+		String command = String.format("start %s\"%s\"", Main.docsDir, txtCIN05.getText());
 		try {
 			Runtime.getRuntime().exec("cmd /c " + command);
 		} catch (Exception e) {
@@ -300,22 +318,78 @@ public class Controller implements Initializable {
 		}
 	}
 
-	public String getDocsString() {
-		ArrayList<String> currDocs = DB.getDocs(Integer.parseInt(txtCIN05.getText()));
-		if (currDocs == null || currDocs.size() == 0) return "Aucun document.";
-
-		StringBuilder currDocsString = new StringBuilder();
-		for (String d : currDocs)
-			currDocsString.append(d).append("\n");
-		return currDocsString.toString();
+	public void initializeDocs() {
+		allDocuments05.getChildren().clear();
+		allDocuments05.getChildren().add(new DocumentHBox("Aucun document."));
 	}
 
-//	public void openDocFile(String loc) {
-//		String command = "start " + loc;
-//		try {
-//			Runtime.getRuntime().exec("cmd /c " + command);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public void setDocs() {
+		ArrayList<String> currDocs = DB.getDocs(Integer.parseInt(txtCIN05.getText()));
+		allDocuments05.getChildren().clear();
+
+		if (currDocs == null || currDocs.size() == 0) {
+			allDocuments05.getChildren().add(new DocumentHBox("Aucun document."));
+		} else {
+
+			for (String d : currDocs) {
+				allDocuments05.getChildren().add(new DocumentHBox(new Document(Integer.parseInt(txtCIN05.getText()), d)));
+			}
+		}
+	}
+
+	private class DocumentHBox extends HBox {
+		public DocumentHBox(String nomDoc) {
+			Label singleDocLabel = new Label(nomDoc);
+			singleDocLabel.getStyleClass().add("singleDocLabel");
+
+			setPrefWidth(USE_COMPUTED_SIZE);
+			setMaxWidth(USE_PREF_SIZE);
+			singleDocLabel.getStyleClass().add("singleDocHBox");
+
+			setPrefHeight(25);
+			getChildren().addAll(singleDocLabel);
+		}
+
+		public DocumentHBox(Document doc) {
+			this(doc.getNomDoc());
+			ImageView viewSingleDocImg = new ImageView(img1URL);
+			viewSingleDocImg.setFitWidth(25);
+			viewSingleDocImg.setFitHeight(25);
+			viewSingleDocImg.getStyleClass().add("viewSingleDocImg");
+			viewSingleDocImg.setOnMouseClicked(e -> openDocFile(doc));
+
+			ImageView delSingleDocImg = new ImageView(img2URL);
+			delSingleDocImg.setFitWidth(25);
+			delSingleDocImg.setFitHeight(25);
+			delSingleDocImg.getStyleClass().add("delSingleDocImg");
+			delSingleDocImg.setOnMouseClicked(e -> delDocFile(doc));
+
+			getChildren().addAll(viewSingleDocImg, delSingleDocImg);
+		}
+
+		public void openDocFile(Document doc) {
+			String command = String.format("start %s\"%08d\"\\\"%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
+			try {
+				Runtime.getRuntime().exec("cmd /c " + command);
+				lblMsg05.setText("");
+			} catch (Exception e) {
+				lblMsg05.setText("Error lors de l'ouverture du document.");
+				e.printStackTrace();
+			}
+			setDocs();
+		}
+
+		public void delDocFile(Document doc) {
+			String command = String.format("del \"%s%08d\\%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
+			try {
+				Runtime.getRuntime().exec("cmd /c " + command);
+				if (DB.delDoc(doc)) lblMsg05.setText("1 document supprimé avec succès.");
+				else lblMsg05.setText("Error lors de la suppression du document.");
+			} catch (Exception e) {
+				lblMsg05.setText("Error lors de la suppression du document.");
+				e.printStackTrace();
+			}
+			setDocs();
+		}
+	}
 }

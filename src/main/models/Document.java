@@ -16,4 +16,9 @@ public class Document {
 	public String getNomDoc() {
 		return nomDoc;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Document{%08d, %s}", cinDoc, nomDoc);
+	}
 }

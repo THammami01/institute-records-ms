@@ -17,7 +17,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
 		Main.primaryStage = primaryStage;
 		primaryStage.setTitle("SG de Relevés de Notes");
-		primaryStage.getIcons().add(new Image("enactus.png"));
+		primaryStage.getIcons().add(new Image("icon.png"));
 		primaryStage.setScene(new Scene(root, 800, 600));
 		primaryStage.show();
 

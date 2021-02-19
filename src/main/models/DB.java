@@ -79,7 +79,7 @@ public class DB {
 	public static boolean addEtudiant(Etudiant e1) {
 		query = "INSERT INTO Etudiant VALUES(?, ?, ?, ?, ?, ?);";
 		try {
-			String command = String.format("mkdir %s%08d", Main.docsDir, e1.getCin());
+			String command = String.format("mkdir \"%s%08d\"", Main.docsDir, e1.getCin());
 			Runtime.getRuntime().exec("cmd /c " + command);
 
 			pst = connection.prepareStatement(query);
@@ -119,7 +119,7 @@ public class DB {
 	public static boolean deleteEtudiant(int cin) {
 		query = "DELETE FROM Document WHERE cinDoc = ?;";
 		try {
-			String command = String.format("rmdir /q /s %s%08d", Main.docsDir, cin);
+			String command = String.format("rmdir /q /s \"%s%08d\"", Main.docsDir, cin);
 			Runtime.getRuntime().exec("cmd /c " + command);
 
 			pst = connection.prepareStatement(query);
@@ -175,5 +175,20 @@ public class DB {
 			e.getCause();
 		}
 		return null;
+	}
+
+	public static boolean delDoc(Document doc) {
+		query = "DELETE FROM Document WHERE cinDoc = ? AND nomDoc = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, doc.getCinDoc());
+			pst.setString(2, doc.getNomDoc());
+			if (pst.executeUpdate() > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return false;
 	}
 }

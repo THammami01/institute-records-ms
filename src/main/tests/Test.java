@@ -4,12 +4,12 @@ import java.io.IOException;
 
 public class Test {
 	public static void main(String[] args) {
-//		openDoc();
-//		copyDoc();
+		openDoc();
+		copyDoc();
 	}
 
 	public static void openDoc() {
-		String command = "start C:\\Users\\thammami\\Desktop\\20sshine\\enactus.png";
+		String command = "start ...";
 		try {
 //			Process process =
 			Runtime.getRuntime().exec("cmd /c " + command);
@@ -19,7 +19,7 @@ public class Test {
 	}
 
 	public static void copyDoc() {
-		String command = "copy \"C:\\Users\\thammami\\Desktop\\Relevé de Notes 1.png\" \"C:\\SGRN\\2GLSI3\\09525787\"";
+		String command = "copy \"...\" \"...\"";
 		try {
 //			Process process =
 			Runtime.getRuntime().exec("cmd /c " + command);

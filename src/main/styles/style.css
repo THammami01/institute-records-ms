@@ -58,3 +58,38 @@
     -fx-cursor: hand;
     -fx-background-color: #ffc220;
 }
+
+
+/*
+ * FOR EACH DOCUMENT:
+ */
+
+.viewSingleDocImg, .delSingleDocImg {
+    -fx-border-width: 10px;
+    -fx-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-width: 10px;
+    -fx-fit-width: 25;
+    -fx-fit-height: 25;
+}
+
+.viewSingleDocImg:hover, .delSingleDocImg:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffc220;
+}
+
+.singleDocHBox {
+    -fx-spacing: 4px;
+}
+
+.singleDocLabel {
+    -fx-padding: 0 0 0 5px;
+    -fx-border-insets: 0 0 5px 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #ffc22080;
+    -fx-border-style: solid;
+    -fx-border-radius: 2px;
+    -fx-pref-width: 300;
+}
