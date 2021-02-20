@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -80,7 +82,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </VBox>
-            <HBox fx:id="paneMain" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0" visible="false">
+            <HBox fx:id="paneMain" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
                <children>
                   <Label fx:id="btnRechercher02" contentDisplay="TOP" styleClass="btnRechercher" text="Rechercher">
                      <graphic>
@@ -97,7 +99,7 @@
                         <Insets left="20.0" right="20.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="btnAjouter02" contentDisplay="TOP" layoutX="131.0" layoutY="52.0" styleClass="btnRechercher" text="Ajouter">
+                  <Label fx:id="btnAjouter02" contentDisplay="TOP" layoutX="131.0" layoutY="52.0" styleClass="btnRechercher" text="Plus">
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -238,7 +240,7 @@
                                     <Insets left="4.0" right="4.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="cbClasse04" editable="true" prefWidth="150.0" />
+                              <ComboBox fx:id="cbClasse04" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
@@ -258,48 +260,6 @@
                   </HBox>
                   <VBox maxWidth="-Infinity" prefWidth="687.0" spacing="1.0">
                      <children>
-                        <HBox spacing="5.0">
-                           <children>
-                              <Label text="Documents:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="15.0" />
-                                 </padding>
-                              </Label>
-                              <Label disable="true" styleClass="lblDoc" text="Ajouter">
-                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/add-doc.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <padding>
-                                    <Insets right="3.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label disable="true" layoutX="109.0" layoutY="10.0" styleClass="lblDoc" text="Voir tous">
-                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/view-docs.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <padding>
-                                    <Insets right="3.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
                         <HBox />
                         <HBox />
                         <HBox />
@@ -349,7 +309,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="paneResultat" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
+            <VBox fx:id="paneResultat" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" visible="false">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -455,7 +415,7 @@
                                     <Insets right="15.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="lblAjouterDoc05" disable="true" styleClass="lblDoc" text="Ajouter">
+                              <Label fx:id="lblAjouterDoc05" styleClass="lblDoc" text="Ajouter">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -470,7 +430,22 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblVoirTousDocs05" layoutX="109.0" layoutY="10.0" styleClass="lblDoc" text="Voir tous">
+                              <Label fx:id="lblVoirTousDocs05" disable="true" layoutX="109.0" layoutY="10.0" styleClass="lblDoc" text="Voir tous">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/view-docs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets right="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblSupprimerTousDocs05" disable="true" layoutX="200.0" layoutY="10.0" styleClass="lblDoc" text="Supprimer tous">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -567,23 +542,36 @@
             </VBox>
          </children>
       </StackPane>
-      <AnchorPane prefHeight="36.0" prefWidth="557.0">
+      <HBox alignment="CENTER">
          <children>
-            <Label fx:id="lblEnactusNYear">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fx:id="enactus" fitHeight="30.0" fitWidth="30.0">
-                     <image>
-                        <Image url="@images/enactus.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Label>
-            <Label layoutX="34.0" layoutY="24.0" text="SG de Relevés de Notes (v1.0.0)" />
+            <AnchorPane>
+               <children>
+                  <Label fx:id="lblEnactusNYear">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="enactus" fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@images/enactus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label layoutX="34.0" layoutY="24.0" text="SG des Relevés de Notes (v1.0.0)" />
+               </children>
+            </AnchorPane>
+            <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Desktop/settings02.jpg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
-      </AnchorPane>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" />

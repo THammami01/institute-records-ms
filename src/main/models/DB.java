@@ -191,4 +191,19 @@ public class DB {
 		}
 		return false;
 	}
+
+	public static boolean delDocs(int cinDoc) {
+		query = "DELETE FROM Document WHERE cinDoc = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, cinDoc);
+			if (pst.executeUpdate() > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return false;
+	}
+
 }
