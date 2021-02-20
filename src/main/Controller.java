@@ -2,6 +2,8 @@ package main;
 
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -17,8 +19,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-// TODO: FIX LAYOUT WHEN LANGUAGE SET TO ARABIC
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
+// TODO: SHOW LIST OF STUDENTS, CLASSES..
 // TODO: IN SETTINGS: CHANGE docsDir LOCATION, BACKUP, EXPORT ALL DATA TO IT, ABOUT ME
 
 public class Controller implements Initializable {
@@ -31,6 +33,12 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblCIN03;
 	@FXML
+	private HBox firstRow04;
+	@FXML
+	private HBox secondRow04;
+	@FXML
+	private HBox thirdRow04;
+	@FXML
 	private Label lblCIN04;
 	@FXML
 	private Label lblArchive04;
@@ -42,6 +50,14 @@ public class Controller implements Initializable {
 	private Label lblClasse04;
 	@FXML
 	private Label lblCond04;
+	@FXML
+	private HBox firstRow05;
+	@FXML
+	private HBox secondRow05;
+	@FXML
+	private VBox thirdRow05;
+	@FXML
+	private HBox fourthRow05;
 	@FXML
 	private Label lblCIN05;
 	@FXML
@@ -60,6 +76,29 @@ public class Controller implements Initializable {
 	private Label lblAucunDoc05;
 	@FXML
 	private Label lblLangue06;
+
+	@FXML
+	private VBox vboxCIN04;
+	@FXML
+	private VBox vboxNom04;
+	@FXML
+	private VBox vboxPrenom04;
+	@FXML
+	private VBox vboxClasse04;
+	@FXML
+	private VBox vboxCond04;
+	@FXML
+	private VBox vboxCIN05;
+	@FXML
+	private VBox vboxNom05;
+	@FXML
+	private VBox vboxPrenom05;
+	@FXML
+	private VBox vboxClasse05;
+	@FXML
+	private VBox vboxCond05;
+	@FXML
+	private HBox innerHBoxDocs05;
 
 	@FXML
 	private VBox paneWelcome;
@@ -171,6 +210,8 @@ public class Controller implements Initializable {
 	//	public static String iconURL;
 	ArrayList<String> classes;
 	public static String lang;
+	public Pane lastPane;
+	public Pane currPane;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -193,8 +234,8 @@ public class Controller implements Initializable {
 			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
 				show(paneRechercher);
 			} else {
-				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
 				show(paneResultat);
+				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
 				if (e1 != null) {
 					txtCIN05.setText(String.format("%08d", e1.getCin()));
 					txtArchive05.setText(e1.getArchive());
@@ -370,7 +411,14 @@ public class Controller implements Initializable {
 			}
 		});
 
-		imgSettings01.setOnMouseClicked(e -> show(paneSettings));
+		imgSettings01.setOnMouseClicked(e -> {
+			if (currPane == paneSettings)
+				show(lastPane);
+			else {
+				lastPane = currPane;
+				show(paneSettings);
+			}
+		});
 
 		lblEnregistrer06.setOnMouseClicked(e -> {
 			String currSelectedLang;
@@ -391,10 +439,13 @@ public class Controller implements Initializable {
 			}
 		});
 
-		lblRetourner06.setOnMouseClicked(e -> show(paneMain));
+		lblRetourner06.setOnMouseClicked(e -> show(lastPane));
 	}
 
 	private void initThings() {
+		lastPane = paneWelcome;
+		currPane = paneWelcome;
+
 		img1URL = img1.getImage().getUrl();
 		img2URL = img2.getImage().getUrl();
 //		iconURL = enactus.getImage().getUrl();
@@ -425,6 +476,8 @@ public class Controller implements Initializable {
 	}
 
 	public void show(Pane pane) {
+		currPane = pane;
+
 		paneWelcome.setVisible(false);
 		paneMain.setVisible(false);
 		paneRechercher.setVisible(false);
@@ -578,6 +631,124 @@ public class Controller implements Initializable {
 	}
 
 	public void setUpLang() {
+		if (lang.equals("arabic")) {
+			firstRow04.setAlignment(Pos.TOP_RIGHT);
+			secondRow04.setAlignment(Pos.TOP_RIGHT);
+			thirdRow04.setAlignment(Pos.TOP_RIGHT);
+			firstRow05.setAlignment(Pos.TOP_RIGHT);
+			secondRow05.setAlignment(Pos.TOP_RIGHT);
+			thirdRow05.setAlignment(Pos.TOP_RIGHT);
+			fourthRow05.setAlignment(Pos.TOP_RIGHT);
+
+			lblCIN04.setAlignment(Pos.TOP_RIGHT);
+			lblArchive04.setAlignment(Pos.TOP_RIGHT);
+			lblNom04.setAlignment(Pos.TOP_RIGHT);
+			lblPrenom04.setAlignment(Pos.TOP_RIGHT);
+			lblClasse04.setAlignment(Pos.TOP_RIGHT);
+			lblCond04.setAlignment(Pos.TOP_RIGHT);
+			lblCIN05.setAlignment(Pos.TOP_RIGHT);
+			lblArchive05.setAlignment(Pos.TOP_RIGHT);
+			lblNom05.setAlignment(Pos.TOP_RIGHT);
+			lblPrenom05.setAlignment(Pos.TOP_RIGHT);
+			lblClasse05.setAlignment(Pos.TOP_RIGHT);
+			lblCond05.setAlignment(Pos.TOP_RIGHT);
+
+			btnRechercher02.toFront();
+
+			lblValider03.toFront();
+
+			lblLangue06.toFront();
+			lblEnregistrer06.toFront();
+
+			vboxCIN04.toFront();
+			vboxCIN05.toFront();
+
+			vboxClasse04.toFront();
+			vboxPrenom04.toFront();
+			vboxNom04.toFront();
+
+			vboxClasse05.toFront();
+			vboxPrenom05.toFront();
+			vboxNom05.toFront();
+
+			lblRetourner04.toFront();
+			lblAjouter04.toFront();
+
+			lblRetourner05.toFront();
+			lblSupprimer05.toFront();
+			lblModifier05.toFront();
+
+			lblVoirTousDocs05.toFront();
+			lblAjouterDoc05.toFront();
+			lblDocuments05.toFront();
+			lblDocuments05.setPadding(new Insets(0, 0, 0, 15));
+
+//			for(DocumentHBox d: innerHBoxDocs05.getChildren()) {
+//
+//			}
+
+
+		} else {
+			firstRow04.setAlignment(Pos.TOP_LEFT);
+			secondRow04.setAlignment(Pos.TOP_LEFT);
+			thirdRow04.setAlignment(Pos.TOP_LEFT);
+			firstRow05.setAlignment(Pos.TOP_LEFT);
+			secondRow05.setAlignment(Pos.TOP_LEFT);
+			thirdRow05.setAlignment(Pos.TOP_LEFT);
+			fourthRow05.setAlignment(Pos.TOP_LEFT);
+
+			lblCIN04.setAlignment(Pos.TOP_LEFT);
+			lblArchive04.setAlignment(Pos.TOP_LEFT);
+			lblNom04.setAlignment(Pos.TOP_LEFT);
+			lblPrenom04.setAlignment(Pos.TOP_LEFT);
+			lblClasse04.setAlignment(Pos.TOP_LEFT);
+			lblCond04.setAlignment(Pos.TOP_LEFT);
+			lblCIN05.setAlignment(Pos.TOP_LEFT);
+			lblArchive05.setAlignment(Pos.TOP_LEFT);
+			lblNom05.setAlignment(Pos.TOP_LEFT);
+			lblPrenom05.setAlignment(Pos.TOP_LEFT);
+			lblClasse05.setAlignment(Pos.TOP_LEFT);
+			lblCond05.setAlignment(Pos.TOP_LEFT);
+
+			btnRechercher02.toBack();
+
+			lblValider03.toBack();
+
+			lblLangue06.toBack();
+			lblEnregistrer06.toBack();
+
+			vboxCIN04.toBack();
+			vboxCIN05.toBack();
+
+			vboxPrenom04.toFront();
+			vboxClasse04.toFront();
+			vboxCond04.toFront();
+
+			vboxPrenom05.toFront();
+			vboxClasse05.toFront();
+			vboxCond05.toFront();
+
+			lblRetourner04.toFront();
+			lblMsg04.toFront();
+
+			lblRetourner05.toFront();
+			lblSupprimer05.toFront();
+			lblModifier05.toFront();
+
+			lblSupprimer05.toFront();
+			lblRetourner05.toFront();
+			lblMsg05.toFront();
+
+			lblAjouterDoc05.toFront();
+			lblVoirTousDocs05.toFront();
+			lblSupprimerTousDocs05.toFront();
+			lblDocuments05.setPadding(new Insets(0, 15, 0, 0));
+
+
+
+
+		}
+
 		switch (lang) {
 			case "arabic":
 				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباحة");
@@ -585,7 +756,7 @@ public class Controller implements Initializable {
 				lblUniv01.setText("جامعة جندوبة");
 				btnContinuer01.setText("واصل");
 
-				btnRechercher02.setText("بحث");
+				btnRechercher02.setText("البحث");
 				btnAjouter02.setText("المزيد");
 
 				lblCIN03.setText("رقم بطاقة التعريف:");
@@ -609,10 +780,10 @@ public class Controller implements Initializable {
 				lblCond05.setText("الحالة:");
 				lblDocuments05.setText("الوثائق:");
 				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
-				lblAjouterDoc05.setText("إضافة وثيقة");
+				lblAjouterDoc05.setText("إضافة وثائق");
 				lblVoirTousDocs05.setText("رؤية جميع الوفائق");
-				lblSupprimerTousDocs05.setText("مسح جميق الوثائق");
-				lblSupprimer05.setText("مسح");
+				lblSupprimerTousDocs05.setText("حذف جميق الوثائق");
+				lblSupprimer05.setText("حذف");
 				lblRetourner05.setText("رجوع");
 
 				lblLangue06.setText("اللغة:");
@@ -703,7 +874,6 @@ public class Controller implements Initializable {
 				break;
 		}
 	}
-
 
 	private class DocumentHBox extends HBox {
 		public DocumentHBox(String nomDoc) {

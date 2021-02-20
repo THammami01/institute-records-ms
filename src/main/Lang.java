@@ -12,7 +12,7 @@ public class Lang {
 					case "arabic":
 						return "تعديل";
 					case "english":
-						return "Modify";
+						return "Edit";
 				}
 				break;
 
@@ -93,7 +93,7 @@ public class Lang {
 					case "arabic":
 						return "تمّ التعديل بنجاح.";
 					case "english":
-						return "Modified Successfully.";
+						return "Edited Successfully.";
 				}
 				break;
 
@@ -253,7 +253,7 @@ public class Lang {
 			case "Supprimer Tous Documents":
 				switch (lang) {
 					case "arabic":
-						return "مسح جميع الوثائق.";
+						return "حذف جميع الوثائق.";
 					case "english":
 						return "Delete All Documents.";
 				}
@@ -373,6 +373,15 @@ public class Lang {
 						return "لم يتم إختيار أي قسم.";
 					case "english":
 						return "No Selected Class.";
+				}
+				break;
+
+			case "Erreur lors de la recherche.":
+				switch (lang) {
+					case "arabic":
+						return "لم تتم عمليّة البحث بنجاح.";
+					case "english":
+						return "ُError While Attempting to Search.";
 				}
 				break;
 		}

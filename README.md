@@ -14,9 +14,10 @@ Système de Gestion des relevés de notes.
 - ScrollPane and Confirmation Box Added
 - Ability to Delete Multiple Documents At Once, Go Back and Undo Fixed
 - Data Validation, Arabic and English Support Added
+- Layout Fixed
 
 ## Todos
 
-- Fix Layout When Language Set to Arabic
 - Custom Show All (Do Not Use Windows Explorer)
+- Show List of Students, Classes..
 - In Settings: Change docsDir Location, BackUp, Export All Data to It, About Me
