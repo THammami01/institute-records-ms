@@ -58,3 +58,13 @@ SELECT * FROM Etudiant;
 SELECT * FROM Document;
 DELETE FROM Etudiant;
 DELETE FROM Document;
+
+CREATE TABLE Settings (
+	label VARCHAR(100) NOT NULL UNIQUE,
+    value VARCHAR(100) NOT NULL,
+    PRIMARY KEY(label)
+);
+
+INSERT INTO Settings VALUES("language", "french");
+SHOW TABLES;
+SELECT * FROM Settings;

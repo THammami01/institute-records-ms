@@ -27,10 +27,10 @@ public class ConfirmationBox {
 		Label lbl = new Label();
 		lbl.setText(msg);
 
-		Button btnYes = new Button("Oui");
+		Button btnYes = new Button(Lang.getEquiv("Oui"));
 		btnYes.setOnAction(e -> btnYes_Clicked());
 
-		Button btnNo = new Button("Non");
+		Button btnNo = new Button(Lang.getEquiv("Non"));
 		btnNo.setOnAction(e -> btnNo_Clicked());
 
 		HBox paneBtn = new HBox(8);

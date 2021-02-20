@@ -11,16 +11,56 @@ import javafx.stage.FileChooser;
 import main.models.DB;
 import main.models.Document;
 import main.models.Etudiant;
+import main.models.Setting;
 
 import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-// TODO: ARABIC/ENGLISH LANGUAGE SUPPORT
+// TODO: FIX LAYOUT WHEN LANGUAGE SET TO ARABIC
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
-// TODO: IN SETTINGS: CHANGE LANGUAGE, CHANGE docsDir LOCATION, BACKUP, EXPORT ALL DATA TO IT, ABOUT ME
+// TODO: IN SETTINGS: CHANGE docsDir LOCATION, BACKUP, EXPORT ALL DATA TO IT, ABOUT ME
 
 public class Controller implements Initializable {
+	@FXML
+	private Label lblInst01;
+	@FXML
+	private Label lblMinis01;
+	@FXML
+	private Label lblUniv01;
+	@FXML
+	private Label lblCIN03;
+	@FXML
+	private Label lblCIN04;
+	@FXML
+	private Label lblArchive04;
+	@FXML
+	private Label lblNom04;
+	@FXML
+	private Label lblPrenom04;
+	@FXML
+	private Label lblClasse04;
+	@FXML
+	private Label lblCond04;
+	@FXML
+	private Label lblCIN05;
+	@FXML
+	private Label lblArchive05;
+	@FXML
+	private Label lblNom05;
+	@FXML
+	private Label lblPrenom05;
+	@FXML
+	private Label lblClasse05;
+	@FXML
+	private Label lblCond05;
+	@FXML
+	private Label lblDocuments05;
+	@FXML
+	private Label lblAucunDoc05;
+	@FXML
+	private Label lblLangue06;
+
 	@FXML
 	private VBox paneWelcome;
 	@FXML
@@ -31,6 +71,8 @@ public class Controller implements Initializable {
 	private VBox paneAjouter;
 	@FXML
 	private VBox paneResultat;
+	@FXML
+	private VBox paneSettings;
 	@FXML
 	private Label lblEnactusNYear;
 
@@ -103,6 +145,21 @@ public class Controller implements Initializable {
 	private Label lblMsg05;
 
 	@FXML
+	private ImageView imgSettings01;
+	@FXML
+	private RadioButton rbArabic06;
+	@FXML
+	private RadioButton rbFrench06;
+	@FXML
+	private RadioButton rbEnglish06;
+	@FXML
+	private Label lblEnregistrer06;
+	@FXML
+	private Label lblRetourner06;
+	@FXML
+	private Label lblMsg06;
+
+	@FXML
 	private ImageView img1;
 	@FXML
 	private ImageView img2;
@@ -111,12 +168,16 @@ public class Controller implements Initializable {
 
 	private static String img1URL;
 	private static String img2URL;
-//	public static String iconURL;
+	//	public static String iconURL;
 	ArrayList<String> classes;
+	public static String lang;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		initFields();
+		initLang();
+		setUpLang();
+		initThings();
+		setOnToUpdateMsgs();
 
 		btnContinuer01.setOnMouseClicked(e -> show(paneMain));
 
@@ -129,7 +190,7 @@ public class Controller implements Initializable {
 		lblRetourner04.setOnMouseClicked(e -> show(paneMain));
 
 		lblRetourner05.setOnMouseClicked(e -> {
-			if (lblModifier05.getText().equals("Modifier")) {
+			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
 				show(paneRechercher);
 			} else {
 				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
@@ -142,8 +203,8 @@ public class Controller implements Initializable {
 					cbClasse05.setValue(e1.getClasse());
 					txtCond05.setText(e1.getCond());
 				}
-				lblModifier05.setText("Modifier");
-				lblRetourner05.setText("Retourner");
+				lblModifier05.setText(Lang.getEquiv("Modifier"));
+				lblRetourner05.setText(Lang.getEquiv("Retourner"));
 				setDocs();
 			}
 		});
@@ -153,14 +214,14 @@ public class Controller implements Initializable {
 			Etudiant e1;
 
 			if (txtCIN03.getText().isEmpty()) {
-				lblMsg03.setText("Entrer un numéro de CIN d'abord.");
+				lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN d'abord."));
 				return;
 			}
 
 			try {
 				e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
 				if (e1 == null) {
-					lblMsg03.setText("Aucun étudiant enregistré avec ce numéro de CIN.");
+					lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
 				} else {
 					show(paneResultat);
 					txtCIN05.setText(String.format("%08d", e1.getCin()));
@@ -172,19 +233,19 @@ public class Controller implements Initializable {
 					setDocs();
 				}
 			} catch (Exception e2) {
-				lblMsg03.setText("Erreur lors de la recherche.");
+				lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
 			}
 		});
 
 		lblAjouter04.setOnMouseClicked(e -> {
 			if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
 					txtPrenom04.getText().isEmpty() || txtCond04.getText().isEmpty()) {
-				lblMsg04.setText("Tous les champs doivent être remplis.");
+				lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
 				return;
 			}
 
 			if (txtCIN04.getText().length() != 8) {
-				lblMsg04.setText("Numéro de CIN invalide.");
+				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
 				return;
 			}
 
@@ -192,16 +253,21 @@ public class Controller implements Initializable {
 			try {
 				cin = Integer.parseInt(txtCIN04.getText());
 				if (cin < 0 || cin > 99999999) {
-					lblMsg04.setText("Numéro de CIN invalide.");
+					lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
 					return;
 				}
 			} catch (Exception e1) {
-				lblMsg04.setText("Numéro de CIN invalide.");
+				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+				return;
+			}
+
+			if (cbClasse04.getValue() == null) {
+				lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
 				return;
 			}
 
 			if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
-				lblMsg04.setText("La classe saisie n'existe pas.");
+				lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 				return;
 			}
 
@@ -210,12 +276,12 @@ public class Controller implements Initializable {
 						txtNom04.getText(), txtPrenom04.getText(),
 						cbClasse04.getValue().toUpperCase(), txtCond04.getText());
 				if (DB.addEtudiant(e1)) {
-					lblMsg04.setText("Ajouté avec succès.");
+					lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
 				} else {
-					lblMsg04.setText("Erreur lors de l'ajout.");
+					lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
 				}
 			} catch (Exception e2) {
-				lblMsg04.setText("Erreur lors de l'ajout.");
+				lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
 			}
 		});
 
@@ -230,26 +296,31 @@ public class Controller implements Initializable {
 		lblSupprimerTousDocs05.setOnMouseClicked(e -> delAllDocs());
 
 		lblModifier05.setOnMouseClicked(e -> {
-			if (lblModifier05.getText().equals("Modifier")) {
+			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
 				txtArchive05.setEditable(true);
 				txtNom05.setEditable(true);
 				txtPrenom05.setEditable(true);
 //				cbClasse05.setEditable(true);
 				txtCond05.setEditable(true);
-				lblModifier05.setText("Enregistrer");
-				lblRetourner05.setText("Annuler");
+				lblModifier05.setText(Lang.getEquiv("Enregistrer"));
+				lblRetourner05.setText(Lang.getEquiv("Annuler"));
 				lblMsg05.setText("");
 
 //				lblAjouterDoc05.setDisable(false);
 			} else {
 				if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
 						txtPrenom05.getText().isEmpty() || txtCond05.getText().isEmpty()) {
-					lblMsg05.setText("Tous les champs doivent être remplis.");
+					lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
+					return;
+				}
+
+				if (cbClasse05.getValue() == null) {
+					lblMsg05.setText(Lang.getEquiv("Aucune classe selectionnée."));
 					return;
 				}
 
 				if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
-					lblMsg05.setText("La classe saisie n'existe pas.");
+					lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 					return;
 				}
 
@@ -264,12 +335,12 @@ public class Controller implements Initializable {
 					);
 
 					if (DB.modifyEtudiant(e1)) {
-						lblMsg05.setText("Modifié avec succès.");
+						lblMsg05.setText(Lang.getEquiv("Modifié avec succès."));
 					} else {
-						lblMsg05.setText("Erreur lors de la modification.");
+						lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
 					}
 				} catch (Exception e2) {
-					lblMsg05.setText("Erreur lors de la modification.");
+					lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
 				}
 
 				txtArchive05.setEditable(false);
@@ -278,29 +349,52 @@ public class Controller implements Initializable {
 //				cbClasse05.setEditable(false);
 				txtCond05.setEditable(false);
 //				lblAjouterDoc05.setDisable(true);
-				lblModifier05.setText("Modifier");
-				lblRetourner05.setText("Retourner");
+				lblModifier05.setText(Lang.getEquiv("Modifier"));
+				lblRetourner05.setText(Lang.getEquiv("Retourner"));
 			}
 		});
 
 		lblSupprimer05.setOnMouseClicked(e -> {
 			lblMsg05.setText("");
-			if (!ConfirmationBox.show("Supprimer Étudiant", "Voulez-vous vraiment supprimer cet étudiant ?")) {
+			if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
 				return;
 			}
 
 			try {
 				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-					lblMsg03.setText("Supprimé avec succès.");
+					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
 					show(paneRechercher);
-				} else lblMsg05.setText("Erreur lors de la suppression");
+				} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
 			} catch (Exception e1) {
-				lblMsg05.setText("Erreur lors de la suppression");
+				lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
 			}
 		});
+
+		imgSettings01.setOnMouseClicked(e -> show(paneSettings));
+
+		lblEnregistrer06.setOnMouseClicked(e -> {
+			String currSelectedLang;
+			if (rbArabic06.isSelected()) currSelectedLang = "arabic";
+			else if (rbFrench06.isSelected()) currSelectedLang = "french";
+			else if (rbEnglish06.isSelected()) currSelectedLang = "english";
+			else {
+				lblMsg06.setText(Lang.getEquiv("Aucune langue sélectionnée."));
+				return;
+			}
+
+			if (DB.saveSetting(new Setting("language", currSelectedLang))) {
+				lang = currSelectedLang;
+				setUpLang();
+				lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
+			} else {
+				lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
+			}
+		});
+
+		lblRetourner06.setOnMouseClicked(e -> show(paneMain));
 	}
 
-	private void initFields() {
+	private void initThings() {
 		img1URL = img1.getImage().getUrl();
 		img2URL = img2.getImage().getUrl();
 //		iconURL = enactus.getImage().getUrl();
@@ -316,13 +410,18 @@ public class Controller implements Initializable {
 		lblEnactusNYear.setText("Enactus ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
 
 		lblBienvenue01.setText(getWelcomeMsg());
+
+		ToggleGroup language = new ToggleGroup();
+		rbArabic06.setToggleGroup(language);
+		rbFrench06.setToggleGroup(language);
+		rbEnglish06.setToggleGroup(language);
 	}
 
 	private String getWelcomeMsg() {
 		int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-		if (h > 3 && h < 12) return "Bonjour !";
-		else if (h >= 12 && h < 18) return "Bon après-midi !";
-		else return "Bonsoir !";
+		if (h > 3 && h < 12) return Lang.getEquiv("Bonjour !");
+		else if (h >= 12 && h < 18) return Lang.getEquiv("Bon après-midi !");
+		else return Lang.getEquiv("Bonsoir !");
 	}
 
 	public void show(Pane pane) {
@@ -331,10 +430,12 @@ public class Controller implements Initializable {
 		paneRechercher.setVisible(false);
 		paneAjouter.setVisible(false);
 		paneResultat.setVisible(false);
+		paneSettings.setVisible(false);
 
 		lblMsg03.setText("");
 		lblMsg04.setText("");
 		lblMsg05.setText("");
+		lblMsg06.setText("");
 
 		txtArchive05.setEditable(false);
 		txtNom05.setEditable(false);
@@ -342,24 +443,28 @@ public class Controller implements Initializable {
 //		cbClasse05.setEditable(false);
 		txtCond05.setEditable(false);
 //		lblAjouterDoc05.setDisable(true);
-		initializeDocs();
-		lblModifier05.setText("Modifier");
+		initDocs();
+		lblModifier05.setText(Lang.getEquiv("Modifier"));
+
+		if (pane == paneSettings) {
+			initLang();
+		}
 
 		pane.setVisible(true);
 	}
 
 	public void addDoc() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Choisir Document");
+		fileChooser.setTitle(Lang.getEquiv("Choisir Document"));
 		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
 
 		if (files == null || files.size() == 0)
-			lblMsg05.setText("Erreur lors de l'importation des documents.");
+			lblMsg05.setText(Lang.getEquiv("Erreur lors de l'importation des documents."));
 		else {
 			for (File file : files) {
 				Document doc = new Document(Integer.parseInt(txtCIN05.getText()), file.getName());
 				if (!DB.addDoc(doc)) {
-					lblMsg05.setText("Erreur lors de l'ajout des documents.");
+					lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
 					return;
 				}
 			}
@@ -369,13 +474,13 @@ public class Controller implements Initializable {
 				try {
 					Runtime.getRuntime().exec("cmd /c " + command);
 				} catch (Exception e) {
-					lblMsg05.setText("Erreur lors de l'ajout des documents.");
+					lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
 					return;
 				}
 			}
 
 			String wordEnd = files.size() == 0 || files.size() == 1 ? "" : "s";
-			lblMsg05.setText(files.size() + " document" + wordEnd + " ajouté" + wordEnd + " avec succès.");
+			lblMsg05.setText(files.size() + Lang.getEquiv(" document" + wordEnd + " ajouté" + wordEnd + " avec succès."));
 		}
 	}
 
@@ -390,9 +495,9 @@ public class Controller implements Initializable {
 		}
 	}
 
-	public void initializeDocs() {
+	public void initDocs() {
 		allDocuments05.getChildren().clear();
-		allDocuments05.getChildren().add(new DocumentHBox("Aucun document."));
+		allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
 		lblSupprimerTousDocs05.setDisable(true);
 	}
 
@@ -408,7 +513,7 @@ public class Controller implements Initializable {
 
 		if (currDocs == null || currDocs.size() == 0) {
 			lblSupprimerTousDocs05.setDisable(true);
-			allDocuments05.getChildren().add(new DocumentHBox("Aucun document."));
+			allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
 		} else {
 			for (String d : currDocs) {
 				lblSupprimerTousDocs05.setDisable(false);
@@ -419,16 +524,186 @@ public class Controller implements Initializable {
 
 	public void delAllDocs() {
 		lblMsg05.setText("");
-		if (!ConfirmationBox.show("Supprimer Tous Documents", "Voulez-vous vraiment supprimer tous les documents de cet étudiant ?"))
+		if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Tous Documents"), Lang.getEquiv("Voulez-vous vraiment supprimer tous les documents de cet étudiant ?")))
 			return;
 
 		if (DB.delDocs(Integer.parseInt(txtCIN05.getText()))) {
-			lblMsg05.setText("Tous les documents sont supprimés avec succès.");
+			lblMsg05.setText(Lang.getEquiv("Tous les documents sont supprimés avec succès."));
 			setDocs();
 		} else {
-			lblMsg05.setText("Erreur lors de la suppression de tous les documents.");
+			lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression de tous les documents."));
 		}
 	}
+
+	public void setOnToUpdateMsgs() {
+		txtCIN03.setOnKeyTyped(e -> lblMsg03.setText(""));
+		txtCIN04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		txtArchive04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		txtNom04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		txtPrenom04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		cbClasse04.setOnAction(e -> lblMsg04.setText(""));
+		txtCond04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		txtCIN05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		txtArchive05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		txtNom05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		cbClasse05.setOnAction(e -> lblMsg05.setText(""));
+		txtCond05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
+		rbFrench06.setOnMouseClicked(e -> lblMsg06.setText(""));
+		rbEnglish06.setOnMouseClicked(e -> lblMsg06.setText(""));
+	}
+
+	public void initLang() {
+		Setting langSetting = DB.getSetting("language");
+		if (langSetting == null) {
+			rbFrench06.setSelected(true);
+			lang = "french";
+		} else {
+			switch (langSetting.getValue()) {
+				case "arabic":
+					rbArabic06.setSelected(true);
+					lang = "arabic";
+					break;
+				case "french":
+					rbFrench06.setSelected(true);
+					lang = "french";
+					break;
+				case "english":
+					rbEnglish06.setSelected(true);
+					lang = "english";
+					break;
+			}
+		}
+	}
+
+	public void setUpLang() {
+		switch (lang) {
+			case "arabic":
+				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباحة");
+				lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
+				lblUniv01.setText("جامعة جندوبة");
+				btnContinuer01.setText("واصل");
+
+				btnRechercher02.setText("بحث");
+				btnAjouter02.setText("المزيد");
+
+				lblCIN03.setText("رقم بطاقة التعريف:");
+				lblValider03.setText("بحث");
+				lblRetourner03.setText("رجوع");
+
+				lblCIN04.setText("رقم بطاقة التعريف:");
+				lblArchive04.setText("الأرشيف:");
+				lblNom04.setText("اللقب:");
+				lblPrenom04.setText("الإسم:");
+				lblClasse04.setText("القسم:");
+				lblCond04.setText("الحالة:");
+				lblAjouter04.setText("إضافة");
+				lblRetourner04.setText("رجوع");
+
+				lblCIN05.setText("رقم بطاقة التعريف:");
+				lblArchive05.setText("الأرشيف:");
+				lblNom05.setText("اللقب:");
+				lblPrenom05.setText("الإسم:");
+				lblClasse05.setText("القسم:");
+				lblCond05.setText("الحالة:");
+				lblDocuments05.setText("الوثائق:");
+				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
+				lblAjouterDoc05.setText("إضافة وثيقة");
+				lblVoirTousDocs05.setText("رؤية جميع الوفائق");
+				lblSupprimerTousDocs05.setText("مسح جميق الوثائق");
+				lblSupprimer05.setText("مسح");
+				lblRetourner05.setText("رجوع");
+
+				lblLangue06.setText("اللغة:");
+				lblEnregistrer06.setText("تسجيل");
+				lblRetourner06.setText("رجوع");
+				break;
+
+			case "french":
+				lblInst01.setText("Institut Supérieur des Langues Appliquées et Informatique de Béja");
+				lblMinis01.setText("Ministère de l'Enseignement Supérieur et de la Recherche Scientifique");
+				lblUniv01.setText("Université de Jendouba");
+				btnContinuer01.setText("Continuer");
+
+				btnRechercher02.setText("Rechercher");
+				btnAjouter02.setText("Plus");
+
+				lblCIN03.setText("CIN:");
+				lblValider03.setText("Valider");
+				lblRetourner03.setText("Retourner");
+
+				lblCIN04.setText("CIN:");
+				lblArchive04.setText("Archive:");
+				lblNom04.setText("Nom:");
+				lblPrenom04.setText("Prénom:");
+				lblClasse04.setText("Classe:");
+				lblCond04.setText("Condition:");
+				lblAjouter04.setText("Ajouter");
+				lblRetourner04.setText("Retourner");
+
+				lblCIN05.setText("CIN:");
+				lblArchive05.setText("Archive:");
+				lblNom05.setText("Nom:");
+				lblPrenom05.setText("Prénom:");
+				lblClasse05.setText("Classe:");
+				lblCond05.setText("Condition:");
+				lblDocuments05.setText("Documents:");
+				lblAucunDoc05.setText("Aucun document.");
+				lblAjouterDoc05.setText("Ajouter");
+				lblVoirTousDocs05.setText("Voir tous");
+				lblSupprimerTousDocs05.setText("Supprimer tous");
+				lblSupprimer05.setText("Supprimer");
+				lblRetourner05.setText("Retourner");
+
+				lblLangue06.setText("Langue:");
+				lblEnregistrer06.setText("Enregistrer");
+				lblRetourner06.setText("Retourner");
+				break;
+
+			case "english":
+				lblInst01.setText("Higher Institute of Applied Languages and Computer Science of Beja");
+				lblMinis01.setText("Ministry of Higher Education and Scientific Research");
+				lblUniv01.setText("University of Jendouba");
+				btnContinuer01.setText("Continue");
+
+				btnRechercher02.setText("Search");
+				btnAjouter02.setText("More");
+
+				lblCIN03.setText("ID Card Number:");
+				lblValider03.setText("Validate");
+				lblRetourner03.setText("Return");
+
+				lblCIN04.setText("ID Card Number:");
+				lblArchive04.setText("Archive:");
+				lblNom04.setText("Last Name:");
+				lblPrenom04.setText("First Name:");
+				lblClasse04.setText("Class:");
+				lblCond04.setText("Condition:");
+				lblAjouter04.setText("Add");
+				lblRetourner04.setText("Return");
+
+				lblCIN05.setText("ID Card Number:");
+				lblArchive05.setText("Archive:");
+				lblNom05.setText("Last Name:");
+				lblPrenom05.setText("First Name:");
+				lblClasse05.setText("Class:");
+				lblCond05.setText("Condition:");
+				lblDocuments05.setText("Documents:");
+				lblAucunDoc05.setText("No Document.");
+				lblAjouterDoc05.setText("Add");
+				lblVoirTousDocs05.setText("View All");
+				lblSupprimerTousDocs05.setText("Delete All");
+				lblSupprimer05.setText("Delete");
+				lblRetourner05.setText("Return");
+
+				lblLangue06.setText("Language:");
+				lblEnregistrer06.setText("Save");
+				lblRetourner06.setText("Return");
+				break;
+		}
+	}
+
 
 	private class DocumentHBox extends HBox {
 		public DocumentHBox(String nomDoc) {
@@ -468,7 +743,7 @@ public class Controller implements Initializable {
 				Runtime.getRuntime().exec("cmd /c " + command);
 				lblMsg05.setText("");
 			} catch (Exception e) {
-				lblMsg05.setText("Erreur lors de l'ouverture du document.");
+				lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ouverture du document."));
 				e.printStackTrace();
 			}
 			setDocs();
@@ -476,17 +751,17 @@ public class Controller implements Initializable {
 
 		public void delDocFile(Document doc) {
 			lblMsg05.setText("");
-			if (!ConfirmationBox.show("Supprimer Document", "Voulez-vous vraiment supprimer cet document ?")) {
+			if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Document"), Lang.getEquiv("Voulez-vous vraiment supprimer cet document ?"))) {
 				return;
 			}
 
 			String command = String.format("del \"%s%08d\\%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
 			try {
 				Runtime.getRuntime().exec("cmd /c " + command);
-				if (DB.delDoc(doc)) lblMsg05.setText("1 document supprimé avec succès.");
-				else lblMsg05.setText("Erreur lors de la suppression du document.");
+				if (DB.delDoc(doc)) lblMsg05.setText(Lang.getEquiv("1 document supprimé avec succès."));
+				else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
 			} catch (Exception e) {
-				lblMsg05.setText("Erreur lors de la suppression du document.");
+				lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
 				e.printStackTrace();
 			}
 			setDocs();

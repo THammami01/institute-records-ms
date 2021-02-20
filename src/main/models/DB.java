@@ -206,4 +206,34 @@ public class DB {
 		return false;
 	}
 
+	public static Setting getSetting(String label) {
+		query = "SELECT * FROM Settings WHERE label = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setString(1, label);
+			rs = pst.executeQuery();
+
+			if (rs.next())
+				return new Setting(label, rs.getString("value"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return null;
+	}
+
+	public static boolean saveSetting(Setting setting) {
+		query = "UPDATE Settings SET value = ? WHERE label = ?";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setString(1, setting.getValue());
+			pst.setString(2, setting.getLabel());
+			if (pst.executeUpdate() > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return false;
+	}
 }

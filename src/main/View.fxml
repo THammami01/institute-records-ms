@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -31,17 +32,17 @@
             </ImageView>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Institut Supérieur des Langues Appliquées et Informatique de Béja">
+                  <Label fx:id="lblInst01" text="Institut Supérieur des Langues Appliquées et Informatique de Béja">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="147.0" layoutY="60.0" text="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique">
+                  <Label fx:id="lblMinis01" layoutX="147.0" layoutY="60.0" text="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label text="Université de Jendouba">
+                  <Label fx:id="lblUniv01" text="Université de Jendouba">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -82,7 +83,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </VBox>
-            <HBox fx:id="paneMain" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
+            <HBox fx:id="paneMain" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0" visible="false">
                <children>
                   <Label fx:id="btnRechercher02" contentDisplay="TOP" styleClass="btnRechercher" text="Rechercher">
                      <graphic>
@@ -123,7 +124,7 @@
                <children>
                   <VBox maxWidth="-Infinity" spacing="20.0">
                      <children>
-                        <Label contentDisplay="BOTTOM" text="CIN:">
+                        <Label fx:id="lblCIN03" contentDisplay="BOTTOM" text="CIN:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -160,7 +161,7 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <Label fx:id="lblMsg03" text="Erreur lors de la recherche." textFill="RED" />
+                              <Label fx:id="lblMsg03" textFill="RED" />
                            </children>
                         </VBox>
                      </children>
@@ -176,7 +177,7 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
+                              <Label fx:id="lblCIN04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -189,7 +190,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
+                              <Label fx:id="lblArchive04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -206,7 +207,7 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
+                              <Label fx:id="lblNom04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -219,7 +220,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
+                              <Label fx:id="lblPrenom04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -232,7 +233,7 @@
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
+                              <Label fx:id="lblClasse04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -245,7 +246,7 @@
                         </VBox>
                         <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
+                              <Label fx:id="lblCond04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -318,7 +319,7 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
+                              <Label fx:id="lblCIN05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="CIN:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -334,7 +335,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
+                              <Label fx:id="lblArchive05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Archive:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -351,7 +352,7 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
+                              <Label fx:id="lblNom05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -364,7 +365,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
+                              <Label fx:id="lblPrenom05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -377,7 +378,7 @@
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
+                              <Label fx:id="lblClasse05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Classe:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -390,7 +391,7 @@
                         </VBox>
                         <VBox layoutX="369.0" layoutY="10.0" spacing="5.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
+                              <Label fx:id="lblCond05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -407,7 +408,7 @@
                      <children>
                         <HBox spacing="5.0">
                            <children>
-                              <Label text="Documents:">
+                              <Label fx:id="lblDocuments05" text="Documents:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -468,7 +469,7 @@
                                  <children>
                                     <HBox maxWidth="-Infinity" prefWidth="375.0" styleClass="singleDocHBox">
                                        <children>
-                                          <Label styleClass="singleDocLabel" text="Aucun document." />
+                                          <Label fx:id="lblAucunDoc05" styleClass="singleDocLabel" text="Aucun document." />
                                           <ImageView fx:id="img1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="viewSingleDocImg" visible="false">
                                              <image>
                                                 <Image url="@images/view-doc.png" />
@@ -540,6 +541,63 @@
                   </HBox>
                </children>
             </VBox>
+            <VBox fx:id="paneSettings" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <HBox maxWidth="-Infinity" prefWidth="402.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="lblLangue06" text="Langue:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </Label>
+                        <VBox spacing="5.0">
+                           <children>
+                              <RadioButton fx:id="rbArabic06" mnemonicParsing="false" text="العربيّة" />
+                              <RadioButton fx:id="rbFrench06" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Français" />
+                              <RadioButton fx:id="rbEnglish06" layoutX="10.0" layoutY="30.0" mnemonicParsing="false" text="English" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="402.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblEnregistrer06" styleClass="lblPrimary" text="Enregistrer">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblRetourner06" layoutX="10.0" layoutY="10.0" styleClass="btnRetourner" text="Retourner">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblMsg06" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </StackPane>
       <HBox alignment="CENTER">
@@ -562,9 +620,9 @@
                </children>
             </AnchorPane>
             <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-            <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgSettings01" fitHeight="30.0" fitWidth="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/settings02.jpg" />
+                  <Image url="@images/settings.jpg" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
