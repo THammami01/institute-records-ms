@@ -1,9 +1,11 @@
 package main;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,6 +16,8 @@ import main.models.DB;
 import main.models.Document;
 import main.models.Etudiant;
 import main.models.Setting;
+import main.useful.Dialog;
+import main.useful.Lang;
 
 import java.io.File;
 import java.net.URL;
@@ -30,6 +34,8 @@ public class Controller implements Initializable {
 	private Label lblMinis01;
 	@FXML
 	private Label lblUniv01;
+	@FXML
+	private Label lblSG01;
 	@FXML
 	private Label lblCIN03;
 	@FXML
@@ -397,7 +403,7 @@ public class Controller implements Initializable {
 
 		lblSupprimer05.setOnMouseClicked(e -> {
 			lblMsg05.setText("");
-			if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
+			if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
 				return;
 			}
 
@@ -432,6 +438,7 @@ public class Controller implements Initializable {
 
 			if (DB.saveSetting(new Setting("language", currSelectedLang))) {
 				lang = currSelectedLang;
+				if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
 				setUpLang();
 				lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
 			} else {
@@ -499,9 +506,11 @@ public class Controller implements Initializable {
 		initDocs();
 		lblModifier05.setText(Lang.getEquiv("Modifier"));
 
-		if (pane == paneSettings) {
+		if (pane == paneSettings)
 			initLang();
-		}
+
+		requestFocus(txtCIN04);
+		requestFocus(txtCIN05);
 
 		pane.setVisible(true);
 	}
@@ -512,7 +521,7 @@ public class Controller implements Initializable {
 		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
 
 		if (files == null || files.size() == 0)
-			lblMsg05.setText(Lang.getEquiv("Erreur lors de l'importation des documents."));
+			lblMsg05.setText(Lang.getEquiv("Aucun fichier selectionné."));
 		else {
 			for (File file : files) {
 				Document doc = new Document(Integer.parseInt(txtCIN05.getText()), file.getName());
@@ -577,7 +586,7 @@ public class Controller implements Initializable {
 
 	public void delAllDocs() {
 		lblMsg05.setText("");
-		if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Tous Documents"), Lang.getEquiv("Voulez-vous vraiment supprimer tous les documents de cet étudiant ?")))
+		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Tous Documents"), Lang.getEquiv("Voulez-vous vraiment supprimer tous les documents de cet étudiant ?")))
 			return;
 
 		if (DB.delDocs(Integer.parseInt(txtCIN05.getText()))) {
@@ -631,6 +640,13 @@ public class Controller implements Initializable {
 	}
 
 	public void setUpLang() {
+		Main.primaryStage.setTitle(Lang.getEquiv("SG des Relevés de Notes"));
+		setDocs();
+
+//		DocumentHBox dhbox = (DocumentHBox) allDocuments05.getChildren().get(0);
+//		Label lbl = (Label) dhbox.getChildren().get(0);
+//		lbl.setAlignment(Pos.TOP_RIGHT);
+
 		if (lang.equals("arabic")) {
 			firstRow04.setAlignment(Pos.TOP_RIGHT);
 			secondRow04.setAlignment(Pos.TOP_RIGHT);
@@ -683,10 +699,25 @@ public class Controller implements Initializable {
 			lblDocuments05.toFront();
 			lblDocuments05.setPadding(new Insets(0, 0, 0, 15));
 
-//			for(DocumentHBox d: innerHBoxDocs05.getChildren()) {
-//
+//			for (Node d : allDocuments05.getChildren()) {
+//				Label lbl = (Label) ((HBox) d).getChildren().get(0);
+//				lbl.setAlignment(Pos.TOP_RIGHT);
+//				System.out.println(lbl.getText());
 //			}
 
+			txtCIN04.setAlignment(Pos.TOP_RIGHT);
+			txtArchive04.setAlignment(Pos.TOP_RIGHT);
+			txtNom04.setAlignment(Pos.TOP_RIGHT);
+			txtPrenom04.setAlignment(Pos.TOP_RIGHT);
+//			cbClasse04.setStyle("-fx-alignment: right;");
+			txtCond04.setAlignment(Pos.TOP_RIGHT);
+			
+			txtCIN05.setAlignment(Pos.TOP_RIGHT);
+			txtArchive05.setAlignment(Pos.TOP_RIGHT);
+			txtNom05.setAlignment(Pos.TOP_RIGHT);
+			txtPrenom05.setAlignment(Pos.TOP_RIGHT);
+//			cbClasse05.setStyle("-fx-alignment: right;");
+			txtCond05.setAlignment(Pos.TOP_RIGHT);
 
 		} else {
 			firstRow04.setAlignment(Pos.TOP_LEFT);
@@ -744,12 +775,31 @@ public class Controller implements Initializable {
 			lblSupprimerTousDocs05.toFront();
 			lblDocuments05.setPadding(new Insets(0, 15, 0, 0));
 
+//			for (Node d : allDocuments05.getChildren()) {
+//				Label lbl = (Label) ((HBox) d).getChildren().get(0);
+//				lbl.setAlignment(Pos.TOP_LEFT);
+//				System.out.println(lbl.getText());
+//			}
 
+			txtCIN04.setAlignment(Pos.TOP_LEFT);
+			txtArchive04.setAlignment(Pos.TOP_LEFT);
+			txtNom04.setAlignment(Pos.TOP_LEFT);
+			txtPrenom04.setAlignment(Pos.TOP_LEFT);
+//			cbClasse04.setStyle("-fx-alignment: left;");
+			txtCond04.setAlignment(Pos.TOP_LEFT);
 
+			txtCIN05.setAlignment(Pos.TOP_LEFT);
+			txtArchive05.setAlignment(Pos.TOP_LEFT);
+			txtNom05.setAlignment(Pos.TOP_LEFT);
+			txtPrenom05.setAlignment(Pos.TOP_LEFT);
+//			cbClasse05.setStyle("-fx-alignment: left;");
+			txtCond05.setAlignment(Pos.TOP_LEFT);
 
 		}
 
-		switch (lang) {
+		lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
+
+		switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(static: true) MIGHT BE BETTER
 			case "arabic":
 				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباحة");
 				lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
@@ -782,7 +832,7 @@ public class Controller implements Initializable {
 				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
 				lblAjouterDoc05.setText("إضافة وثائق");
 				lblVoirTousDocs05.setText("رؤية جميع الوفائق");
-				lblSupprimerTousDocs05.setText("حذف جميق الوثائق");
+				lblSupprimerTousDocs05.setText("حذف جميع الوثائق");
 				lblSupprimer05.setText("حذف");
 				lblRetourner05.setText("رجوع");
 
@@ -875,12 +925,39 @@ public class Controller implements Initializable {
 		}
 	}
 
+	public void requestFocus(Node node) {
+		requestFocus(node, 3);
+	}
+
+	private void requestFocus(final Node node, final int max) {
+		if (max > 0) {
+			Platform.runLater(
+					() -> {
+						if (!node.isFocused()) {
+							node.requestFocus();
+							requestFocus(node, max - 1);
+						}
+					}
+			);
+		}
+	}
+
 	private class DocumentHBox extends HBox {
 		public DocumentHBox(String nomDoc) {
 			Label singleDocLabel = new Label(nomDoc);
 			singleDocLabel.getStyleClass().add("singleDocLabel");
+			singleDocLabel.setMinWidth(USE_COMPUTED_SIZE);
+			singleDocLabel.setPrefWidth(USE_COMPUTED_SIZE);
+			singleDocLabel.setMaxWidth(USE_COMPUTED_SIZE);
+//			if(lang.equals("arabic")) singleDocLabel.setAlignment(Pos.TOP_RIGHT);
+//			else singleDocLabel.setAlignment(Pos.TOP_LEFT);
+			if (nomDoc.equals("لا يوجد أي وثيقة."))
+				singleDocLabel.setAlignment(Pos.TOP_RIGHT);
+			else
+				singleDocLabel.setAlignment(Pos.TOP_LEFT);
 
-			setPrefWidth(USE_COMPUTED_SIZE);
+			setMinWidth(USE_COMPUTED_SIZE);
+			setPrefWidth(375);
 			setMaxWidth(USE_PREF_SIZE);
 			singleDocLabel.getStyleClass().add("singleDocHBox");
 
@@ -921,7 +998,7 @@ public class Controller implements Initializable {
 
 		public void delDocFile(Document doc) {
 			lblMsg05.setText("");
-			if (!ConfirmationBox.show(Lang.getEquiv("Supprimer Document"), Lang.getEquiv("Voulez-vous vraiment supprimer cet document ?"))) {
+			if (!Dialog.confirm(Lang.getEquiv("Supprimer Document"), Lang.getEquiv("Voulez-vous vraiment supprimer cet document ?"))) {
 				return;
 			}
 

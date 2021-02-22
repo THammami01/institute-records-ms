@@ -5,6 +5,8 @@ import main.Main;
 import java.sql.*;
 import java.util.ArrayList;
 
+// TODO: METHODE backup() CALLED EACH TIME WHEN USER EXISTS
+
 public class DB {
 	private static Connection connection;
 	private static Statement st;
@@ -12,18 +14,25 @@ public class DB {
 	private static ResultSet rs;
 	private static String query;
 
+	public static boolean connected;
+
 	static {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			String dburl = "jdbc:mariadb://localhost:3306/SGRN";
-			String usernameLocal = "root";
-			String passwordLocal = "";
-			connection = DriverManager.getConnection(dburl, usernameLocal, passwordLocal);
+//			Class.forName("org.mariadb.jdbc.Driver");
+//			String dburl = "jdbc:mariadb://localhost:3306/SGRN";
+//			String usernameLocal = "root";
+//			String passwordLocal = "";
+//			connection = DriverManager.getConnection(dburl, usernameLocal, passwordLocal);
+			Class.forName("org.sqlite.JDBC");
+			connection = DriverManager.getConnection("jdbc:sqlite:DB.db");
 			st = connection.createStatement();
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getCause();
+			connected = false;
 		}
+
+		connected = true;
 	}
 
 	public static void close() {

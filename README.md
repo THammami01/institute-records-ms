@@ -15,6 +15,7 @@ Système de Gestion des relevés de notes.
 - Ability to Delete Multiple Documents At Once, Go Back and Undo Fixed
 - Data Validation, Arabic and English Support Added
 - Layout Fixed
+- Layout Totally Fixed, SQLite Implemented
 
 ## Todos
 

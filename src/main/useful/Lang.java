@@ -1,10 +1,14 @@
-package main;
+package main.useful;
 
+import main.Controller;
+
+// TODO: CHANGE lang TO ENUM
 public class Lang {
+
 	public static String getEquiv(String s) {
 		String lang = Controller.lang;
 
-		if (lang.equals("french")) return s;
+		if (lang == null || lang.equals("french")) return s;
 
 		switch (s) {
 			case "Modifier":
@@ -124,6 +128,15 @@ public class Lang {
 				}
 				break;
 
+			case "Voulez-vous vraiment quitter ?":
+				switch (lang) {
+					case "arabic":
+						return "هل أنت متأكد أنك تريد المغادرة ؟";
+					case "english":
+						return "Are you sure you want to quit ?";
+				}
+				break;
+
 			case "Supprimé avec succès.":
 				switch (lang) {
 					case "arabic":
@@ -208,9 +221,9 @@ public class Lang {
 			case "Erreur lors de l'importation des documents.":
 				switch (lang) {
 					case "arabic":
-						return "لم تتم عملية تحميل الوثيقة.";
+						return "لم تتم عملية تحميل الوثائق.";
 					case "english":
-						return "Error While Attempting to Import Documents.";
+						return "No Document is Imported";
 				}
 				break;
 
@@ -384,6 +397,50 @@ public class Lang {
 						return "ُError While Attempting to Search.";
 				}
 				break;
+
+			case "Aucun fichier selectionné.":
+				switch (lang) {
+					case "arabic":
+						return "لم يتم تحميل أي ملف.";
+					case "english":
+						return "No File is Selected.";
+				}
+				break;
+
+			case "Connexion échouée":
+				switch (lang) {
+					case "arabic":
+						return "لم يتم الإتّصال";
+					case "english":
+						return "ُConnection Failed";
+				}
+				break;
+
+			case "La connexion à la base de données a échoué.":
+				switch (lang) {
+					case "arabic":
+						return "لم يتم الإتّصال بقاعدة البيانات.";
+					case "english":
+						return "ُCannot Connect to Database.";
+				}
+				break;
+
+			case "Quitter":
+				switch (lang) {
+					case "arabic":
+						return "الخروج";
+					case "english":
+						return "Quit";
+				}
+				break;
+
+			case "SG des Relevés de Notes":
+				switch (lang) {
+					case "arabic":
+						return "نظام إدارة كشوف البيانات";
+					case "english":
+						return "Academic Transcripts MS";
+				}
 		}
 
 		return s;
