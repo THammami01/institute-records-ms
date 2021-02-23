@@ -108,7 +108,7 @@ public class DB {
 	}
 
 	public static boolean modifyEtudiant(Etudiant e1) {
-		query = "UPDATE Etudiant SET archive = ?, nom = ?, prenom = ?, classe = ?, cond = ?;";
+		query = "UPDATE Etudiant SET archive = ?, nom = ?, prenom = ?, classe = ?, cond = ? WHERE cin = ?;";
 		try {
 			pst = connection.prepareStatement(query);
 			pst.setString(1, e1.getArchive());
@@ -116,6 +116,7 @@ public class DB {
 			pst.setString(3, e1.getPrenom());
 			pst.setString(4, e1.getClasse());
 			pst.setString(5, e1.getCond());
+			pst.setInt(6, e1.getCin());
 			if (pst.executeUpdate() > 0)
 				return true;
 		} catch (Exception e) {
@@ -215,6 +216,22 @@ public class DB {
 		return false;
 	}
 
+	public static int getNbDocs(int cinDoc) {
+		query = "SELECT count(*) FROM Document WHERE cinDoc = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, cinDoc);
+			rs = pst.executeQuery();
+
+			if (rs.next())
+				return rs.getInt("count(*)");
+		} catch(Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return -1;
+	}
+
 	public static Setting getSetting(String label) {
 		query = "SELECT * FROM Settings WHERE label = ?;";
 		try {
@@ -244,5 +261,32 @@ public class DB {
 			e.getCause();
 		}
 		return false;
+	}
+
+	public static ArrayList<Etudiant> getStudentsByClass(String classe) {
+		ArrayList<Etudiant> etudiants = new ArrayList<>();
+		query = "SELECT * FROM Etudiant WHERE classe = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setString(1, classe);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Etudiant etudiant = new Etudiant();
+				etudiant.setCin(rs.getInt("cin"));
+				etudiant.setArchive(rs.getString("archive"));
+				etudiant.setNom(rs.getString("nom"));
+				etudiant.setPrenom(rs.getString("prenom"));
+				etudiant.setClasse(rs.getString("classe"));
+				etudiant.setCond(rs.getString("cond"));
+				etudiants.add(etudiant);
+			}
+			return etudiants;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+
+		return null;
 	}
 }

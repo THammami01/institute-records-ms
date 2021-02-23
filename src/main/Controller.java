@@ -4,7 +4,9 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -24,8 +26,8 @@ import java.net.URL;
 import java.util.*;
 
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
-// TODO: SHOW LIST OF STUDENTS, CLASSES..
-// TODO: IN SETTINGS: CHANGE docsDir LOCATION, BACKUP, EXPORT ALL DATA TO IT, ABOUT ME
+// TODO: ADD, MODIFY OR DELETE CLASSES
+// TODO: IN SETTINGS: BACKUP, EXPORT ALL DATA, ABOUT ME
 
 public class Controller implements Initializable {
 	@FXML
@@ -83,6 +85,22 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblLangue06;
 
+
+	// PANE 07
+	@FXML
+	private Label lblClasse07;
+	@FXML
+	private Label lblSelClasse07;
+	@FXML
+	private VBox allEtudiants07;
+	@FXML
+	private HBox firstRow07;
+	@FXML
+	private ScrollPane secondRow07;
+	@FXML
+	private HBox thirdRow07;
+
+
 	@FXML
 	private VBox vboxCIN04;
 	@FXML
@@ -119,6 +137,8 @@ public class Controller implements Initializable {
 	@FXML
 	private VBox paneSettings;
 	@FXML
+	private VBox paneClasses;
+	@FXML
 	private Label lblEnactusNYear;
 
 	@FXML
@@ -139,6 +159,8 @@ public class Controller implements Initializable {
 	private Label lblRetourner03;
 	@FXML
 	private Label lblMsg03;
+	@FXML
+	private Label lblAfficherClasses03;
 
 	@FXML
 	private TextField txtCIN04;
@@ -205,6 +227,11 @@ public class Controller implements Initializable {
 	private Label lblMsg06;
 
 	@FXML
+	private ComboBox cbClasse07;
+	@FXML
+	private Label lblRetourner07;
+
+	@FXML
 	private ImageView img1;
 	@FXML
 	private ImageView img2;
@@ -218,6 +245,7 @@ public class Controller implements Initializable {
 	public static String lang;
 	public Pane lastPane;
 	public Pane currPane;
+	public boolean isLastClassesPane = false;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -238,10 +266,11 @@ public class Controller implements Initializable {
 
 		lblRetourner05.setOnMouseClicked(e -> {
 			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-				show(paneRechercher);
+				if(isLastClassesPane) show(paneClasses);
+				else show(paneRechercher);
 			} else {
 				show(paneResultat);
-				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
+				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN05.getText()));
 				if (e1 != null) {
 					txtCIN05.setText(String.format("%08d", e1.getCin()));
 					txtArchive05.setText(e1.getArchive());
@@ -265,8 +294,16 @@ public class Controller implements Initializable {
 				return;
 			}
 
+			int cin;
 			try {
-				e1 = DB.getEtudiant(Integer.parseInt(txtCIN03.getText()));
+				cin = Integer.parseInt(txtCIN03.getText());
+			} catch (Exception e2) {
+				lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN valide."));
+				return;
+			}
+
+			try {
+				e1 = DB.getEtudiant(cin);
 				if (e1 == null) {
 					lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
 				} else {
@@ -409,8 +446,8 @@ public class Controller implements Initializable {
 
 			try {
 				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
 					show(paneRechercher);
+					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
 				} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
 			} catch (Exception e1) {
 				lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
@@ -447,6 +484,12 @@ public class Controller implements Initializable {
 		});
 
 		lblRetourner06.setOnMouseClicked(e -> show(lastPane));
+
+		lblRetourner07.setOnMouseClicked(e -> show(paneRechercher));
+
+		lblAfficherClasses03.setOnMouseClicked(e -> show(paneClasses));
+
+		cbClasse07.setOnAction(e -> setStudentsByClass());
 	}
 
 	private void initThings() {
@@ -463,6 +506,7 @@ public class Controller implements Initializable {
 			cbClasse04.getItems().addAll(classes);
 //			cbClasse05.getItems().removeAll();
 			cbClasse05.getItems().addAll(classes);
+			cbClasse07.getItems().addAll(classes);
 		}
 
 		lblEnactusNYear.setText("Enactus ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
@@ -491,6 +535,7 @@ public class Controller implements Initializable {
 		paneAjouter.setVisible(false);
 		paneResultat.setVisible(false);
 		paneSettings.setVisible(false);
+		paneClasses.setVisible(false);
 
 		lblMsg03.setText("");
 		lblMsg04.setText("");
@@ -508,6 +553,10 @@ public class Controller implements Initializable {
 
 		if (pane == paneSettings)
 			initLang();
+		if (pane == paneClasses && cbClasse07.getValue() != null)
+			setStudentsByClass();
+		if (pane != paneSettings && pane != paneResultat)
+			isLastClassesPane = false;
 
 		requestFocus(txtCIN04);
 		requestFocus(txtCIN05);
@@ -642,8 +691,9 @@ public class Controller implements Initializable {
 	public void setUpLang() {
 		Main.primaryStage.setTitle(Lang.getEquiv("SG des Relevés de Notes"));
 		setDocs();
+		setStudentsByClass();
 
-//		DocumentHBox dhbox = (DocumentHBox) allDocuments05.getChildren().get(0);
+//		DocumentHBox etudiantsHBox = (DocumentHBox) allDocuments05.getChildren().get(0);
 //		Label lbl = (Label) dhbox.getChildren().get(0);
 //		lbl.setAlignment(Pos.TOP_RIGHT);
 
@@ -711,13 +761,21 @@ public class Controller implements Initializable {
 			txtPrenom04.setAlignment(Pos.TOP_RIGHT);
 //			cbClasse04.setStyle("-fx-alignment: right;");
 			txtCond04.setAlignment(Pos.TOP_RIGHT);
-			
+
 			txtCIN05.setAlignment(Pos.TOP_RIGHT);
 			txtArchive05.setAlignment(Pos.TOP_RIGHT);
 			txtNom05.setAlignment(Pos.TOP_RIGHT);
 			txtPrenom05.setAlignment(Pos.TOP_RIGHT);
 //			cbClasse05.setStyle("-fx-alignment: right;");
 			txtCond05.setAlignment(Pos.TOP_RIGHT);
+
+
+			// PANE 07
+			firstRow07.setAlignment(Pos.TOP_RIGHT);
+			thirdRow07.setAlignment(Pos.CENTER_RIGHT);
+			lblClasse07.setAlignment(Pos.TOP_RIGHT);
+			allEtudiants07.setAlignment(Pos.TOP_RIGHT);
+
 
 		} else {
 			firstRow04.setAlignment(Pos.TOP_LEFT);
@@ -795,6 +853,14 @@ public class Controller implements Initializable {
 //			cbClasse05.setStyle("-fx-alignment: left;");
 			txtCond05.setAlignment(Pos.TOP_LEFT);
 
+
+			// PANE 07
+			firstRow07.setAlignment(Pos.TOP_LEFT);
+			thirdRow07.setAlignment(Pos.CENTER_LEFT);
+			lblClasse07.setAlignment(Pos.TOP_LEFT);
+			allEtudiants07.setAlignment(Pos.TOP_LEFT);
+
+
 		}
 
 		lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
@@ -812,6 +878,7 @@ public class Controller implements Initializable {
 				lblCIN03.setText("رقم بطاقة التعريف:");
 				lblValider03.setText("بحث");
 				lblRetourner03.setText("رجوع");
+				lblAfficherClasses03.setText("عرض الطلاب حسب القسم");
 
 				lblCIN04.setText("رقم بطاقة التعريف:");
 				lblArchive04.setText("الأرشيف:");
@@ -839,6 +906,13 @@ public class Controller implements Initializable {
 				lblLangue06.setText("اللغة:");
 				lblEnregistrer06.setText("تسجيل");
 				lblRetourner06.setText("رجوع");
+
+				// PANE 07
+				lblClasse07.setText("القسم:");
+				lblSelClasse07.setText("إختر القسم.");
+				lblRetourner07.setText("الرجوع");
+
+
 				break;
 
 			case "french":
@@ -853,6 +927,7 @@ public class Controller implements Initializable {
 				lblCIN03.setText("CIN:");
 				lblValider03.setText("Valider");
 				lblRetourner03.setText("Retourner");
+				lblAfficherClasses03.setText("Afficher étudiants par classe");
 
 				lblCIN04.setText("CIN:");
 				lblArchive04.setText("Archive:");
@@ -880,6 +955,14 @@ public class Controller implements Initializable {
 				lblLangue06.setText("Langue:");
 				lblEnregistrer06.setText("Enregistrer");
 				lblRetourner06.setText("Retourner");
+
+
+				// PANE 07
+				lblClasse07.setText("Classe:");
+				lblSelClasse07.setText("Sélectionner une classe.");
+				lblRetourner07.setText("Retourner");
+
+
 				break;
 
 			case "english":
@@ -894,6 +977,7 @@ public class Controller implements Initializable {
 				lblCIN03.setText("ID Card Number:");
 				lblValider03.setText("Validate");
 				lblRetourner03.setText("Return");
+				lblAfficherClasses03.setText("Show Students by Class");
 
 				lblCIN04.setText("ID Card Number:");
 				lblArchive04.setText("Archive:");
@@ -921,8 +1005,17 @@ public class Controller implements Initializable {
 				lblLangue06.setText("Language:");
 				lblEnregistrer06.setText("Save");
 				lblRetourner06.setText("Return");
+
+
+				// PANE 07
+				lblClasse07.setText("Class:");
+				lblSelClasse07.setText("Select Class.");
+				lblRetourner07.setText("Return");
+
+
 				break;
 		}
+
 	}
 
 	public void requestFocus(Node node) {
@@ -939,6 +1032,27 @@ public class Controller implements Initializable {
 						}
 					}
 			);
+		}
+	}
+
+	private void setStudentsByClass() {
+		allEtudiants07.getChildren().clear();
+
+		if (cbClasse07.getValue() == null) {
+			allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Sélectionner une classe.")));
+			return;
+		}
+
+		ArrayList<Etudiant> etudiants = DB.getStudentsByClass(cbClasse07.getValue().toString());
+
+		if (etudiants == null || etudiants.size() == 0)
+			allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Aucun étudiant.")));
+		else {
+			int nb = 0;
+			for (Etudiant etudiant : etudiants) {
+				nb++;
+				allEtudiants07.getChildren().add(new EtudiantHBox(nb, etudiant));
+			}
 		}
 	}
 
@@ -1012,6 +1126,75 @@ public class Controller implements Initializable {
 				e.printStackTrace();
 			}
 			setDocs();
+		}
+	}
+
+	private class EtudiantHBox extends HBox {
+		private final Etudiant etudiant;
+
+		public EtudiantHBox(String s) {
+			init();
+			etudiant = null;
+
+			Label lblAucun = new Label(s);
+			if ("arabic".equals(lang)) lblAucun.setPadding(new Insets(3, 5, 0, 0));
+			else lblAucun.setPadding(new Insets(3, 0, 0, 0));
+
+//			setAlignment(Pos.CENTER_LEFT);
+//			setPrefHeight(25);
+			setPrefWidth(USE_COMPUTED_SIZE);
+			getChildren().add(lblAucun);
+		}
+
+		public EtudiantHBox(int nb, Etudiant e) {
+			init();
+			etudiant = e;
+
+			Label lblNb = new Label(String.format(Lang.getEquiv("Étudiant") + " %02d:", nb));
+			TextArea txtDetails = new TextArea(e.toString());
+			txtDetails.setEditable(false);
+			txtDetails.setPrefRowCount(7);
+			txtDetails.setPrefWidth(350);
+			txtDetails.setMinHeight(USE_PREF_SIZE);
+			ImageView imgView = new ImageView(img1URL);
+			imgView.setFitWidth(25);
+			imgView.setFitHeight(25);
+			imgView.setOnMouseClicked(e1 -> {
+//				txtCIN03.setText(String.format("%08d", e.getCin()));
+				isLastClassesPane = true;
+				show(paneResultat);
+				txtCIN05.setText(String.format("%08d", e.getCin()));
+				txtArchive05.setText(e.getArchive());
+				txtNom05.setText(e.getNom());
+				txtPrenom05.setText(e.getPrenom());
+				cbClasse05.setValue(e.getClasse());
+				txtCond05.setText(e.getCond());
+				setDocs();
+			});
+			imgView.setCursor(Cursor.HAND);
+
+			setSpacing(5);
+			setPrefWidth(USE_COMPUTED_SIZE);
+			setPrefHeight(45);
+
+			if ("arabic".equals(lang)) {
+				lblNb.setPadding(new Insets(3, 5, 0, 5));
+				txtDetails.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+				getChildren().addAll(imgView, txtDetails, lblNb);
+			} else {
+				lblNb.setPadding(new Insets(3, 5, 0, 0));
+				txtDetails.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+				getChildren().addAll(lblNb, txtDetails, imgView);
+			}
+		}
+
+		public void init() {
+			if ("arabic".equals(lang)) setAlignment(Pos.TOP_RIGHT);
+			else setAlignment(Pos.TOP_LEFT);
+		}
+
+		public Etudiant getEtudiant() {
+			return etudiant;
 		}
 	}
 }

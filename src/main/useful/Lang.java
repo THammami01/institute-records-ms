@@ -394,7 +394,16 @@ public class Lang {
 					case "arabic":
 						return "لم تتم عمليّة البحث بنجاح.";
 					case "english":
-						return "ُError While Attempting to Search.";
+						return "Error While Attempting to Search.";
+				}
+				break;
+
+			case "Entrer un numéro de CIN valide.":
+				switch (lang) {
+					case "arabic":
+						return "أدخل رقم بطاقة تعريف صحيح.";
+					case "english":
+						return "Enter a Valid CIN Number.";
 				}
 				break;
 
@@ -441,6 +450,44 @@ public class Lang {
 					case "english":
 						return "Academic Transcripts MS";
 				}
+				break;
+
+				// PANE 07
+			case "Aucun étudiant.":
+				switch (lang) {
+					case "arabic":
+						return "لا يوجد أي طالب.";
+					case "english":
+						return "No Student.";
+				}
+				break;
+
+			case "Étudiant":
+				switch (lang) {
+					case "arabic":
+						return "الطالب";
+					case "english":
+						return "Student";
+				}
+				break;
+
+			case "Sélectionner une classe.":
+				switch (lang) {
+					case "arabic":
+						return "إختر قسم.";
+					case "english":
+						return "Select Class.";
+				}
+				break;
+
+			case "Aucune classe trouvée.":
+				switch (lang) {
+					case "arabic":
+						return "لا يوجد أي قسم.";
+					case "english":
+						return "No Class Found.";
+				}
+				break;
 		}
 
 		return s;
