@@ -48,7 +48,7 @@ public class DB {
 
 	public static ArrayList<String> getClasses() {
 		ArrayList<String> classes = new ArrayList<>();
-		query = "SELECT * FROM Classe ORDER BY id;";
+		query = "SELECT * FROM Classe ORDER BY classe;";
 
 		try {
 			rs = st.executeQuery(query);
@@ -156,7 +156,7 @@ public class DB {
 			rs = pst.executeQuery();
 
 			rs.next();
-			if(rs.getInt("count(*)") > 0) return false;
+			if (rs.getInt("count(*)") > 0) return false;
 
 			query = "INSERT INTO Document(cinDoc, nomDoc) VALUES(?, ?);";
 			pst = connection.prepareStatement(query);
@@ -225,7 +225,7 @@ public class DB {
 
 			if (rs.next())
 				return rs.getInt("count(*)");
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			e.getCause();
 		}
@@ -265,7 +265,7 @@ public class DB {
 
 	public static ArrayList<Etudiant> getStudentsByClass(String classe) {
 		ArrayList<Etudiant> etudiants = new ArrayList<>();
-		query = "SELECT * FROM Etudiant WHERE classe = ?;";
+		query = "SELECT * FROM Etudiant WHERE classe = ? ORDER BY nom, prenom;";
 		try {
 			pst = connection.prepareStatement(query);
 			pst.setString(1, classe);
@@ -288,5 +288,41 @@ public class DB {
 		}
 
 		return null;
+	}
+
+	public static boolean addClasse(String classe) {
+		query = "INSERT INTO Classe(classe) VALUES(?);";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setString(1, classe);
+			if (pst.executeUpdate() > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return false;
+	}
+
+	public static boolean delClasse(String classe) {
+		query = "SELECT * FROM Etudiant WHERE classe = ?;";
+		try {
+			pst = connection.prepareStatement(query);
+			pst.setString(1, classe);
+			rs = pst.executeQuery();
+
+			while (rs.next())
+				deleteEtudiant(rs.getInt("cin"));
+
+			query = "DELETE FROM Classe WHERE classe = ?;";
+			pst = connection.prepareStatement(query);
+			pst.setString(1, classe);
+			if (pst.executeUpdate() > 0)
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
+		return false;
 	}
 }

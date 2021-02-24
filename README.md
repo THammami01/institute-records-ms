@@ -17,9 +17,9 @@ Système de Gestion des relevés de notes.
 - Layout Fixed
 - Layout Totally Fixed, SQLite Implemented
 - Ability to Show Students by Class
+- Abiblity to Add and Delete Classes
 
 ## Todos
 
 - Custom Show All (Do Not Use Windows Explorer)
-- Add, Modify or Delete Classes (Including All of Its Students)
-- In Settings: BackUp, Export All Data to .txt File, About Me
+- In Settings: BackUp, Export All Data to .txt File, Lock Add/Update/Delete Operations, About Me

@@ -117,7 +117,7 @@
                   </Label>
                </children>
             </HBox>
-            <VBox fx:id="paneRechercher" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container">
+            <VBox fx:id="paneRechercher" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container" visible="false">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -177,7 +177,7 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="paneAjouter" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" visible="false">
+            <VBox fx:id="paneAjouter" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -211,6 +211,9 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox fx:id="secondRow04" layoutX="10.0" layoutY="211.0" maxWidth="-Infinity" spacing="30.0">
                      <children>
@@ -286,14 +289,51 @@
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="lblMsg04" textFill="RED">
+                        <Label fx:id="lblMsg04" textFill="RED" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Line endX="320.0" opacity="0.2" startX="-320.0">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Line>
+                  <HBox fx:id="fourthRow04" alignment="BOTTOM_LEFT" layoutX="57.0" layoutY="124.0" maxWidth="-Infinity" prefWidth="687.0" spacing="10.0">
+                     <children>
+                        <VBox fx:id="vboxAC04" spacing="5.0">
+                           <children>
+                              <Label fx:id="lblNomClasse04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom Classe:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtNomClasse04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <Label fx:id="lblAjouterClasse04" styleClass="lblPrimary" text="Ajouter">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
                            <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblMsgAC04" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                </children>
@@ -599,7 +639,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
                <children>
-                  <HBox fx:id="firstRow07" maxWidth="-Infinity" prefWidth="687.0" spacing="30.0">
+                  <HBox fx:id="firstRow07" alignment="BOTTOM_LEFT" maxWidth="-Infinity" prefWidth="687.0" spacing="30.0">
                      <children>
                         <VBox fx:id="vboxClasse041" spacing="5.0">
                            <children>
@@ -638,6 +678,14 @@
                   </ScrollPane>
                   <HBox fx:id="thirdRow07" alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="687.0" spacing="10.0">
                      <children>
+                        <Label fx:id="lblSupprimer07" styleClass="lblPrimary" text="Supprimer">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
                         <Label fx:id="lblRetourner07" layoutX="10.0" layoutY="10.0" styleClass="btnRetourner" text="Retourner">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -646,6 +694,10 @@
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
                         </Label>
+                        <Label fx:id="lblMsg07" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin></Label>
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />

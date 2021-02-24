@@ -23,7 +23,7 @@ public class Dialog {
 		stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setTitle(title);
-		stage.setMinWidth(250);
+		stage.setMinWidth(3000);
 
 		Label lbl = new Label();
 		lbl.setText(msg);

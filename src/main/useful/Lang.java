@@ -488,6 +488,34 @@ public class Lang {
 						return "No Class Found.";
 				}
 				break;
+
+			case "Supprimer Classe":
+				switch(lang) {
+					case "arabic":
+						return "حذف قسم";
+					case "english":
+						return "Delete Class";
+				}
+				break;
+
+			case "Voulez-vous vraiment supprimer cette classe avec tous ses données ?":
+				switch(lang) {
+					case "arabic":
+						return "هل أنت متأكّد أنّك تريد حذف هذا القسم بجميع معطياته ؟";
+					case "english":
+						return "Are You Sure You Want to Delete This Class With All Its Data ?";
+				}
+				break;
+
+			case "Entrer le nom de la classe d'abord.":
+				switch(lang) {
+					case "arabic":
+						return "أدخل إسم القسم أوّلا.";
+					case "english":
+						return "Enter Class Name First.";
+				}
+				break;
+
 		}
 
 		return s;

@@ -26,8 +26,7 @@ import java.net.URL;
 import java.util.*;
 
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
-// TODO: ADD, MODIFY OR DELETE CLASSES
-// TODO: IN SETTINGS: BACKUP, EXPORT ALL DATA, ABOUT ME
+// TODO: IN SETTINGS: ACTIVATE/DEACTIVATE DELETE, BACKUP, EXPORT ALL DATA, ABOUT ME
 
 public class Controller implements Initializable {
 	@FXML
@@ -95,11 +94,18 @@ public class Controller implements Initializable {
 	private VBox allEtudiants07;
 	@FXML
 	private HBox firstRow07;
-	@FXML
-	private ScrollPane secondRow07;
+	//	@FXML
+//	private ScrollPane secondRow07;
 	@FXML
 	private HBox thirdRow07;
-
+	@FXML
+	private Label lblSupprimer07;
+	@FXML
+	private Label lblMsg07;
+	@FXML
+	private ComboBox cbClasse07;
+	@FXML
+	private Label lblRetourner07;
 
 	@FXML
 	private VBox vboxCIN04;
@@ -182,6 +188,19 @@ public class Controller implements Initializable {
 	private Label lblMsg04;
 
 	@FXML
+	private HBox fourthRow04;
+	@FXML
+	private VBox vboxAC04;
+	@FXML
+	private Label lblNomClasse04;
+	@FXML
+	private TextField txtNomClasse04;
+	@FXML
+	private Label lblAjouterClasse04;
+	@FXML
+	private Label lblMsgAC04;
+
+	@FXML
 	private TextField txtCIN05;
 	@FXML
 	private TextField txtArchive05;
@@ -226,10 +245,6 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblMsg06;
 
-	@FXML
-	private ComboBox cbClasse07;
-	@FXML
-	private Label lblRetourner07;
 
 	@FXML
 	private ImageView img1;
@@ -266,7 +281,7 @@ public class Controller implements Initializable {
 
 		lblRetourner05.setOnMouseClicked(e -> {
 			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-				if(isLastClassesPane) show(paneClasses);
+				if (isLastClassesPane) show(paneClasses);
 				else show(paneRechercher);
 			} else {
 				show(paneResultat);
@@ -490,6 +505,43 @@ public class Controller implements Initializable {
 		lblAfficherClasses03.setOnMouseClicked(e -> show(paneClasses));
 
 		cbClasse07.setOnAction(e -> setStudentsByClass());
+
+		lblSupprimer07.setOnMouseClicked(e -> {
+			lblMsg07.setText("");
+			if (cbClasse07.getValue() == null) {
+				lblMsg07.setText(Lang.getEquiv("Sélectionner une classe."));
+				return;
+			}
+
+			if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Classe"), Lang.getEquiv("Voulez-vous vraiment supprimer cette classe avec tous ses données ?"))) {
+//				lblMsg07.setText(Lang.getEquiv("Aucun classe supprimé."));
+				return;
+			}
+
+			try {
+				if (DB.delClasse(cbClasse07.getValue().toString())) {
+					setClasses();
+					setStudentsByClass();
+					lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
+				} else lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+			} catch (Exception e1) {
+				lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+			}
+		});
+
+		lblAjouterClasse04.setOnMouseClicked(e -> {
+			if(txtNomClasse04.getText().isEmpty()) {
+				lblMsgAC04.setText(Lang.getEquiv("Entrer une classe d'abord."));
+				return;
+			}
+
+			if(DB.addClasse(txtNomClasse04.getText())) {
+				setClasses();
+				lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
+			} else {
+				lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+			}
+		});
 	}
 
 	private void initThings() {
@@ -500,14 +552,7 @@ public class Controller implements Initializable {
 		img2URL = img2.getImage().getUrl();
 //		iconURL = enactus.getImage().getUrl();
 
-		classes = DB.getClasses();
-		if (classes != null) {
-//			cbClasse05.getItems().clear();
-			cbClasse04.getItems().addAll(classes);
-//			cbClasse05.getItems().removeAll();
-			cbClasse05.getItems().addAll(classes);
-			cbClasse07.getItems().addAll(classes);
-		}
+		setClasses();
 
 		lblEnactusNYear.setText("Enactus ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
 
@@ -539,8 +584,10 @@ public class Controller implements Initializable {
 
 		lblMsg03.setText("");
 		lblMsg04.setText("");
+		lblMsgAC04.setText("");
 		lblMsg05.setText("");
 		lblMsg06.setText("");
+		lblMsg07.setText("");
 
 		txtArchive05.setEditable(false);
 		txtNom05.setEditable(false);
@@ -700,11 +747,11 @@ public class Controller implements Initializable {
 		if (lang.equals("arabic")) {
 			firstRow04.setAlignment(Pos.TOP_RIGHT);
 			secondRow04.setAlignment(Pos.TOP_RIGHT);
-			thirdRow04.setAlignment(Pos.TOP_RIGHT);
+			thirdRow04.setAlignment(Pos.BOTTOM_RIGHT);
 			firstRow05.setAlignment(Pos.TOP_RIGHT);
 			secondRow05.setAlignment(Pos.TOP_RIGHT);
 			thirdRow05.setAlignment(Pos.TOP_RIGHT);
-			fourthRow05.setAlignment(Pos.TOP_RIGHT);
+			fourthRow05.setAlignment(Pos.BOTTOM_RIGHT);
 
 			lblCIN04.setAlignment(Pos.TOP_RIGHT);
 			lblArchive04.setAlignment(Pos.TOP_RIGHT);
@@ -744,6 +791,10 @@ public class Controller implements Initializable {
 			lblSupprimer05.toFront();
 			lblModifier05.toFront();
 
+			// PANE 07
+			lblRetourner07.toFront();
+			lblSupprimer07.toFront();
+
 			lblVoirTousDocs05.toFront();
 			lblAjouterDoc05.toFront();
 			lblDocuments05.toFront();
@@ -772,19 +823,26 @@ public class Controller implements Initializable {
 
 			// PANE 07
 			firstRow07.setAlignment(Pos.TOP_RIGHT);
-			thirdRow07.setAlignment(Pos.CENTER_RIGHT);
+			thirdRow07.setAlignment(Pos.BOTTOM_RIGHT);
 			lblClasse07.setAlignment(Pos.TOP_RIGHT);
 			allEtudiants07.setAlignment(Pos.TOP_RIGHT);
+
+
+			// PANE 04: ADD CLASS
+			fourthRow04.setAlignment(Pos.BOTTOM_RIGHT);
+			lblNomClasse04.setAlignment(Pos.TOP_RIGHT);
+			lblAjouterClasse04.toFront();
+			vboxAC04.toFront();
 
 
 		} else {
 			firstRow04.setAlignment(Pos.TOP_LEFT);
 			secondRow04.setAlignment(Pos.TOP_LEFT);
-			thirdRow04.setAlignment(Pos.TOP_LEFT);
+			thirdRow04.setAlignment(Pos.BOTTOM_LEFT);
 			firstRow05.setAlignment(Pos.TOP_LEFT);
 			secondRow05.setAlignment(Pos.TOP_LEFT);
 			thirdRow05.setAlignment(Pos.TOP_LEFT);
-			fourthRow05.setAlignment(Pos.TOP_LEFT);
+			fourthRow05.setAlignment(Pos.BOTTOM_LEFT);
 
 			lblCIN04.setAlignment(Pos.TOP_LEFT);
 			lblArchive04.setAlignment(Pos.TOP_LEFT);
@@ -828,6 +886,19 @@ public class Controller implements Initializable {
 			lblRetourner05.toFront();
 			lblMsg05.toFront();
 
+
+			// PANE 07
+			lblRetourner07.toFront();
+			lblMsg07.toFront();
+
+
+			// PANE 04: ADD CLASS
+			fourthRow04.setAlignment(Pos.BOTTOM_LEFT);
+			lblNomClasse04.setAlignment(Pos.TOP_LEFT);
+			lblAjouterClasse04.toFront();
+			lblMsgAC04.toFront();
+
+
 			lblAjouterDoc05.toFront();
 			lblVoirTousDocs05.toFront();
 			lblSupprimerTousDocs05.toFront();
@@ -856,11 +927,9 @@ public class Controller implements Initializable {
 
 			// PANE 07
 			firstRow07.setAlignment(Pos.TOP_LEFT);
-			thirdRow07.setAlignment(Pos.CENTER_LEFT);
+			thirdRow07.setAlignment(Pos.BOTTOM_LEFT);
 			lblClasse07.setAlignment(Pos.TOP_LEFT);
 			allEtudiants07.setAlignment(Pos.TOP_LEFT);
-
-
 		}
 
 		lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
@@ -889,6 +958,10 @@ public class Controller implements Initializable {
 				lblAjouter04.setText("إضافة");
 				lblRetourner04.setText("رجوع");
 
+				// PANE 04: ADD CLASS
+				lblNomClasse04.setText("إسم القسم:");
+				lblAjouterClasse04.setText("إضافة");
+
 				lblCIN05.setText("رقم بطاقة التعريف:");
 				lblArchive05.setText("الأرشيف:");
 				lblNom05.setText("اللقب:");
@@ -910,6 +983,7 @@ public class Controller implements Initializable {
 				// PANE 07
 				lblClasse07.setText("القسم:");
 				lblSelClasse07.setText("إختر القسم.");
+				lblSupprimer07.setText("حذف");
 				lblRetourner07.setText("الرجوع");
 
 
@@ -938,6 +1012,10 @@ public class Controller implements Initializable {
 				lblAjouter04.setText("Ajouter");
 				lblRetourner04.setText("Retourner");
 
+				// PANE 04: ADD CLASS
+				lblNomClasse04.setText("Nom Classe :");
+				lblAjouterClasse04.setText("Ajouter");
+
 				lblCIN05.setText("CIN:");
 				lblArchive05.setText("Archive:");
 				lblNom05.setText("Nom:");
@@ -960,6 +1038,7 @@ public class Controller implements Initializable {
 				// PANE 07
 				lblClasse07.setText("Classe:");
 				lblSelClasse07.setText("Sélectionner une classe.");
+				lblSupprimer07.setText("Supprimer");
 				lblRetourner07.setText("Retourner");
 
 
@@ -988,6 +1067,10 @@ public class Controller implements Initializable {
 				lblAjouter04.setText("Add");
 				lblRetourner04.setText("Return");
 
+				// PANE 04: ADD CLASS
+				lblNomClasse04.setText("Class Name :");
+				lblAjouterClasse04.setText("Add");
+
 				lblCIN05.setText("ID Card Number:");
 				lblArchive05.setText("Archive:");
 				lblNom05.setText("Last Name:");
@@ -1004,6 +1087,7 @@ public class Controller implements Initializable {
 
 				lblLangue06.setText("Language:");
 				lblEnregistrer06.setText("Save");
+				lblSupprimer07.setText("Delete");
 				lblRetourner06.setText("Return");
 
 
@@ -1053,6 +1137,18 @@ public class Controller implements Initializable {
 				nb++;
 				allEtudiants07.getChildren().add(new EtudiantHBox(nb, etudiant));
 			}
+		}
+	}
+
+	private void setClasses() {
+		classes = DB.getClasses();
+		if (classes != null) {
+			cbClasse04.getItems().clear();
+			cbClasse04.getItems().addAll(classes);
+			cbClasse05.getItems().clear();
+			cbClasse05.getItems().addAll(classes);
+			cbClasse07.getItems().clear();
+			cbClasse07.getItems().addAll(classes);
 		}
 	}
 
