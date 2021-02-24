@@ -1,6 +1,7 @@
 package main.models;
 
 import main.Main;
+import main.useful.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +24,11 @@ public class DB {
 //			String usernameLocal = "root";
 //			String passwordLocal = "";
 //			connection = DriverManager.getConnection(dburl, usernameLocal, passwordLocal);
+			Main.initDirs();
+			Thread.sleep(2000);
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:DB.db");
+			String dbUrl = String.format("jdbc:sqlite:%sDB.db", Main.softwareDir);
+			connection = DriverManager.getConnection(dbUrl);
 			st = connection.createStatement();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,6 +47,53 @@ public class DB {
 				e.printStackTrace();
 				e.getCause();
 			}
+		}
+	}
+
+	public static void init() {
+		try {
+			query = "CREATE TABLE IF NOT EXISTS Etudiant ( " +
+					"cin INTEGER PRIMARY KEY, " +
+					"archive TEXT NOT NULL, " +
+					"nom TEXT NOT NULL, " +
+					"prenom TEXT NOT NULL, " +
+					"classe TEXT NOT NULL, " +
+					"cond TEXT NOT NULL, " +
+					"FOREIGN KEY (classe) REFERENCES Classe(classe) ON DELETE CASCADE" +
+					");";
+			st.executeUpdate(query);
+
+			query = "CREATE TABLE IF NOT EXISTS Document ( " +
+					"idDoc INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					"cinDoc INTEGER NOT NULL, " +
+					"nomDoc TEXT NOT NULL, " +
+					"FOREIGN KEY(cinDoc) REFERENCES Etudiant(cin) ON DELETE CASCADE" +
+					");";
+			st.executeUpdate(query);
+
+			query = "CREATE TABLE IF NOT EXISTS Classe ( " +
+					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					"classe TEXT NOT NULL UNIQUE" +
+					");";
+			st.executeUpdate(query);
+
+			query = "CREATE TABLE IF NOT EXISTS Settings ( " +
+					"label TEXT PRIMARY KEY, " +
+					"value TEXT NOT NULL" +
+					");";
+			st.executeUpdate(query);
+
+			query = "SELECT count(*) FROM Settings;";
+			rs = st.executeQuery(query);
+			if (rs.next())
+				if (rs.getInt("count(*)") == 0) {
+					query = "INSERT INTO Settings VALUES(\"language\", \"french\");";
+					st.executeUpdate(query);
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
 		}
 	}
 
@@ -324,5 +375,20 @@ public class DB {
 			e.getCause();
 		}
 		return false;
+	}
+
+	public static void backup() {
+		try {
+			String datetime = Logger.getDatetime();
+
+			String command = String.format("mkdir \"%s\\%s\\\"", Main.backupsDir, datetime);
+			Runtime.getRuntime().exec("cmd /c " + command);
+
+			command = String.format("copy %sDB.db \"%s\\%s\\\"", Main.softwareDir, Main.backupsDir, datetime);
+			Runtime.getRuntime().exec("cmd /c " + command);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
 	}
 }

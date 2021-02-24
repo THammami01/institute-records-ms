@@ -3,6 +3,7 @@ package main.useful;
 import main.Controller;
 
 // TODO: CHANGE lang TO ENUM
+// TODO: OPTIMIZE IT
 public class Lang {
 
 	public static String getEquiv(String s) {
@@ -223,7 +224,7 @@ public class Lang {
 					case "arabic":
 						return "لم تتم عملية تحميل الوثائق.";
 					case "english":
-						return "No Document is Imported";
+						return "No Document is Imported.";
 				}
 				break;
 
@@ -277,7 +278,7 @@ public class Lang {
 					case "arabic":
 						return "هل أنت متأكد أنّك تريد حذف كل وثائق هذا الطالب ؟";
 					case "english":
-						return "Are You Sure You Want to Delete All Documents of This Students ?";
+						return "Are you sure you want to delete all documents of this student ?";
 				}
 				break;
 
@@ -322,7 +323,7 @@ public class Lang {
 					case "arabic":
 						return "هل أنت متأكد أنّك تريد حذف هذه الوثيقة ؟";
 					case "english":
-						return "Are You Sure You Want to Delete This Document ?";
+						return "Are you sure you want to delete this document ?";
 				}
 				break;
 
@@ -403,7 +404,7 @@ public class Lang {
 					case "arabic":
 						return "أدخل رقم بطاقة تعريف صحيح.";
 					case "english":
-						return "Enter a Valid CIN Number.";
+						return "Enter a Valid ID Card Number.";
 				}
 				break;
 
@@ -430,7 +431,7 @@ public class Lang {
 					case "arabic":
 						return "لم يتم الإتّصال بقاعدة البيانات.";
 					case "english":
-						return "ُCannot Connect to Database.";
+						return "Cannot Connect to Database.";
 				}
 				break;
 
@@ -503,7 +504,7 @@ public class Lang {
 					case "arabic":
 						return "هل أنت متأكّد أنّك تريد حذف هذا القسم بجميع معطياته ؟";
 					case "english":
-						return "Are You Sure You Want to Delete This Class With All Its Data ?";
+						return "Are you sure you want to delete this class with all of its data ?";
 				}
 				break;
 
@@ -515,7 +516,6 @@ public class Lang {
 						return "Enter Class Name First.";
 				}
 				break;
-
 		}
 
 		return s;

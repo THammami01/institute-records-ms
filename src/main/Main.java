@@ -12,12 +12,16 @@ import main.useful.Lang;
 
 public class Main extends Application {
 	public static Stage primaryStage;
+	public static final String mainDir = "C:\\ISLAIB\\";
+	public static final String softwareDir = "C:\\ISLAIB\\SGRN\\";
 	public static final String docsDir = "C:\\ISLAIB\\SGRN\\Documents\\";
 	public static final String backupsDir = "C:\\ISLAIB\\SGRN\\BackUps\\";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Main.primaryStage = primaryStage;
+		DB.init();
+
 		if (!DB.connected)
 			Dialog.informDBErrorAndQuit();
 
@@ -37,6 +41,7 @@ public class Main extends Application {
 			if(!Dialog.confirm(Lang.getEquiv("Quitter"), Lang.getEquiv("Voulez-vous vraiment quitter ?")))
 				return;
 
+			DB.backup();
 			DB.close();
 			primaryStage.close();
 		});
@@ -44,5 +49,24 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public static void initDirs() {
+		try {
+			String command = String.format("mkdir %s", mainDir);
+			Runtime.getRuntime().exec("cmd /c " + command);
+
+			command = String.format("mkdir %s", softwareDir);
+			Runtime.getRuntime().exec("cmd /c " + command);
+
+			command = String.format("mkdir %s", docsDir);
+			Runtime.getRuntime().exec("cmd /c " + command);
+
+			command = String.format("mkdir %s", backupsDir);
+			Runtime.getRuntime().exec("cmd /c " + command);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
+		}
 	}
 }

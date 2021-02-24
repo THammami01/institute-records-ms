@@ -10,6 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
+// TODO: USE HBox Node Orientation
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
 // TODO: IN SETTINGS: ACTIVATE/DEACTIVATE DELETE, BACKUP, EXPORT ALL DATA, ABOUT ME
 
@@ -301,40 +303,7 @@ public class Controller implements Initializable {
 		});
 
 		// STARTING LOGIC
-		lblValider03.setOnMouseClicked(e -> {
-			Etudiant e1;
-
-			if (txtCIN03.getText().isEmpty()) {
-				lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN d'abord."));
-				return;
-			}
-
-			int cin;
-			try {
-				cin = Integer.parseInt(txtCIN03.getText());
-			} catch (Exception e2) {
-				lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN valide."));
-				return;
-			}
-
-			try {
-				e1 = DB.getEtudiant(cin);
-				if (e1 == null) {
-					lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
-				} else {
-					show(paneResultat);
-					txtCIN05.setText(String.format("%08d", e1.getCin()));
-					txtArchive05.setText(e1.getArchive());
-					txtNom05.setText(e1.getNom());
-					txtPrenom05.setText(e1.getPrenom());
-					cbClasse05.setValue(e1.getClasse());
-					txtCond05.setText(e1.getCond());
-					setDocs();
-				}
-			} catch (Exception e2) {
-				lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
-			}
-		});
+		lblValider03.setOnMouseClicked(e -> search());
 
 		lblAjouter04.setOnMouseClicked(e -> {
 			if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
@@ -530,17 +499,22 @@ public class Controller implements Initializable {
 		});
 
 		lblAjouterClasse04.setOnMouseClicked(e -> {
-			if(txtNomClasse04.getText().isEmpty()) {
-				lblMsgAC04.setText(Lang.getEquiv("Entrer une classe d'abord."));
+			if (txtNomClasse04.getText().isEmpty()) {
+				lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
 				return;
 			}
 
-			if(DB.addClasse(txtNomClasse04.getText())) {
+			if (DB.addClasse(txtNomClasse04.getText().toUpperCase())) {
 				setClasses();
 				lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
 			} else {
 				lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
 			}
+		});
+
+		txtCIN03.setOnKeyReleased((e) -> {
+			if(e.getCode() == KeyCode.ENTER)
+				search();
 		});
 	}
 
@@ -696,11 +670,30 @@ public class Controller implements Initializable {
 	public void setOnToUpdateMsgs() {
 		txtCIN03.setOnKeyTyped(e -> lblMsg03.setText(""));
 		txtCIN04.setOnKeyTyped(e -> lblMsg04.setText(""));
-		txtArchive04.setOnKeyTyped(e -> lblMsg04.setText(""));
-		txtNom04.setOnKeyTyped(e -> lblMsg04.setText(""));
-		txtPrenom04.setOnKeyTyped(e -> lblMsg04.setText(""));
-		cbClasse04.setOnAction(e -> lblMsg04.setText(""));
-		txtCond04.setOnKeyTyped(e -> lblMsg04.setText(""));
+		txtArchive04.setOnKeyTyped(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		txtNom04.setOnKeyTyped(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		txtPrenom04.setOnKeyTyped(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		cbClasse04.setOnAction(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		txtCond04.setOnKeyTyped(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		txtNomClasse04.setOnKeyTyped(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
 		txtCIN05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		txtArchive05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		txtNom05.setOnKeyTyped(e -> lblMsg05.setText(""));
@@ -745,26 +738,32 @@ public class Controller implements Initializable {
 //		lbl.setAlignment(Pos.TOP_RIGHT);
 
 		if (lang.equals("arabic")) {
-			firstRow04.setAlignment(Pos.TOP_RIGHT);
+			firstRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+			secondRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+			firstRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+			secondRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+			firstRow07.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+
+//			firstRow04.setAlignment(Pos.TOP_RIGHT);
 			secondRow04.setAlignment(Pos.TOP_RIGHT);
 			thirdRow04.setAlignment(Pos.BOTTOM_RIGHT);
-			firstRow05.setAlignment(Pos.TOP_RIGHT);
+//			firstRow05.setAlignment(Pos.TOP_RIGHT);
 			secondRow05.setAlignment(Pos.TOP_RIGHT);
 			thirdRow05.setAlignment(Pos.TOP_RIGHT);
 			fourthRow05.setAlignment(Pos.BOTTOM_RIGHT);
 
-			lblCIN04.setAlignment(Pos.TOP_RIGHT);
-			lblArchive04.setAlignment(Pos.TOP_RIGHT);
-			lblNom04.setAlignment(Pos.TOP_RIGHT);
-			lblPrenom04.setAlignment(Pos.TOP_RIGHT);
-			lblClasse04.setAlignment(Pos.TOP_RIGHT);
-			lblCond04.setAlignment(Pos.TOP_RIGHT);
-			lblCIN05.setAlignment(Pos.TOP_RIGHT);
-			lblArchive05.setAlignment(Pos.TOP_RIGHT);
-			lblNom05.setAlignment(Pos.TOP_RIGHT);
-			lblPrenom05.setAlignment(Pos.TOP_RIGHT);
-			lblClasse05.setAlignment(Pos.TOP_RIGHT);
-			lblCond05.setAlignment(Pos.TOP_RIGHT);
+//			lblCIN04.setAlignment(Pos.TOP_RIGHT);
+//			lblArchive04.setAlignment(Pos.TOP_RIGHT);
+//			lblNom04.setAlignment(Pos.TOP_RIGHT);
+//			lblPrenom04.setAlignment(Pos.TOP_RIGHT);
+//			lblClasse04.setAlignment(Pos.TOP_RIGHT);
+//			lblCond04.setAlignment(Pos.TOP_RIGHT);
+//			lblCIN05.setAlignment(Pos.TOP_RIGHT);
+//			lblArchive05.setAlignment(Pos.TOP_RIGHT);
+//			lblNom05.setAlignment(Pos.TOP_RIGHT);
+//			lblPrenom05.setAlignment(Pos.TOP_RIGHT);
+//			lblClasse05.setAlignment(Pos.TOP_RIGHT);
+//			lblCond05.setAlignment(Pos.TOP_RIGHT);
 
 			btnRechercher02.toFront();
 
@@ -773,16 +772,16 @@ public class Controller implements Initializable {
 			lblLangue06.toFront();
 			lblEnregistrer06.toFront();
 
-			vboxCIN04.toFront();
-			vboxCIN05.toFront();
+//			vboxCIN04.toFront();
+//			vboxCIN05.toFront();
 
-			vboxClasse04.toFront();
-			vboxPrenom04.toFront();
-			vboxNom04.toFront();
+//			vboxClasse04.toFront();
+//			vboxPrenom04.toFront();
+//			vboxNom04.toFront();
 
-			vboxClasse05.toFront();
-			vboxPrenom05.toFront();
-			vboxNom05.toFront();
+//			vboxClasse05.toFront();
+//			vboxPrenom05.toFront();
+//			vboxNom05.toFront();
 
 			lblRetourner04.toFront();
 			lblAjouter04.toFront();
@@ -806,25 +805,25 @@ public class Controller implements Initializable {
 //				System.out.println(lbl.getText());
 //			}
 
-			txtCIN04.setAlignment(Pos.TOP_RIGHT);
-			txtArchive04.setAlignment(Pos.TOP_RIGHT);
-			txtNom04.setAlignment(Pos.TOP_RIGHT);
-			txtPrenom04.setAlignment(Pos.TOP_RIGHT);
+//			txtCIN04.setAlignment(Pos.TOP_RIGHT);
+//			txtArchive04.setAlignment(Pos.TOP_RIGHT);
+//			txtNom04.setAlignment(Pos.TOP_RIGHT);
+//			txtPrenom04.setAlignment(Pos.TOP_RIGHT);
 //			cbClasse04.setStyle("-fx-alignment: right;");
-			txtCond04.setAlignment(Pos.TOP_RIGHT);
+//			txtCond04.setAlignment(Pos.TOP_RIGHT);
 
-			txtCIN05.setAlignment(Pos.TOP_RIGHT);
-			txtArchive05.setAlignment(Pos.TOP_RIGHT);
-			txtNom05.setAlignment(Pos.TOP_RIGHT);
-			txtPrenom05.setAlignment(Pos.TOP_RIGHT);
+//			txtCIN05.setAlignment(Pos.TOP_RIGHT);
+//			txtArchive05.setAlignment(Pos.TOP_RIGHT);
+//			txtNom05.setAlignment(Pos.TOP_RIGHT);
+//			txtPrenom05.setAlignment(Pos.TOP_RIGHT);
 //			cbClasse05.setStyle("-fx-alignment: right;");
-			txtCond05.setAlignment(Pos.TOP_RIGHT);
+//			txtCond05.setAlignment(Pos.TOP_RIGHT);
 
 
 			// PANE 07
-			firstRow07.setAlignment(Pos.TOP_RIGHT);
+//			firstRow07.setAlignment(Pos.TOP_RIGHT);
 			thirdRow07.setAlignment(Pos.BOTTOM_RIGHT);
-			lblClasse07.setAlignment(Pos.TOP_RIGHT);
+//			lblClasse07.setAlignment(Pos.TOP_RIGHT);
 			allEtudiants07.setAlignment(Pos.TOP_RIGHT);
 
 
@@ -833,29 +832,36 @@ public class Controller implements Initializable {
 			lblNomClasse04.setAlignment(Pos.TOP_RIGHT);
 			lblAjouterClasse04.toFront();
 			vboxAC04.toFront();
+			txtNomClasse04.setAlignment(Pos.TOP_RIGHT);
 
 
 		} else {
-			firstRow04.setAlignment(Pos.TOP_LEFT);
+			firstRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+			secondRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+			firstRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+			secondRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+			firstRow07.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+
+//			firstRow04.setAlignment(Pos.TOP_LEFT);
 			secondRow04.setAlignment(Pos.TOP_LEFT);
 			thirdRow04.setAlignment(Pos.BOTTOM_LEFT);
-			firstRow05.setAlignment(Pos.TOP_LEFT);
+//			firstRow05.setAlignment(Pos.TOP_LEFT);
 			secondRow05.setAlignment(Pos.TOP_LEFT);
 			thirdRow05.setAlignment(Pos.TOP_LEFT);
 			fourthRow05.setAlignment(Pos.BOTTOM_LEFT);
 
-			lblCIN04.setAlignment(Pos.TOP_LEFT);
-			lblArchive04.setAlignment(Pos.TOP_LEFT);
-			lblNom04.setAlignment(Pos.TOP_LEFT);
-			lblPrenom04.setAlignment(Pos.TOP_LEFT);
-			lblClasse04.setAlignment(Pos.TOP_LEFT);
-			lblCond04.setAlignment(Pos.TOP_LEFT);
-			lblCIN05.setAlignment(Pos.TOP_LEFT);
-			lblArchive05.setAlignment(Pos.TOP_LEFT);
-			lblNom05.setAlignment(Pos.TOP_LEFT);
-			lblPrenom05.setAlignment(Pos.TOP_LEFT);
-			lblClasse05.setAlignment(Pos.TOP_LEFT);
-			lblCond05.setAlignment(Pos.TOP_LEFT);
+//			lblCIN04.setAlignment(Pos.TOP_LEFT);
+//			lblArchive04.setAlignment(Pos.TOP_LEFT);
+//			lblNom04.setAlignment(Pos.TOP_LEFT);
+//			lblPrenom04.setAlignment(Pos.TOP_LEFT);
+//			lblClasse04.setAlignment(Pos.TOP_LEFT);
+//			lblCond04.setAlignment(Pos.TOP_LEFT);
+//			lblCIN05.setAlignment(Pos.TOP_LEFT);
+//			lblArchive05.setAlignment(Pos.TOP_LEFT);
+//			lblNom05.setAlignment(Pos.TOP_LEFT);
+//			lblPrenom05.setAlignment(Pos.TOP_LEFT);
+//			lblClasse05.setAlignment(Pos.TOP_LEFT);
+//			lblCond05.setAlignment(Pos.TOP_LEFT);
 
 			btnRechercher02.toBack();
 
@@ -864,16 +870,16 @@ public class Controller implements Initializable {
 			lblLangue06.toBack();
 			lblEnregistrer06.toBack();
 
-			vboxCIN04.toBack();
-			vboxCIN05.toBack();
+//			vboxCIN04.toBack();
+//			vboxCIN05.toBack();
 
-			vboxPrenom04.toFront();
-			vboxClasse04.toFront();
-			vboxCond04.toFront();
+//			vboxPrenom04.toFront();
+//			vboxClasse04.toFront();
+//			vboxCond04.toFront();
 
-			vboxPrenom05.toFront();
-			vboxClasse05.toFront();
-			vboxCond05.toFront();
+//			vboxPrenom05.toFront();
+//			vboxClasse05.toFront();
+//			vboxCond05.toFront();
 
 			lblRetourner04.toFront();
 			lblMsg04.toFront();
@@ -897,6 +903,7 @@ public class Controller implements Initializable {
 			lblNomClasse04.setAlignment(Pos.TOP_LEFT);
 			lblAjouterClasse04.toFront();
 			lblMsgAC04.toFront();
+			txtNomClasse04.setAlignment(Pos.TOP_LEFT);
 
 
 			lblAjouterDoc05.toFront();
@@ -910,25 +917,25 @@ public class Controller implements Initializable {
 //				System.out.println(lbl.getText());
 //			}
 
-			txtCIN04.setAlignment(Pos.TOP_LEFT);
-			txtArchive04.setAlignment(Pos.TOP_LEFT);
-			txtNom04.setAlignment(Pos.TOP_LEFT);
-			txtPrenom04.setAlignment(Pos.TOP_LEFT);
+//			txtCIN04.setAlignment(Pos.TOP_LEFT);
+//			txtArchive04.setAlignment(Pos.TOP_LEFT);
+//			txtNom04.setAlignment(Pos.TOP_LEFT);
+//			txtPrenom04.setAlignment(Pos.TOP_LEFT);
 //			cbClasse04.setStyle("-fx-alignment: left;");
-			txtCond04.setAlignment(Pos.TOP_LEFT);
+//			txtCond04.setAlignment(Pos.TOP_LEFT);
 
-			txtCIN05.setAlignment(Pos.TOP_LEFT);
-			txtArchive05.setAlignment(Pos.TOP_LEFT);
-			txtNom05.setAlignment(Pos.TOP_LEFT);
-			txtPrenom05.setAlignment(Pos.TOP_LEFT);
+//			txtCIN05.setAlignment(Pos.TOP_LEFT);
+//			txtArchive05.setAlignment(Pos.TOP_LEFT);
+//			txtNom05.setAlignment(Pos.TOP_LEFT);
+//			txtPrenom05.setAlignment(Pos.TOP_LEFT);
 //			cbClasse05.setStyle("-fx-alignment: left;");
-			txtCond05.setAlignment(Pos.TOP_LEFT);
+//			txtCond05.setAlignment(Pos.TOP_LEFT);
 
 
 			// PANE 07
-			firstRow07.setAlignment(Pos.TOP_LEFT);
+//			firstRow07.setAlignment(Pos.TOP_LEFT);
 			thirdRow07.setAlignment(Pos.BOTTOM_LEFT);
-			lblClasse07.setAlignment(Pos.TOP_LEFT);
+//			lblClasse07.setAlignment(Pos.TOP_LEFT);
 			allEtudiants07.setAlignment(Pos.TOP_LEFT);
 		}
 
@@ -1149,6 +1156,41 @@ public class Controller implements Initializable {
 			cbClasse05.getItems().addAll(classes);
 			cbClasse07.getItems().clear();
 			cbClasse07.getItems().addAll(classes);
+		}
+	}
+
+	private void search() {
+		Etudiant e1;
+
+		if (txtCIN03.getText().isEmpty()) {
+			lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN d'abord."));
+			return;
+		}
+
+		int cin;
+		try {
+			cin = Integer.parseInt(txtCIN03.getText());
+		} catch (Exception e2) {
+			lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN valide."));
+			return;
+		}
+
+		try {
+			e1 = DB.getEtudiant(cin);
+			if (e1 == null) {
+				lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
+			} else {
+				show(paneResultat);
+				txtCIN05.setText(String.format("%08d", e1.getCin()));
+				txtArchive05.setText(e1.getArchive());
+				txtNom05.setText(e1.getNom());
+				txtPrenom05.setText(e1.getPrenom());
+				cbClasse05.setValue(e1.getClasse());
+				txtCond05.setText(e1.getCond());
+				setDocs();
+			}
+		} catch (Exception e2) {
+			lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
 		}
 	}
 

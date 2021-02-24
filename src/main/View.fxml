@@ -66,7 +66,7 @@
       </HBox>
       <StackPane VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="paneWelcome" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container" visible="false">
+            <VBox fx:id="paneWelcome" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="container">
                <children>
                   <Label fx:id="lblBienvenue01">
                      <font>
@@ -177,7 +177,7 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="paneAjouter" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container">
+            <VBox fx:id="paneAjouter" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" visible="false">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -289,7 +289,10 @@
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="lblMsg04" textFill="RED" />
+                        <Label fx:id="lblMsg04" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin></Label>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

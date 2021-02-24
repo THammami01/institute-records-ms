@@ -1,2 +1,3 @@
-out/
+out/production/
+out/artifacts/
 src/Notes.md
