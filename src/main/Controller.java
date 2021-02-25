@@ -1,6 +1,7 @@
 package main;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -11,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -96,8 +98,8 @@ public class Controller implements Initializable {
 	private VBox allEtudiants07;
 	@FXML
 	private HBox firstRow07;
-	//	@FXML
-//	private ScrollPane secondRow07;
+	@FXML
+	private ScrollPane secondRow07;
 	@FXML
 	private HBox thirdRow07;
 	@FXML
@@ -252,6 +254,17 @@ public class Controller implements Initializable {
 	private ImageView img1;
 	@FXML
 	private ImageView img2;
+
+	EventHandler pane05EventHandler = (EventHandler<KeyEvent>) e -> {
+//		if (e.getCode() == KeyCode.ENTER)
+//			editStudent();
+//		else
+		if (e.getCode() == KeyCode.DELETE)
+			deleteStudent();
+//		else if (e.getCode() == KeyCode.ESCAPE)
+//			return05();
+	};
+
 //	@FXML
 //	private ImageView enactus;
 
@@ -262,6 +275,7 @@ public class Controller implements Initializable {
 	public static String lang;
 	public Pane lastPane;
 	public Pane currPane;
+	public Pane correctCurrPane;
 	public boolean isLastClassesPane = false;
 
 	@Override
@@ -271,86 +285,23 @@ public class Controller implements Initializable {
 		initThings();
 		setOnToUpdateMsgs();
 
-		btnContinuer01.setOnMouseClicked(e -> show(paneMain));
+		btnContinuer01.setOnMouseClicked(e -> proceedToMain());
 
 		btnRechercher02.setOnMouseClicked(e -> show(paneRechercher));
 
 		btnAjouter02.setOnMouseClicked(e -> show(paneAjouter));
 
-		lblRetourner03.setOnMouseClicked(e -> show(paneMain));
+		lblRetourner03.setOnMouseClicked(e -> return03());
 
-		lblRetourner04.setOnMouseClicked(e -> show(paneMain));
+		lblRetourner04.setOnMouseClicked(e -> return04());
 
-		lblRetourner05.setOnMouseClicked(e -> {
-			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-				if (isLastClassesPane) show(paneClasses);
-				else show(paneRechercher);
-			} else {
-				show(paneResultat);
-				Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN05.getText()));
-				if (e1 != null) {
-					txtCIN05.setText(String.format("%08d", e1.getCin()));
-					txtArchive05.setText(e1.getArchive());
-					txtNom05.setText(e1.getNom());
-					txtPrenom05.setText(e1.getPrenom());
-					cbClasse05.setValue(e1.getClasse());
-					txtCond05.setText(e1.getCond());
-				}
-				lblModifier05.setText(Lang.getEquiv("Modifier"));
-				lblRetourner05.setText(Lang.getEquiv("Retourner"));
-				setDocs();
-			}
-		});
+		lblRetourner05.setOnMouseClicked(e -> return05());
 
 		// STARTING LOGIC
 		lblValider03.setOnMouseClicked(e -> search());
 
 		lblAjouter04.setOnMouseClicked(e -> {
-			if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
-					txtPrenom04.getText().isEmpty() || txtCond04.getText().isEmpty()) {
-				lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
-				return;
-			}
-
-			if (txtCIN04.getText().length() != 8) {
-				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-				return;
-			}
-
-			int cin;
-			try {
-				cin = Integer.parseInt(txtCIN04.getText());
-				if (cin < 0 || cin > 99999999) {
-					lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-					return;
-				}
-			} catch (Exception e1) {
-				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-				return;
-			}
-
-			if (cbClasse04.getValue() == null) {
-				lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
-				return;
-			}
-
-			if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
-				lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
-				return;
-			}
-
-			try {
-				Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()), txtArchive04.getText(),
-						txtNom04.getText(), txtPrenom04.getText(),
-						cbClasse04.getValue().toUpperCase(), txtCond04.getText());
-				if (DB.addEtudiant(e1)) {
-					lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
-				} else {
-					lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-				}
-			} catch (Exception e2) {
-				lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-			}
+			addStudent();
 		});
 
 		lblAjouterDoc05.setOnMouseClicked(e -> {
@@ -422,25 +373,11 @@ public class Controller implements Initializable {
 			}
 		});
 
-		lblSupprimer05.setOnMouseClicked(e -> {
-			lblMsg05.setText("");
-			if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
-				return;
-			}
-
-			try {
-				if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-					show(paneRechercher);
-					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
-				} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
-			} catch (Exception e1) {
-				lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
-			}
-		});
+		lblSupprimer05.setOnMouseClicked(e -> deleteStudent());
 
 		imgSettings01.setOnMouseClicked(e -> {
 			if (currPane == paneSettings)
-				show(lastPane);
+				return06();
 			else {
 				lastPane = currPane;
 				show(paneSettings);
@@ -448,73 +385,116 @@ public class Controller implements Initializable {
 		});
 
 		lblEnregistrer06.setOnMouseClicked(e -> {
-			String currSelectedLang;
-			if (rbArabic06.isSelected()) currSelectedLang = "arabic";
-			else if (rbFrench06.isSelected()) currSelectedLang = "french";
-			else if (rbEnglish06.isSelected()) currSelectedLang = "english";
-			else {
-				lblMsg06.setText(Lang.getEquiv("Aucune langue sélectionnée."));
-				return;
-			}
-
-			if (DB.saveSetting(new Setting("language", currSelectedLang))) {
-				lang = currSelectedLang;
-				if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
-				setUpLang();
-				lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
-			} else {
-				lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
-			}
+			saveSettings();
 		});
 
-		lblRetourner06.setOnMouseClicked(e -> show(lastPane));
+		lblRetourner06.setOnMouseClicked(e -> return06());
 
-		lblRetourner07.setOnMouseClicked(e -> show(paneRechercher));
+		lblRetourner07.setOnMouseClicked(e -> return07());
 
 		lblAfficherClasses03.setOnMouseClicked(e -> show(paneClasses));
 
-		cbClasse07.setOnAction(e -> setStudentsByClass());
-
-		lblSupprimer07.setOnMouseClicked(e -> {
+		cbClasse07.setOnAction(e -> {
 			lblMsg07.setText("");
-			if (cbClasse07.getValue() == null) {
-				lblMsg07.setText(Lang.getEquiv("Sélectionner une classe."));
-				return;
-			}
-
-			if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Classe"), Lang.getEquiv("Voulez-vous vraiment supprimer cette classe avec tous ses données ?"))) {
-//				lblMsg07.setText(Lang.getEquiv("Aucun classe supprimé."));
-				return;
-			}
-
-			try {
-				if (DB.delClasse(cbClasse07.getValue().toString())) {
-					setClasses();
-					setStudentsByClass();
-					lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
-				} else lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
-			} catch (Exception e1) {
-				lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
-			}
+			setStudentsByClass();
 		});
 
-		lblAjouterClasse04.setOnMouseClicked(e -> {
-			if (txtNomClasse04.getText().isEmpty()) {
-				lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
-				return;
-			}
+		lblSupprimer07.setOnMouseClicked(e -> deleteClass());
 
-			if (DB.addClasse(txtNomClasse04.getText().toUpperCase())) {
-				setClasses();
-				lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
-			} else {
-				lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-			}
+		lblAjouterClasse04.setOnMouseClicked(e -> addClass());
+
+		btnContinuer01.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.ENTER)
+				proceedToMain();
 		});
 
 		txtCIN03.setOnKeyReleased((e) -> {
-			if(e.getCode() == KeyCode.ENTER)
+			if (e.getCode() == KeyCode.ENTER)
 				search();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return03();
+		});
+
+		txtCIN04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		txtArchive04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		txtNom04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		txtPrenom04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		txtCond04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		cbClasse04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addStudent();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+		txtNomClasse04.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				addClass();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return04();
+		});
+
+		txtCIN05.setOnKeyReleased(pane05EventHandler);
+		txtArchive05.setOnKeyReleased(pane05EventHandler);
+		txtNom05.setOnKeyReleased(pane05EventHandler);
+		txtPrenom05.setOnKeyReleased(pane05EventHandler);
+		cbClasse05.setOnKeyReleased(pane05EventHandler);
+		txtCond05.setOnKeyReleased(pane05EventHandler);
+
+		rbArabic06.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				saveSettings();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return06();
+		});
+		rbFrench06.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				saveSettings();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return06();
+		});
+		rbEnglish06.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.ENTER)
+				saveSettings();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return06();
+		});
+
+		cbClasse07.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.DELETE)
+				deleteClass();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return07();
+		});
+		secondRow07.setOnKeyReleased((e) -> {
+			if (e.getCode() == KeyCode.DELETE)
+				deleteClass();
+			else if (e.getCode() == KeyCode.ESCAPE)
+				return07();
 		});
 	}
 
@@ -583,9 +563,18 @@ public class Controller implements Initializable {
 		requestFocus(txtCIN05);
 
 		pane.setVisible(true);
+		if (pane != paneSettings)
+			correctCurrPane = pane;
 	}
 
 	public void addDoc() {
+//		txtCIN05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+//		txtArchive05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+//		txtNom05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+//		txtPrenom05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+//		cbClasse05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+//		txtCond05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(Lang.getEquiv("Choisir Document"));
 		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
@@ -614,6 +603,13 @@ public class Controller implements Initializable {
 			String wordEnd = files.size() == 0 || files.size() == 1 ? "" : "s";
 			lblMsg05.setText(files.size() + Lang.getEquiv(" document" + wordEnd + " ajouté" + wordEnd + " avec succès."));
 		}
+
+//		txtCIN05.setOnKeyReleased(pane05EventHandler);
+//		txtArchive05.setOnKeyReleased(pane05EventHandler);
+//		txtNom05.setOnKeyReleased(pane05EventHandler);
+//		txtPrenom05.setOnKeyReleased(pane05EventHandler);
+//		cbClasse05.setOnKeyReleased(pane05EventHandler);
+//		txtCond05.setOnKeyReleased(pane05EventHandler);
 	}
 
 	public void openDocsDir() {
@@ -991,7 +987,7 @@ public class Controller implements Initializable {
 				lblClasse07.setText("القسم:");
 				lblSelClasse07.setText("إختر القسم.");
 				lblSupprimer07.setText("حذف");
-				lblRetourner07.setText("الرجوع");
+				lblRetourner07.setText("رجوع");
 
 
 				break;
@@ -1159,6 +1155,10 @@ public class Controller implements Initializable {
 		}
 	}
 
+	private void proceedToMain() {
+		show(paneMain);
+	}
+
 	private void search() {
 		Etudiant e1;
 
@@ -1192,6 +1192,225 @@ public class Controller implements Initializable {
 		} catch (Exception e2) {
 			lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
 		}
+	}
+
+	private void return03() {
+		show(paneMain);
+	}
+
+	private void addStudent() {
+		if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
+				txtPrenom04.getText().isEmpty() || txtCond04.getText().isEmpty()) {
+			lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
+			return;
+		}
+
+		if (txtCIN04.getText().length() != 8) {
+			lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+			return;
+		}
+
+		int cin;
+		try {
+			cin = Integer.parseInt(txtCIN04.getText());
+			if (cin < 0 || cin > 99999999) {
+				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+				return;
+			}
+		} catch (Exception e1) {
+			lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+			return;
+		}
+
+		if (cbClasse04.getValue() == null) {
+			lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
+			return;
+		}
+
+		if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
+			lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+			return;
+		}
+
+		try {
+			Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()), txtArchive04.getText(),
+					txtNom04.getText(), txtPrenom04.getText(),
+					cbClasse04.getValue().toUpperCase(), txtCond04.getText());
+			if (DB.addEtudiant(e1)) {
+				lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
+			} else {
+				lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+			}
+		} catch (Exception e2) {
+			lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+		}
+	}
+
+	private void addClass() {
+		if (txtNomClasse04.getText().isEmpty()) {
+			lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
+			return;
+		}
+
+		if (DB.addClasse(txtNomClasse04.getText().toUpperCase())) {
+			setClasses();
+			lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
+		} else {
+			lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+		}
+	}
+
+	private void return04() {
+		show(paneMain);
+	}
+
+	private void editStudent() {
+		if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
+			txtArchive05.setEditable(true);
+			txtNom05.setEditable(true);
+			txtPrenom05.setEditable(true);
+//				cbClasse05.setEditable(true);
+			txtCond05.setEditable(true);
+			lblModifier05.setText(Lang.getEquiv("Enregistrer"));
+			lblRetourner05.setText(Lang.getEquiv("Annuler"));
+			lblMsg05.setText("");
+
+//				lblAjouterDoc05.setDisable(false);
+		} else {
+			if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
+					txtPrenom05.getText().isEmpty() || txtCond05.getText().isEmpty()) {
+				lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
+				return;
+			}
+
+			if (cbClasse05.getValue() == null) {
+				lblMsg05.setText(Lang.getEquiv("Aucune classe selectionnée."));
+				return;
+			}
+
+			if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
+				lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+				return;
+			}
+
+			try {
+				Etudiant e1 = new Etudiant(
+						Integer.parseInt(txtCIN05.getText()),
+						txtArchive05.getText(),
+						txtNom05.getText(),
+						txtPrenom05.getText(),
+						cbClasse05.getValue().toUpperCase(),
+						txtCond05.getText()
+				);
+
+				if (DB.modifyEtudiant(e1)) {
+					lblMsg05.setText(Lang.getEquiv("Modifié avec succès."));
+				} else {
+					lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
+				}
+			} catch (Exception e2) {
+				lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
+			}
+
+			txtArchive05.setEditable(false);
+			txtNom05.setEditable(false);
+			txtPrenom05.setEditable(false);
+//				cbClasse05.setEditable(false);
+			txtCond05.setEditable(false);
+//				lblAjouterDoc05.setDisable(true);
+			lblModifier05.setText(Lang.getEquiv("Modifier"));
+			lblRetourner05.setText(Lang.getEquiv("Retourner"));
+		}
+	}
+
+	private void deleteStudent() {
+		lblMsg05.setText("");
+		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
+			return;
+		}
+
+		try {
+			if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
+				show(paneRechercher);
+				lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
+			} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
+		} catch (Exception e1) {
+			lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
+		}
+	}
+
+	public void return05() {
+		if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
+			if (isLastClassesPane) show(paneClasses);
+			else show(paneRechercher);
+		} else {
+			show(paneResultat);
+			Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN05.getText()));
+			if (e1 != null) {
+				txtCIN05.setText(String.format("%08d", e1.getCin()));
+				txtArchive05.setText(e1.getArchive());
+				txtNom05.setText(e1.getNom());
+				txtPrenom05.setText(e1.getPrenom());
+				cbClasse05.setValue(e1.getClasse());
+				txtCond05.setText(e1.getCond());
+			}
+			lblModifier05.setText(Lang.getEquiv("Modifier"));
+			lblRetourner05.setText(Lang.getEquiv("Retourner"));
+			setDocs();
+		}
+	}
+
+	public void saveSettings() {
+		String currSelectedLang;
+		if (rbArabic06.isSelected()) currSelectedLang = "arabic";
+		else if (rbFrench06.isSelected()) currSelectedLang = "french";
+		else if (rbEnglish06.isSelected()) currSelectedLang = "english";
+		else {
+			lblMsg06.setText(Lang.getEquiv("Aucune langue sélectionnée."));
+			return;
+		}
+
+		if (DB.saveSetting(new Setting("language", currSelectedLang))) {
+			lang = currSelectedLang;
+			if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
+			setUpLang();
+			lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
+		} else {
+			lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
+		}
+	}
+
+	public void return06() {
+		show(lastPane);
+		if (correctCurrPane == paneResultat)
+			setDocs();
+	}
+
+	public void deleteClass() {
+		lblMsg07.setText("");
+		if (cbClasse07.getValue() == null) {
+			lblMsg07.setText(Lang.getEquiv("Sélectionner une classe."));
+			return;
+		}
+
+		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Classe"), Lang.getEquiv("Voulez-vous vraiment supprimer cette classe avec tous ses données ?"))) {
+//				lblMsg07.setText(Lang.getEquiv("Aucun classe supprimé."));
+			return;
+		}
+
+		try {
+			if (DB.delClasse(cbClasse07.getValue().toString())) {
+				setClasses();
+				setStudentsByClass();
+				lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
+			} else lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+		} catch (Exception e1) {
+			lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+		}
+	}
+
+	public void return07() {
+		show(paneRechercher);
 	}
 
 	private class DocumentHBox extends HBox {

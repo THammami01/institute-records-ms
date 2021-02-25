@@ -23,7 +23,7 @@ public class Main extends Application {
 		DB.init();
 
 		if (!DB.connected)
-			Dialog.informDBErrorAndQuit();
+			Dialog.informDBConnErrAndQuit();
 
 		Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
 

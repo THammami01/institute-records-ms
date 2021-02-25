@@ -56,7 +56,7 @@ public class Dialog {
 		return btnYesClicked;
 	}
 
-	public static void informDBErrorAndQuit() {
+	public static void informDBConnErrAndQuit() {
 		stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setTitle("Connection Failed | Connexion échouée | لم يتم الإتّصال");

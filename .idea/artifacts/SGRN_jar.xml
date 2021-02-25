@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/SGRN_jar</output-path>
     <root id="archive" name="SGRN.jar">
       <element id="module-output" name="SGRN" />
+      <element id="extracted-dir" path="$USER_HOME$/Tools/sqlite-jdbc-3.7.2.jar/sqlite-jdbc-3.7.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx-swt.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx.base.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx.controls.jar" path-in-jar="/" />
@@ -11,8 +12,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx.media.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx.swing.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/lib/javafx.web.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Tools/sqlite-jdbc-3.7.2.jar/sqlite-jdbc-3.7.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Tools/mariadb-java-client-1.4.6.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/bin/api-ms-win-core-console-l1-1-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/bin/api-ms-win-core-datetime-l1-1-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../../../../src/javafx-sdk-11.0.2/bin/api-ms-win-core-debug-l1-1-0.dll" />

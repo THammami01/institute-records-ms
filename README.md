@@ -2,12 +2,11 @@
 
 ## About
 
-Système de Gestion des relevés de notes.
+Système de Gestion des Relevés de Notes.
 
 ## Notes
 
-JDK 11.0.9 is prefered in order to run this program.<br/>
-Installation link: [https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)<br/>
+[JDK 11](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) is required in order to run this program.<br/>
 Software can be tested using "SGRN.exe".
 
 ## Log
@@ -25,6 +24,7 @@ Software can be tested using "SGRN.exe".
 - Ability to Show Students by Class
 - Abiblity to Add and Delete Classes
 - Data is Automatically Backed Up After Exiting, Totally Ready to Use
+- Key Event Listeners Added
 
 ## Todos
 
