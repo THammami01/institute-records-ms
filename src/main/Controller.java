@@ -28,9 +28,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-// TODO: USE HBox Node Orientation
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
 // TODO: IN SETTINGS: ACTIVATE/DEACTIVATE DELETE, BACKUP, EXPORT ALL DATA, ABOUT ME
+// TODO: Boursier IN ENGLISH
 
 public class Controller implements Initializable {
 	@FXML
@@ -88,6 +88,23 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblLangue06;
 
+	// PANE 04 & 05 | BOURSIER
+	@FXML
+	private Label lblBoursier04;
+	@FXML
+	private RadioButton rbBoursierOui04;
+	@FXML
+	private RadioButton rbBoursierNon04;
+	@FXML
+	private Label lblBoursier05;
+	@FXML
+	private RadioButton rbBoursierOui05;
+	@FXML
+	private RadioButton rbBoursierNon05;
+
+	private enum Boursier {
+		OUI, NON, NONE
+	}
 
 	// PANE 07
 	@FXML
@@ -249,20 +266,25 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblMsg06;
 
-
 	@FXML
 	private ImageView img1;
 	@FXML
 	private ImageView img2;
 
-	EventHandler pane05EventHandler = (EventHandler<KeyEvent>) e -> {
-//		if (e.getCode() == KeyCode.ENTER)
-//			editStudent();
-//		else
-		if (e.getCode() == KeyCode.DELETE)
-			deleteStudent();
-//		else if (e.getCode() == KeyCode.ESCAPE)
-//			return05();
+	private boolean isFileChooserBusy;
+
+	EventHandler modifier05EventHandler = (EventHandler<KeyEvent>) e -> {
+		if (isFileChooserBusy) {
+			isFileChooserBusy = false;
+			return;
+		}
+
+		if (e.getCode() == KeyCode.ENTER && !(e.getSource() instanceof ComboBox))
+			editStudent();
+//			else if (e.getCode() == KeyCode.DELETE)
+//				deleteStudent();
+		else if (e.getCode() == KeyCode.ESCAPE)
+			return05();
 	};
 
 //	@FXML
@@ -300,9 +322,7 @@ public class Controller implements Initializable {
 		// STARTING LOGIC
 		lblValider03.setOnMouseClicked(e -> search());
 
-		lblAjouter04.setOnMouseClicked(e -> {
-			addStudent();
-		});
+		lblAjouter04.setOnMouseClicked(e -> addStudent());
 
 		lblAjouterDoc05.setOnMouseClicked(e -> {
 			lblMsg05.setText("");
@@ -314,64 +334,7 @@ public class Controller implements Initializable {
 
 		lblSupprimerTousDocs05.setOnMouseClicked(e -> delAllDocs());
 
-		lblModifier05.setOnMouseClicked(e -> {
-			if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-				txtArchive05.setEditable(true);
-				txtNom05.setEditable(true);
-				txtPrenom05.setEditable(true);
-//				cbClasse05.setEditable(true);
-				txtCond05.setEditable(true);
-				lblModifier05.setText(Lang.getEquiv("Enregistrer"));
-				lblRetourner05.setText(Lang.getEquiv("Annuler"));
-				lblMsg05.setText("");
-
-//				lblAjouterDoc05.setDisable(false);
-			} else {
-				if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
-						txtPrenom05.getText().isEmpty() || txtCond05.getText().isEmpty()) {
-					lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
-					return;
-				}
-
-				if (cbClasse05.getValue() == null) {
-					lblMsg05.setText(Lang.getEquiv("Aucune classe selectionnée."));
-					return;
-				}
-
-				if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
-					lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
-					return;
-				}
-
-				try {
-					Etudiant e1 = new Etudiant(
-							Integer.parseInt(txtCIN05.getText()),
-							txtArchive05.getText(),
-							txtNom05.getText(),
-							txtPrenom05.getText(),
-							cbClasse05.getValue().toUpperCase(),
-							txtCond05.getText()
-					);
-
-					if (DB.modifyEtudiant(e1)) {
-						lblMsg05.setText(Lang.getEquiv("Modifié avec succès."));
-					} else {
-						lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
-					}
-				} catch (Exception e2) {
-					lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
-				}
-
-				txtArchive05.setEditable(false);
-				txtNom05.setEditable(false);
-				txtPrenom05.setEditable(false);
-//				cbClasse05.setEditable(false);
-				txtCond05.setEditable(false);
-//				lblAjouterDoc05.setDisable(true);
-				lblModifier05.setText(Lang.getEquiv("Modifier"));
-				lblRetourner05.setText(Lang.getEquiv("Retourner"));
-			}
-		});
+		lblModifier05.setOnMouseClicked(e -> editStudent());
 
 		lblSupprimer05.setOnMouseClicked(e -> deleteStudent());
 
@@ -384,9 +347,7 @@ public class Controller implements Initializable {
 			}
 		});
 
-		lblEnregistrer06.setOnMouseClicked(e -> {
-			saveSettings();
-		});
+		lblEnregistrer06.setOnMouseClicked(e -> saveSettings());
 
 		lblRetourner06.setOnMouseClicked(e -> return06());
 
@@ -446,9 +407,10 @@ public class Controller implements Initializable {
 				return04();
 		});
 		cbClasse04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
+//			if (e.getCode() == KeyCode.ENTER)
+//				addStudent();
+//			else
+			if (e.getCode() == KeyCode.ESCAPE)
 				return04();
 		});
 		txtNomClasse04.setOnKeyReleased((e) -> {
@@ -458,12 +420,12 @@ public class Controller implements Initializable {
 				return04();
 		});
 
-		txtCIN05.setOnKeyReleased(pane05EventHandler);
-		txtArchive05.setOnKeyReleased(pane05EventHandler);
-		txtNom05.setOnKeyReleased(pane05EventHandler);
-		txtPrenom05.setOnKeyReleased(pane05EventHandler);
-		cbClasse05.setOnKeyReleased(pane05EventHandler);
-		txtCond05.setOnKeyReleased(pane05EventHandler);
+		txtCIN05.setOnKeyReleased(modifier05EventHandler);
+		txtArchive05.setOnKeyReleased(modifier05EventHandler);
+		txtNom05.setOnKeyReleased(modifier05EventHandler);
+		txtPrenom05.setOnKeyReleased(modifier05EventHandler);
+		cbClasse05.setOnKeyReleased(modifier05EventHandler);
+		txtCond05.setOnKeyReleased(modifier05EventHandler);
 
 		rbArabic06.setOnKeyReleased((e) -> {
 			if (e.getCode() == KeyCode.ENTER)
@@ -485,15 +447,17 @@ public class Controller implements Initializable {
 		});
 
 		cbClasse07.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.DELETE)
-				deleteClass();
-			else if (e.getCode() == KeyCode.ESCAPE)
+//			if (e.getCode() == KeyCode.DELETE)
+//				deleteClass();
+//			else
+			if (e.getCode() == KeyCode.ESCAPE)
 				return07();
 		});
 		secondRow07.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.DELETE)
-				deleteClass();
-			else if (e.getCode() == KeyCode.ESCAPE)
+//			if (e.getCode() == KeyCode.DELETE)
+//				deleteClass();
+//			else
+			if (e.getCode() == KeyCode.ESCAPE)
 				return07();
 		});
 	}
@@ -511,6 +475,17 @@ public class Controller implements Initializable {
 		lblEnactusNYear.setText("Enactus ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
 
 		lblBienvenue01.setText(getWelcomeMsg());
+
+		ToggleGroup boursier04 = new ToggleGroup();
+		rbBoursierOui04.setToggleGroup(boursier04);
+		rbBoursierNon04.setToggleGroup(boursier04);
+
+		rbBoursierOui04.setSelected(false);
+		rbBoursierNon04.setSelected(false);
+
+		ToggleGroup boursier05 = new ToggleGroup();
+		rbBoursierOui05.setToggleGroup(boursier05);
+		rbBoursierNon05.setToggleGroup(boursier05);
 
 		ToggleGroup language = new ToggleGroup();
 		rbArabic06.setToggleGroup(language);
@@ -551,6 +526,7 @@ public class Controller implements Initializable {
 //		lblAjouterDoc05.setDisable(true);
 		initDocs();
 		lblModifier05.setText(Lang.getEquiv("Modifier"));
+		disableInputs05(true);
 
 		if (pane == paneSettings)
 			initLang();
@@ -561,6 +537,8 @@ public class Controller implements Initializable {
 
 		requestFocus(txtCIN04);
 		requestFocus(txtCIN05);
+
+		isFileChooserBusy = false;
 
 		pane.setVisible(true);
 		if (pane != paneSettings)
@@ -575,6 +553,7 @@ public class Controller implements Initializable {
 //		cbClasse05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 //		txtCond05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 
+		isFileChooserBusy = true;
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(Lang.getEquiv("Choisir Document"));
 		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
@@ -686,6 +665,14 @@ public class Controller implements Initializable {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
+		rbBoursierOui04.setOnAction(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		rbBoursierNon04.setOnAction(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
 		txtNomClasse04.setOnKeyTyped(e -> {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
@@ -696,6 +683,8 @@ public class Controller implements Initializable {
 		txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		cbClasse05.setOnAction(e -> lblMsg05.setText(""));
 		txtCond05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		rbBoursierOui05.setOnAction(e -> lblMsg05.setText(""));
+		rbBoursierNon05.setOnAction(e -> lblMsg05.setText(""));
 		rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
 		rbFrench06.setOnMouseClicked(e -> lblMsg06.setText(""));
 		rbEnglish06.setOnMouseClicked(e -> lblMsg06.setText(""));
@@ -937,7 +926,7 @@ public class Controller implements Initializable {
 
 		lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
 
-		switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(static: true) MIGHT BE BETTER
+		switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(staticLang: true) MIGHT BE BETTER
 			case "arabic":
 				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباحة");
 				lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
@@ -974,7 +963,7 @@ public class Controller implements Initializable {
 				lblDocuments05.setText("الوثائق:");
 				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
 				lblAjouterDoc05.setText("إضافة وثائق");
-				lblVoirTousDocs05.setText("رؤية جميع الوفائق");
+				lblVoirTousDocs05.setText("رؤية جميع الوثائق");
 				lblSupprimerTousDocs05.setText("حذف جميع الوثائق");
 				lblSupprimer05.setText("حذف");
 				lblRetourner05.setText("رجوع");
@@ -989,6 +978,13 @@ public class Controller implements Initializable {
 				lblSupprimer07.setText("حذف");
 				lblRetourner07.setText("رجوع");
 
+				// PANE 04 & 05 | BOURSIER
+				lblBoursier04.setText("متحصّل على منحة:");
+				rbBoursierOui04.setText("نعم");
+				rbBoursierNon04.setText("لا");
+				lblBoursier05.setText("متحصّل على منحة:");
+				rbBoursierOui05.setText("نعم");
+				rbBoursierNon05.setText("لا");
 
 				break;
 
@@ -1044,6 +1040,13 @@ public class Controller implements Initializable {
 				lblSupprimer07.setText("Supprimer");
 				lblRetourner07.setText("Retourner");
 
+				// PANE 04 & 05 | BOURSIER
+				lblBoursier04.setText("Boursier:");
+				rbBoursierOui04.setText("Oui");
+				rbBoursierNon04.setText("Non");
+				lblBoursier05.setText("Boursier:");
+				rbBoursierOui05.setText("Oui");
+				rbBoursierNon05.setText("Non");
 
 				break;
 
@@ -1099,6 +1102,14 @@ public class Controller implements Initializable {
 				lblSelClasse07.setText("Select Class.");
 				lblRetourner07.setText("Return");
 
+				// TODO: Boursier
+				// PANE 04 & 05 | BOURSIER
+				lblBoursier04.setText("Has Scholarship:");
+				rbBoursierOui04.setText("Yes");
+				rbBoursierNon04.setText("No");
+				lblBoursier05.setText("Has Scholarship:");
+				rbBoursierOui05.setText("Yes");
+				rbBoursierNon05.setText("No");
 
 				break;
 		}
@@ -1187,6 +1198,8 @@ public class Controller implements Initializable {
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
 				txtCond05.setText(e1.getCond());
+				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
+				disableInputs05(true);
 				setDocs();
 			}
 		} catch (Exception e2) {
@@ -1227,15 +1240,25 @@ public class Controller implements Initializable {
 			return;
 		}
 
+		if (getSelectedBoursier04() == Boursier.NONE) {
+			lblMsg04.setText(Lang.getEquiv("Sélectionner boursier ou non."));
+			return;
+		}
+
 		if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
 			lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 			return;
 		}
 
 		try {
-			Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()), txtArchive04.getText(),
-					txtNom04.getText(), txtPrenom04.getText(),
-					cbClasse04.getValue().toUpperCase(), txtCond04.getText());
+			Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()),
+					txtArchive04.getText(),
+					txtNom04.getText(),
+					txtPrenom04.getText(),
+					cbClasse04.getValue().toUpperCase(),
+					txtCond04.getText(),
+					getSelectedBoursier04() == Boursier.OUI
+			);
 			if (DB.addEtudiant(e1)) {
 				lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
 			} else {
@@ -1274,6 +1297,7 @@ public class Controller implements Initializable {
 			lblModifier05.setText(Lang.getEquiv("Enregistrer"));
 			lblRetourner05.setText(Lang.getEquiv("Annuler"));
 			lblMsg05.setText("");
+			disableInputs05(false);
 
 //				lblAjouterDoc05.setDisable(false);
 		} else {
@@ -1300,7 +1324,8 @@ public class Controller implements Initializable {
 						txtNom05.getText(),
 						txtPrenom05.getText(),
 						cbClasse05.getValue().toUpperCase(),
-						txtCond05.getText()
+						txtCond05.getText(),
+						getSelectedBoursier05() == Boursier.OUI
 				);
 
 				if (DB.modifyEtudiant(e1)) {
@@ -1318,6 +1343,7 @@ public class Controller implements Initializable {
 //				cbClasse05.setEditable(false);
 			txtCond05.setEditable(false);
 //				lblAjouterDoc05.setDisable(true);
+			disableInputs05(true);
 			lblModifier05.setText(Lang.getEquiv("Modifier"));
 			lblRetourner05.setText(Lang.getEquiv("Retourner"));
 		}
@@ -1353,10 +1379,12 @@ public class Controller implements Initializable {
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
 				txtCond05.setText(e1.getCond());
+				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
 			}
 			lblModifier05.setText(Lang.getEquiv("Modifier"));
 			lblRetourner05.setText(Lang.getEquiv("Retourner"));
 			setDocs();
+			disableInputs05(true);
 		}
 	}
 
@@ -1411,6 +1439,47 @@ public class Controller implements Initializable {
 
 	public void return07() {
 		show(paneRechercher);
+	}
+
+	public Boursier getSelectedBoursier04() {
+		if (rbBoursierNon04.isSelected()) return Boursier.NON;
+		if (rbBoursierOui04.isSelected()) return Boursier.OUI;
+		return Boursier.NONE;
+	}
+
+	public Boursier getSelectedBoursier05() {
+		if (rbBoursierOui05.isSelected()) return Boursier.OUI;
+		return Boursier.NON;
+	}
+
+	public void setSelectedBoursier05(Boursier b) {
+		rbBoursierNon05.setSelected(false);
+		rbBoursierOui05.setSelected(false);
+		switch (b) {
+			case OUI:
+				rbBoursierOui05.setSelected(true);
+				break;
+			case NON:
+				rbBoursierNon05.setSelected(true);
+				break;
+		}
+	}
+
+	public void disableInputs05(boolean b) {
+		if (b) {
+			txtCIN05.setDisable(false);
+			if (getSelectedBoursier05() == Boursier.OUI) {
+				rbBoursierOui05.setDisable(false);
+				rbBoursierNon05.setDisable(true);
+			} else {
+				rbBoursierOui05.setDisable(true);
+				rbBoursierNon05.setDisable(false);
+			}
+		} else {
+			txtCIN05.setDisable(true);
+			rbBoursierOui05.setDisable(false);
+			rbBoursierNon05.setDisable(false);
+		}
 	}
 
 	private class DocumentHBox extends HBox {
@@ -1510,24 +1579,20 @@ public class Controller implements Initializable {
 			Label lblNb = new Label(String.format(Lang.getEquiv("Étudiant") + " %02d:", nb));
 			TextArea txtDetails = new TextArea(e.toString());
 			txtDetails.setEditable(false);
-			txtDetails.setPrefRowCount(7);
+			txtDetails.setPrefRowCount(8);
 			txtDetails.setPrefWidth(350);
 			txtDetails.setMinHeight(USE_PREF_SIZE);
+			txtDetails.setOnKeyReleased((e1) -> {
+				if (e1.getCode() == KeyCode.ESCAPE)
+					return07();
+				else if (e1.getCode() == KeyCode.ENTER)
+					viewStudent();
+			});
+
 			ImageView imgView = new ImageView(img1URL);
 			imgView.setFitWidth(25);
 			imgView.setFitHeight(25);
-			imgView.setOnMouseClicked(e1 -> {
-//				txtCIN03.setText(String.format("%08d", e.getCin()));
-				isLastClassesPane = true;
-				show(paneResultat);
-				txtCIN05.setText(String.format("%08d", e.getCin()));
-				txtArchive05.setText(e.getArchive());
-				txtNom05.setText(e.getNom());
-				txtPrenom05.setText(e.getPrenom());
-				cbClasse05.setValue(e.getClasse());
-				txtCond05.setText(e.getCond());
-				setDocs();
-			});
+			imgView.setOnMouseClicked(e1 -> viewStudent());
 			imgView.setCursor(Cursor.HAND);
 
 			setSpacing(5);
@@ -1552,6 +1617,21 @@ public class Controller implements Initializable {
 
 		public Etudiant getEtudiant() {
 			return etudiant;
+		}
+
+		public void viewStudent() {
+//				txtCIN03.setText(String.format("%08d", e.getCin()));
+			isLastClassesPane = true;
+			show(paneResultat);
+			txtCIN05.setText(String.format("%08d", etudiant.getCin()));
+			txtArchive05.setText(etudiant.getArchive());
+			txtNom05.setText(etudiant.getNom());
+			txtPrenom05.setText(etudiant.getPrenom());
+			cbClasse05.setValue(etudiant.getClasse());
+			txtCond05.setText(etudiant.getCond());
+			setSelectedBoursier05(etudiant.isBoursier() ? Boursier.OUI : Boursier.NON);
+			disableInputs05(true);
+			setDocs();
 		}
 	}
 }

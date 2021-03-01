@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 import main.Main;
 
 public class Dialog {
-	static Stage stage;
-	static boolean btnYesClicked;
+	public static Stage stage;
+	public static boolean btnYesClicked;
 
 	public static boolean confirm(String title, String msg) {
 //		stage.getIcons().add(new Image(Controller.iconURL));
@@ -51,6 +51,10 @@ public class Dialog {
 
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
+
+		if(!title.equals(Lang.getEquiv("Quitter")))
+			btnNo.requestFocus();
+
 		stage.showAndWait();
 
 		return btnYesClicked;

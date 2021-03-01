@@ -6,8 +6,6 @@ import main.useful.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 
-// TODO: METHODE backup() CALLED EACH TIME WHEN USER EXISTS
-
 public class DB {
 	private static Connection connection;
 	private static Statement st;
@@ -59,6 +57,7 @@ public class DB {
 					"prenom TEXT NOT NULL, " +
 					"classe TEXT NOT NULL, " +
 					"cond TEXT NOT NULL, " +
+					"boursier INTEGER NOT NULL, " +
 					"FOREIGN KEY (classe) REFERENCES Classe(classe) ON DELETE CASCADE" +
 					");";
 			st.executeUpdate(query);
@@ -127,7 +126,8 @@ public class DB {
 						rs.getString("nom"),
 						rs.getString("prenom"),
 						rs.getString("classe"),
-						rs.getString("cond")
+						rs.getString("cond"),
+						rs.getInt("boursier") == 1
 				);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,7 +137,7 @@ public class DB {
 	}
 
 	public static boolean addEtudiant(Etudiant e1) {
-		query = "INSERT INTO Etudiant VALUES(?, ?, ?, ?, ?, ?);";
+		query = "INSERT INTO Etudiant VALUES(?, ?, ?, ?, ?, ?, ?);";
 		try {
 			String command = String.format("mkdir \"%s%08d\"", Main.docsDir, e1.getCin());
 			Runtime.getRuntime().exec("cmd /c " + command);
@@ -149,6 +149,7 @@ public class DB {
 			pst.setString(4, e1.getPrenom());
 			pst.setString(5, e1.getClasse());
 			pst.setString(6, e1.getCond());
+			pst.setInt(7, e1.isBoursier() ? 1 : 0);
 			if (pst.executeUpdate() > 0)
 				return true;
 		} catch (Exception e) {
@@ -159,7 +160,7 @@ public class DB {
 	}
 
 	public static boolean modifyEtudiant(Etudiant e1) {
-		query = "UPDATE Etudiant SET archive = ?, nom = ?, prenom = ?, classe = ?, cond = ? WHERE cin = ?;";
+		query = "UPDATE Etudiant SET archive = ?, nom = ?, prenom = ?, classe = ?, cond = ?, boursier = ? WHERE cin = ?;";
 		try {
 			pst = connection.prepareStatement(query);
 			pst.setString(1, e1.getArchive());
@@ -167,7 +168,8 @@ public class DB {
 			pst.setString(3, e1.getPrenom());
 			pst.setString(4, e1.getClasse());
 			pst.setString(5, e1.getCond());
-			pst.setInt(6, e1.getCin());
+			pst.setInt(6, e1.isBoursier() ? 1 : 0);
+			pst.setInt(7, e1.getCin());
 			if (pst.executeUpdate() > 0)
 				return true;
 		} catch (Exception e) {
@@ -330,6 +332,7 @@ public class DB {
 				etudiant.setPrenom(rs.getString("prenom"));
 				etudiant.setClasse(rs.getString("classe"));
 				etudiant.setCond(rs.getString("cond"));
+				etudiant.setBoursier(rs.getInt("boursier") == 1);
 				etudiants.add(etudiant);
 			}
 			return etudiants;

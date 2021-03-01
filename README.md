@@ -25,6 +25,7 @@ Software can be tested using "SGRN.exe".
 - Abiblity to Add and Delete Classes
 - Data is Automatically Backed Up After Exiting, Totally Ready to Use
 - Key Event Listeners Added
+- Key Events Work Properly, Boursier Field Added
 
 ## Todos
 

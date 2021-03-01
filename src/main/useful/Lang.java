@@ -33,7 +33,7 @@ public class Lang {
 			case "Tous les champs doivent être remplis.":
 				switch (lang) {
 					case "arabic":
-						return "يجب ملأ كل المجالات.";
+						return "يجب ملأ جميع المجالات.";
 					case "english":
 						return "All Fields Must be Filled.";
 				}
@@ -123,7 +123,7 @@ public class Lang {
 			case "Voulez-vous vraiment supprimer cet étudiant ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنك تريد حذف هذا الطالب ؟";
+						return "هل أنت متأكد أنّّك تريد حذف هذا الطالب ؟";
 					case "english":
 						return "Are you sure you want to delete this student ?";
 				}
@@ -132,7 +132,7 @@ public class Lang {
 			case "Voulez-vous vraiment quitter ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنك تريد المغادرة ؟";
+						return "هل أنت متأكد أنّك تريد المغادرة ؟";
 					case "english":
 						return "Are you sure you want to quit ?";
 				}
@@ -213,7 +213,7 @@ public class Lang {
 			case "Choisir Document":
 				switch (lang) {
 					case "arabic":
-						return "إخيار وثيقة";
+						return "إختيار وثيقة";
 					case "english":
 						return "Select Document";
 				}
@@ -359,7 +359,7 @@ public class Lang {
 					case "arabic":
 						return "لا يوجد أي طالب مسجّل برقم بطاقة التعريف هذه.";
 					case "english":
-						return "No Student Found under this ID Card Number.";
+						return "No Student Registered with ID Card Number.";
 				}
 				break;
 
@@ -411,7 +411,7 @@ public class Lang {
 			case "Aucun fichier selectionné.":
 				switch (lang) {
 					case "arabic":
-						return "لم يتم تحميل أي ملف.";
+						return "لم يتم إختيار أي ملف.";
 					case "english":
 						return "No File is Selected.";
 				}
@@ -447,7 +447,7 @@ public class Lang {
 			case "SG des Relevés de Notes":
 				switch (lang) {
 					case "arabic":
-						return "نظام إدارة كشوف البيانات";
+						return "نظام إدارة بطاقات الأعداد";
 					case "english":
 						return "Academic Transcripts MS";
 				}
@@ -516,6 +516,14 @@ public class Lang {
 						return "Enter Class Name First.";
 				}
 				break;
+			// TODO: Boursier
+			case "Sélectionner boursier ou non.":
+				switch(lang) {
+					case "arabic":
+						return "إختر متحصّل على منحة أم لا.";
+					case "english":
+						return "Select Has Scholarship or Not.";
+				}
 		}
 
 		return s;

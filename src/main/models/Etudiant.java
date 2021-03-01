@@ -9,18 +9,20 @@ public class Etudiant {
 	private String prenom;
 	private String classe;
 	private String cond;
+	private boolean boursier;
 
 	public Etudiant() {
 
 	}
 
-	public Etudiant(int cin, String archive, String nom, String prenom, String classe, String cond) {
+	public Etudiant(int cin, String archive, String nom, String prenom, String classe, String cond, boolean boursier) {
 		this.cin = cin;
 		this.archive = archive;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.classe = classe;
 		this.cond = cond;
+		this.boursier = boursier;
 	}
 
 	public int getCin() {
@@ -71,6 +73,14 @@ public class Etudiant {
 		this.cond = cond;
 	}
 
+	public boolean isBoursier() {
+		return boursier;
+	}
+
+	public void setBoursier(boolean boursier) {
+		this.boursier = boursier;
+	}
+
 	@Override
 	public String toString() {
 		switch (Controller.lang) {
@@ -81,7 +91,9 @@ public class Etudiant {
 						"\nالإسم: " + prenom +
 						"\nالقسم: " + classe +
 						"\nالحالة: " + cond +
+						"\nمتحصّل على منحة: " + (boursier ? "نعم" : "لا") +
 						"\nعدد الوثائق: " + DB.getNbDocs(cin);
+			// TODO: Boursier
 			case "english":
 				return String.format("ID Card Number: %08d", cin) +
 						"\nArchive: " + archive +
@@ -89,6 +101,7 @@ public class Etudiant {
 						"\nFirst Name: " + prenom +
 						"\nClass: " + classe +
 						"\nCondition: " + cond +
+						"\nHas Scholarship: " + (boursier ? "Yes" : "No") +
 						"\nNumber of documents: " + DB.getNbDocs(cin);
 			default:
 				return String.format("CIN: %08d", cin) +
@@ -97,6 +110,7 @@ public class Etudiant {
 						"\nPrénom: " + prenom +
 						"\nClasse: " + classe +
 						"\nCondition: " + cond +
+						"\nBoursier: " + (boursier ? "Oui" : "Non") +
 						"\nNombre de documents: " + DB.getNbDocs(cin);
 		}
 	}

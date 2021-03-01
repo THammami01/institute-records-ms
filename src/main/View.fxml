@@ -182,7 +182,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
                <children>
-                  <HBox fx:id="firstRow04" maxWidth="-Infinity" prefWidth="687.0" spacing="30.0">
+                  <HBox fx:id="firstRow04" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="687.0" spacing="30.0">
                      <children>
                         <VBox fx:id="vboxCIN04" spacing="5.0">
                            <children>
@@ -208,6 +208,24 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="txtArchive04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vboxArchive0511" spacing="5.0">
+                           <children>
+                              <Label fx:id="lblBoursier04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Boursier:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="25.0" spacing="10.0">
+                                 <children>
+                                    <RadioButton fx:id="rbBoursierOui04" mnemonicParsing="false" selected="true" text="Oui" />
+                                    <RadioButton fx:id="rbBoursierNon04" mnemonicParsing="false" text="Non" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
@@ -295,7 +313,7 @@
                            </HBox.margin></Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
                   </HBox>
                   <Line endX="320.0" opacity="0.2" startX="-320.0">
@@ -375,6 +393,24 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="txtArchive05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vboxBoursier05" spacing="5.0">
+                           <children>
+                              <Label fx:id="lblBoursier05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Boursier:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="25.0" spacing="10.0">
+                                 <children>
+                                    <RadioButton fx:id="rbBoursierOui05" mnemonicParsing="false" selected="true" text="Oui" />
+                                    <RadioButton fx:id="rbBoursierNon05" mnemonicParsing="false" text="Non" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
