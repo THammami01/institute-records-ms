@@ -123,7 +123,7 @@ public class Lang {
 			case "Voulez-vous vraiment supprimer cet étudiant ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنّّك تريد حذف هذا الطالب ؟";
+						return "هل أنت متأكّد أنّك تريد حذف هذا الطالب ؟";
 					case "english":
 						return "Are you sure you want to delete this student ?";
 				}
@@ -132,7 +132,7 @@ public class Lang {
 			case "Voulez-vous vraiment quitter ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنّك تريد المغادرة ؟";
+						return "هل أنت متأكّد أنّك تريد المغادرة ؟";
 					case "english":
 						return "Are you sure you want to quit ?";
 				}
@@ -276,7 +276,7 @@ public class Lang {
 			case "Voulez-vous vraiment supprimer tous les documents de cet étudiant ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنّك تريد حذف كل وثائق هذا الطالب ؟";
+						return "هل أنت متأكّد أنّك تريد حذف كل وثائق هذا الطالب ؟";
 					case "english":
 						return "Are you sure you want to delete all documents of this student ?";
 				}
@@ -321,7 +321,7 @@ public class Lang {
 			case "Voulez-vous vraiment supprimer cet document ?":
 				switch (lang) {
 					case "arabic":
-						return "هل أنت متأكد أنّك تريد حذف هذه الوثيقة ؟";
+						return "هل أنت متأكّد أنّك تريد حذف هذه الوثيقة ؟";
 					case "english":
 						return "Are you sure you want to delete this document ?";
 				}

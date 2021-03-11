@@ -188,6 +188,11 @@ public class DB {
 			pst = connection.prepareStatement(query);
 			pst.setInt(1, cin);
 
+			query = "DELETE FROM Document WHERE cinDoc = ?;";
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, cin);
+			pst.executeUpdate();
+
 			query = "DELETE FROM Etudiant WHERE cin = ?;";
 			pst = connection.prepareStatement(query);
 			pst.setInt(1, cin);
@@ -258,6 +263,8 @@ public class DB {
 	public static boolean delDocs(int cinDoc) {
 		query = "DELETE FROM Document WHERE cinDoc = ?;";
 		try {
+			String command = String.format("del /q /s \"%s%08d\\*\"", Main.docsDir, cinDoc);
+			Runtime.getRuntime().exec("cmd /c " + command);
 			pst = connection.prepareStatement(query);
 			pst.setInt(1, cinDoc);
 			if (pst.executeUpdate() > 0)

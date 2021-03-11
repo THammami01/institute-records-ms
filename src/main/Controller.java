@@ -235,8 +235,8 @@ public class Controller implements Initializable {
 	private TextField txtCond05;
 	@FXML
 	private Label lblAjouterDoc05;
-	@FXML
-	private Label lblVoirTousDocs05;
+//	@FXML
+//	private Label lblVoirTousDocs05;
 	@FXML
 	private Label lblSupprimerTousDocs05;
 
@@ -330,7 +330,7 @@ public class Controller implements Initializable {
 			setDocs();
 		});
 
-		lblVoirTousDocs05.setOnMouseClicked(e -> openDocsDir());
+//		lblVoirTousDocs05.setOnMouseClicked(e -> openDocsDir());
 
 		lblSupprimerTousDocs05.setOnMouseClicked(e -> delAllDocs());
 
@@ -779,7 +779,7 @@ public class Controller implements Initializable {
 			lblRetourner07.toFront();
 			lblSupprimer07.toFront();
 
-			lblVoirTousDocs05.toFront();
+//			lblVoirTousDocs05.toFront();
 			lblAjouterDoc05.toFront();
 			lblDocuments05.toFront();
 			lblDocuments05.setPadding(new Insets(0, 0, 0, 15));
@@ -892,7 +892,7 @@ public class Controller implements Initializable {
 
 
 			lblAjouterDoc05.toFront();
-			lblVoirTousDocs05.toFront();
+//			lblVoirTousDocs05.toFront();
 			lblSupprimerTousDocs05.toFront();
 			lblDocuments05.setPadding(new Insets(0, 15, 0, 0));
 
@@ -963,7 +963,7 @@ public class Controller implements Initializable {
 				lblDocuments05.setText("الوثائق:");
 				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
 				lblAjouterDoc05.setText("إضافة وثائق");
-				lblVoirTousDocs05.setText("رؤية جميع الوثائق");
+//				lblVoirTousDocs05.setText("رؤية جميع الوثائق");
 				lblSupprimerTousDocs05.setText("حذف جميع الوثائق");
 				lblSupprimer05.setText("حذف");
 				lblRetourner05.setText("رجوع");
@@ -1024,7 +1024,7 @@ public class Controller implements Initializable {
 				lblDocuments05.setText("Documents:");
 				lblAucunDoc05.setText("Aucun document.");
 				lblAjouterDoc05.setText("Ajouter");
-				lblVoirTousDocs05.setText("Voir tous");
+//				lblVoirTousDocs05.setText("Voir tous");
 				lblSupprimerTousDocs05.setText("Supprimer tous");
 				lblSupprimer05.setText("Supprimer");
 				lblRetourner05.setText("Retourner");
@@ -1086,7 +1086,7 @@ public class Controller implements Initializable {
 				lblDocuments05.setText("Documents:");
 				lblAucunDoc05.setText("No Document.");
 				lblAjouterDoc05.setText("Add");
-				lblVoirTousDocs05.setText("View All");
+//				lblVoirTousDocs05.setText("View All");
 				lblSupprimerTousDocs05.setText("Delete All");
 				lblSupprimer05.setText("Delete");
 				lblRetourner05.setText("Return");
@@ -1620,7 +1620,7 @@ public class Controller implements Initializable {
 		}
 
 		public void viewStudent() {
-//				txtCIN03.setText(String.format("%08d", e.getCin()));
+			// txtCIN03.setText(String.format("%08d", e.getCin()));
 			isLastClassesPane = true;
 			show(paneResultat);
 			txtCIN05.setText(String.format("%08d", etudiant.getCin()));
