@@ -235,19 +235,6 @@
                   </HBox>
                   <HBox fx:id="secondRow04" layoutX="10.0" layoutY="211.0" maxWidth="-Infinity" spacing="30.0">
                      <children>
-                        <VBox fx:id="vboxNom04" spacing="5.0">
-                           <children>
-                              <Label fx:id="lblNom04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="4.0" right="4.0" />
-                                 </padding>
-                              </Label>
-                              <TextField fx:id="txtNom04" alignment="BASELINE_LEFT" />
-                           </children>
-                        </VBox>
                         <VBox fx:id="vboxPrenom04" layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
                               <Label fx:id="lblPrenom04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
@@ -259,6 +246,19 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="txtPrenom04" alignment="BASELINE_LEFT" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vboxNom04" spacing="5.0">
+                           <children>
+                              <Label fx:id="lblNom04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtNom04" alignment="BASELINE_LEFT" />
                            </children>
                         </VBox>
                         <VBox fx:id="vboxClasse04" spacing="5.0">
@@ -284,7 +284,7 @@
                                     <Insets left="4.0" right="4.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="txtCond04" alignment="BASELINE_LEFT" />
+                              <ComboBox fx:id="cbCond04" prefWidth="150.0" />
                            </children>
                         </VBox>
                      </children>
@@ -417,19 +417,6 @@
                   </HBox>
                   <HBox fx:id="secondRow05" layoutX="10.0" layoutY="211.0" maxWidth="-Infinity" spacing="30.0">
                      <children>
-                        <VBox fx:id="vboxNom05" spacing="5.0">
-                           <children>
-                              <Label fx:id="lblNom05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="4.0" right="4.0" />
-                                 </padding>
-                              </Label>
-                              <TextField fx:id="txtNom05" alignment="BASELINE_LEFT" editable="false" />
-                           </children>
-                        </VBox>
                         <VBox fx:id="vboxPrenom05" layoutX="10.0" layoutY="10.0" spacing="5.0">
                            <children>
                               <Label fx:id="lblPrenom05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Prénom:">
@@ -441,6 +428,19 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="txtPrenom05" alignment="BASELINE_LEFT" editable="false" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vboxNom05" spacing="5.0">
+                           <children>
+                              <Label fx:id="lblNom05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Nom:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtNom05" alignment="BASELINE_LEFT" editable="false" />
                            </children>
                         </VBox>
                         <VBox fx:id="vboxClasse05" spacing="5.0">
@@ -456,7 +456,7 @@
                               <ComboBox fx:id="cbClasse05" prefWidth="150.0" />
                            </children>
                         </VBox>
-                        <VBox fx:id="vboxCond05" layoutX="369.0" layoutY="10.0" spacing="5.0">
+                        <VBox fx:id="vboxCond041" spacing="5.0">
                            <children>
                               <Label fx:id="lblCond05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Condition:">
                                  <font>
@@ -466,7 +466,7 @@
                                     <Insets left="4.0" right="4.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="txtCond05" alignment="BASELINE_LEFT" editable="false" />
+                              <ComboBox fx:id="cbCond05" prefWidth="150.0" />
                            </children>
                         </VBox>
                      </children>
@@ -735,14 +735,14 @@
          <children>
             <AnchorPane>
                <children>
-                  <Label fx:id="lblEnactusNYear">
+                  <Label fx:id="lblEnactusNYear" text="ISLAI Béja">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <graphic>
-                        <ImageView fx:id="enactus" fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="enactus" fitHeight="30.0" fitWidth="30.0" translateY="7.5">
                            <image>
-                              <Image url="@images/enactus.png" />
+                              <Image url="@../icon.png" />
                            </image>
                         </ImageView>
                      </graphic>

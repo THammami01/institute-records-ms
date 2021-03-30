@@ -168,7 +168,7 @@ public class Lang {
 			case "Langue enregistrée.":
 				switch (lang) {
 					case "arabic":
-						return "تم تسجيل اللغة.";
+						return "تمّ تسجيل اللغة.";
 					case "english":
 						return "Language Saved.";
 				}
@@ -285,7 +285,7 @@ public class Lang {
 			case "Tous les documents sont supprimés avec succès.":
 				switch (lang) {
 					case "arabic":
-						return "تم حذف كلّ الوثائق.";
+						return "تمّ حذف كلّ الوثائق.";
 					case "english":
 						return "All Documents Deleted Successfully.";
 				}
@@ -516,13 +516,48 @@ public class Lang {
 						return "Enter Class Name First.";
 				}
 				break;
-			// TODO: Boursier
 			case "Sélectionner boursier ou non.":
 				switch(lang) {
 					case "arabic":
 						return "إختر متحصّل على منحة أم لا.";
 					case "english":
 						return "Select Has Scholarship or Not.";
+				}
+			case "Aucune condition selectionnée.":
+				switch(lang) {
+					case "arabic":
+						return "لم يتم إختيار أي حالة.";
+					case "english":
+						return "No Selected Condition.";
+				}
+			// TODO: SET CONDITIONS
+			case "Condition 1":
+				switch(lang) {
+					case "arabic":
+						return "الحالة 1";
+					case "english":
+						return "Condition En 1";
+				}
+			case "Condition 2":
+				switch(lang) {
+					case "arabic":
+						return "الحالة 2";
+					case "english":
+						return "Condition En 2";
+				}
+			case "Condition 3":
+				switch(lang) {
+					case "arabic":
+						return "الحالة 3";
+					case "english":
+						return "Condition En 3";
+				}
+			case "Condition 4":
+				switch(lang) {
+					case "arabic":
+						return "الحالة 4";
+					case "english":
+						return "Condition En 4";
 				}
 		}
 

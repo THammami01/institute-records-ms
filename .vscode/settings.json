@@ -1,0 +1,14 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\src\\sqlite-jdbc-3.7.2.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.base.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.controls.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.fxml.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.graphics.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.media.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.swing.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx.web.jar",
+        "c:\\src\\javafx-sdk-11.0.2\\lib\\javafx-swt.jar"
+    ]
+}

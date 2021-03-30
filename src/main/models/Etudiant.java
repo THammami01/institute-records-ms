@@ -1,6 +1,7 @@
 package main.models;
 
 import main.Controller;
+import main.useful.Lang;
 
 public class Etudiant {
 	private int cin;
@@ -90,17 +91,16 @@ public class Etudiant {
 						"\nاللقب: " + nom +
 						"\nالإسم: " + prenom +
 						"\nالقسم: " + classe +
-						"\nالحالة: " + cond +
+						"\nالحالة: " + Lang.getEquiv(cond) +
 						"\nمتحصّل على منحة: " + (boursier ? "نعم" : "لا") +
 						"\nعدد الوثائق: " + DB.getNbDocs(cin);
-			// TODO: Boursier
 			case "english":
 				return String.format("ID Card Number: %08d", cin) +
 						"\nArchive: " + archive +
 						"\nLast Name: " + nom +
 						"\nFirst Name: " + prenom +
 						"\nClass: " + classe +
-						"\nCondition: " + cond +
+						"\nCondition: " + Lang.getEquiv(cond) +
 						"\nHas Scholarship: " + (boursier ? "Yes" : "No") +
 						"\nNumber of documents: " + DB.getNbDocs(cin);
 			default:
@@ -109,7 +109,7 @@ public class Etudiant {
 						"\nNom: " + nom +
 						"\nPrénom: " + prenom +
 						"\nClasse: " + classe +
-						"\nCondition: " + cond +
+						"\nCondition: " + Lang.getEquiv(cond) +
 						"\nBoursier: " + (boursier ? "Oui" : "Non") +
 						"\nNombre de documents: " + DB.getNbDocs(cin);
 		}

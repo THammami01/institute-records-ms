@@ -11,7 +11,7 @@ Software can be tested using "SGRN.exe".
 
 ## Log
 
-### v1.0.0 <br/>
+### v1.0.0
 
 - First Commit, Views and CRUD Operations Added
 - Ability to Add Multiple Documents

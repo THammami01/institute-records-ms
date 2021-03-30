@@ -1,62 +1,62 @@
 .btnContinuer {
-    -fx-background-color: #ffc220;
+    -fx-background-color: #756fd4;
 }
 
 .btnContinuer:hover {
-    -fx-background-color: #dfb139;
+    -fx-background-color: #8681dd;
     -fx-cursor: hand;
 }
 
 .topLine {
-    -fx-stroke: #ffc22080;
+    -fx-stroke: #a8a5e380;
 }
 
 .btnRechercher {
     -fx-border-width: 5px;
-    -fx-border-color: #ffc22080;
+    -fx-border-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
 
 .btnRechercher:hover {
-    -fx-background-color: #ffc220;
+    -fx-background-color: #a8a5e3;
     -fx-cursor: hand;
 }
 
 .btnRetourner {
     -fx-border-width: 0 0 5px 0;
-    -fx-border-color: #ffc22080;
+    -fx-border-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
 
 .btnRetourner:hover {
     -fx-cursor: hand;
-    -fx-background-color: #ffc22080;
+    -fx-background-color: #a8a5e380;
 }
 
 .lblPrimary {
     -fx-border-width: 0 0 5px 0;
-    -fx-border-color: #ffc22080;
+    -fx-border-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
 
 .lblPrimary:hover {
     -fx-cursor: hand;
-    -fx-background-color: #ffc220;
+    -fx-background-color: #a8a5e3;
 }
 
 .lblDoc {
     -fx-border-width: 3px;
-    -fx-border-color: #ffc22080;
+    -fx-border-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
 
 .lblDoc:hover {
     -fx-cursor: hand;
-    -fx-background-color: #ffc220;
+    -fx-background-color: #a8a5e3;
 }
 
 
@@ -66,7 +66,7 @@
 
 .viewSingleDocImg, .delSingleDocImg {
     -fx-border-width: 10px;
-    -fx-color: #ffc22080;
+    -fx-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
     -fx-border-color: black;
@@ -77,7 +77,7 @@
 
 .viewSingleDocImg:hover, .delSingleDocImg:hover {
     -fx-cursor: hand;
-    -fx-background-color: #ffc220;
+    -fx-background-color: #a8a5e3;
 }
 
 .singleDocHBox {
@@ -88,7 +88,7 @@
     -fx-padding: 0 0 0 5px;
     -fx-border-insets: 0 0 5px 0;
     -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #ffc22080;
+    -fx-border-color: #a8a5e380;
     -fx-border-style: solid;
     -fx-border-radius: 2px;
     -fx-pref-width: 300;

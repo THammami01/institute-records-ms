@@ -30,7 +30,6 @@ import java.util.*;
 
 // TODO: CUSTOM SHOW ALL (DO NOT USE WINDOWS EXPLORER)
 // TODO: IN SETTINGS: ACTIVATE/DEACTIVATE DELETE, BACKUP, EXPORT ALL DATA, ABOUT ME
-// TODO: Boursier IN ENGLISH
 
 public class Controller implements Initializable {
 	@FXML
@@ -200,7 +199,7 @@ public class Controller implements Initializable {
 	@FXML
 	private ComboBox<String> cbClasse04;
 	@FXML
-	private TextField txtCond04;
+	private ComboBox<String> cbCond04;
 	@FXML
 	private Label lblAjouter04;
 	@FXML
@@ -232,7 +231,7 @@ public class Controller implements Initializable {
 	@FXML
 	private ComboBox<String> cbClasse05;
 	@FXML
-	private TextField txtCond05;
+	private ComboBox<String> cbCond05;
 	@FXML
 	private Label lblAjouterDoc05;
 //	@FXML
@@ -299,6 +298,10 @@ public class Controller implements Initializable {
 	public Pane currPane;
 	public Pane correctCurrPane;
 	public boolean isLastClassesPane = false;
+
+	private String lastLang;
+	private String currCond04;
+	private String currCond05;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -400,13 +403,14 @@ public class Controller implements Initializable {
 			else if (e.getCode() == KeyCode.ESCAPE)
 				return04();
 		});
-		txtCond04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
+		cbClasse04.setOnKeyReleased((e) -> {
+//			if (e.getCode() == KeyCode.ENTER)
+//				addStudent();
+//			else
+			if (e.getCode() == KeyCode.ESCAPE)
 				return04();
 		});
-		cbClasse04.setOnKeyReleased((e) -> {
+		cbCond04.setOnKeyReleased((e) -> {
 //			if (e.getCode() == KeyCode.ENTER)
 //				addStudent();
 //			else
@@ -425,7 +429,7 @@ public class Controller implements Initializable {
 		txtNom05.setOnKeyReleased(modifier05EventHandler);
 		txtPrenom05.setOnKeyReleased(modifier05EventHandler);
 		cbClasse05.setOnKeyReleased(modifier05EventHandler);
-		txtCond05.setOnKeyReleased(modifier05EventHandler);
+		cbCond05.setOnKeyReleased(modifier05EventHandler);
 
 		rbArabic06.setOnKeyReleased((e) -> {
 			if (e.getCode() == KeyCode.ENTER)
@@ -472,7 +476,7 @@ public class Controller implements Initializable {
 
 		setClasses();
 
-		lblEnactusNYear.setText("Enactus ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
+		lblEnactusNYear.setText("ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
 
 		lblBienvenue01.setText(getWelcomeMsg());
 
@@ -486,6 +490,13 @@ public class Controller implements Initializable {
 		ToggleGroup boursier05 = new ToggleGroup();
 		rbBoursierOui05.setToggleGroup(boursier05);
 		rbBoursierNon05.setToggleGroup(boursier05);
+
+		// CONDITIONS
+		ArrayList<String> conditions = getConditions();
+		cbCond04.getItems().clear();
+		cbCond04.getItems().addAll(conditions);
+		cbCond05.getItems().clear();
+		cbCond05.getItems().addAll(conditions);
 
 		ToggleGroup language = new ToggleGroup();
 		rbArabic06.setToggleGroup(language);
@@ -522,7 +533,7 @@ public class Controller implements Initializable {
 		txtNom05.setEditable(false);
 		txtPrenom05.setEditable(false);
 //		cbClasse05.setEditable(false);
-		txtCond05.setEditable(false);
+//		txtCond05.setEditable(false);
 //		lblAjouterDoc05.setDisable(true);
 		initDocs();
 		lblModifier05.setText(Lang.getEquiv("Modifier"));
@@ -661,7 +672,7 @@ public class Controller implements Initializable {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
-		txtCond04.setOnKeyTyped(e -> {
+		cbCond04.setOnAction(e -> {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
@@ -682,7 +693,7 @@ public class Controller implements Initializable {
 		txtNom05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		cbClasse05.setOnAction(e -> lblMsg05.setText(""));
-		txtCond05.setOnKeyTyped(e -> lblMsg05.setText(""));
+		cbCond05.setOnAction(e -> lblMsg05.setText(""));
 		rbBoursierOui05.setOnAction(e -> lblMsg05.setText(""));
 		rbBoursierNon05.setOnAction(e -> lblMsg05.setText(""));
 		rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
@@ -928,7 +939,7 @@ public class Controller implements Initializable {
 
 		switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(staticLang: true) MIGHT BE BETTER
 			case "arabic":
-				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباحة");
+				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباجة");
 				lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
 				lblUniv01.setText("جامعة جندوبة");
 				btnContinuer01.setText("واصل");
@@ -985,7 +996,6 @@ public class Controller implements Initializable {
 				lblBoursier05.setText("متحصّل على منحة:");
 				rbBoursierOui05.setText("نعم");
 				rbBoursierNon05.setText("لا");
-
 				break;
 
 			case "french":
@@ -1102,7 +1112,6 @@ public class Controller implements Initializable {
 				lblSelClasse07.setText("Select Class.");
 				lblRetourner07.setText("Return");
 
-				// TODO: Boursier
 				// PANE 04 & 05 | BOURSIER
 				lblBoursier04.setText("Has Scholarship:");
 				rbBoursierOui04.setText("Yes");
@@ -1114,6 +1123,12 @@ public class Controller implements Initializable {
 				break;
 		}
 
+		// CONDITIONS
+		ArrayList<String> conditions = getConditions();
+		cbCond04.getItems().clear();
+		cbCond04.getItems().addAll(conditions);
+		cbCond05.getItems().clear();
+		cbCond05.getItems().addAll(conditions);
 	}
 
 	public void requestFocus(Node node) {
@@ -1123,12 +1138,12 @@ public class Controller implements Initializable {
 	private void requestFocus(final Node node, final int max) {
 		if (max > 0) {
 			Platform.runLater(
-					() -> {
-						if (!node.isFocused()) {
-							node.requestFocus();
-							requestFocus(node, max - 1);
-						}
+				() -> {
+					if (!node.isFocused()) {
+						node.requestFocus();
+						requestFocus(node, max - 1);
 					}
+				}
 			);
 		}
 	}
@@ -1197,10 +1212,14 @@ public class Controller implements Initializable {
 				txtNom05.setText(e1.getNom());
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
-				txtCond05.setText(e1.getCond());
+				cbCond05.setValue(e1.getCond());
 				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
 				disableInputs05(true);
 				setDocs();
+				System.out.println("---");
+				currCond05 = cbCond05.getValue();
+				System.out.println(currCond05);
+				setEquivCond();
 			}
 		} catch (Exception e2) {
 			lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
@@ -1213,7 +1232,7 @@ public class Controller implements Initializable {
 
 	private void addStudent() {
 		if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
-				txtPrenom04.getText().isEmpty() || txtCond04.getText().isEmpty()) {
+				txtPrenom04.getText().isEmpty()) {
 			lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
 			return;
 		}
@@ -1235,20 +1254,25 @@ public class Controller implements Initializable {
 			return;
 		}
 
-		if (cbClasse04.getValue() == null) {
-			lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
-			return;
-		}
-
 		if (getSelectedBoursier04() == Boursier.NONE) {
 			lblMsg04.setText(Lang.getEquiv("Sélectionner boursier ou non."));
 			return;
 		}
 
-		if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
-			lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+		if (cbClasse04.getValue() == null) {
+			lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
 			return;
 		}
+
+		if (cbCond04.getValue() == null) {
+			lblMsg04.setText(Lang.getEquiv("Aucune condition selectionnée."));
+			return;
+		}
+
+//		if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
+//			lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+//			return;
+//		}
 
 		try {
 			Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()),
@@ -1256,7 +1280,7 @@ public class Controller implements Initializable {
 					txtNom04.getText(),
 					txtPrenom04.getText(),
 					cbClasse04.getValue().toUpperCase(),
-					txtCond04.getText(),
+					getCondInFrench(cbCond04.getValue()),
 					getSelectedBoursier04() == Boursier.OUI
 			);
 			if (DB.addEtudiant(e1)) {
@@ -1292,8 +1316,8 @@ public class Controller implements Initializable {
 			txtArchive05.setEditable(true);
 			txtNom05.setEditable(true);
 			txtPrenom05.setEditable(true);
-//				cbClasse05.setEditable(true);
-			txtCond05.setEditable(true);
+//			cbClasse05.setEditable(true);
+//			txtCond05.setEditable(true);
 			lblModifier05.setText(Lang.getEquiv("Enregistrer"));
 			lblRetourner05.setText(Lang.getEquiv("Annuler"));
 			lblMsg05.setText("");
@@ -1302,7 +1326,7 @@ public class Controller implements Initializable {
 //				lblAjouterDoc05.setDisable(false);
 		} else {
 			if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
-					txtPrenom05.getText().isEmpty() || txtCond05.getText().isEmpty()) {
+					txtPrenom05.getText().isEmpty()) {
 				lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
 				return;
 			}
@@ -1312,10 +1336,16 @@ public class Controller implements Initializable {
 				return;
 			}
 
-			if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
-				lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+			if (cbCond05.getValue() == null) {
+				lblMsg05.setText(Lang.getEquiv("Aucune condition selectionnée."));
 				return;
 			}
+
+
+//			if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
+//				lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
+//				return;
+//			}
 
 			try {
 				Etudiant e1 = new Etudiant(
@@ -1324,7 +1354,7 @@ public class Controller implements Initializable {
 						txtNom05.getText(),
 						txtPrenom05.getText(),
 						cbClasse05.getValue().toUpperCase(),
-						txtCond05.getText(),
+						getCondInFrench(cbCond05.getValue()),
 						getSelectedBoursier05() == Boursier.OUI
 				);
 
@@ -1340,9 +1370,9 @@ public class Controller implements Initializable {
 			txtArchive05.setEditable(false);
 			txtNom05.setEditable(false);
 			txtPrenom05.setEditable(false);
-//				cbClasse05.setEditable(false);
-			txtCond05.setEditable(false);
-//				lblAjouterDoc05.setDisable(true);
+//			cbClasse05.setEditable(false);
+//			txtCond05.setEditable(false);
+//			lblAjouterDoc05.setDisable(true);
 			disableInputs05(true);
 			lblModifier05.setText(Lang.getEquiv("Modifier"));
 			lblRetourner05.setText(Lang.getEquiv("Retourner"));
@@ -1378,13 +1408,17 @@ public class Controller implements Initializable {
 				txtNom05.setText(e1.getNom());
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
-				txtCond05.setText(e1.getCond());
+				cbCond05.setValue(e1.getCond());
 				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
 			}
 			lblModifier05.setText(Lang.getEquiv("Modifier"));
 			lblRetourner05.setText(Lang.getEquiv("Retourner"));
 			setDocs();
 			disableInputs05(true);
+			System.out.println("---");
+			currCond05 = cbCond05.getValue();
+			System.out.println(currCond05);
+			setEquivCond();
 		}
 	}
 
@@ -1401,7 +1435,12 @@ public class Controller implements Initializable {
 		if (DB.saveSetting(new Setting("language", currSelectedLang))) {
 			lang = currSelectedLang;
 			if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
+			currCond04 = cbCond04.getValue();
+			currCond05 = cbCond05.getValue();
 			setUpLang();
+			if (lastPane == paneResultat || lastPane == paneAjouter) {
+				setEquivCond();
+			}
 			lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
 		} else {
 			lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
@@ -1410,8 +1449,7 @@ public class Controller implements Initializable {
 
 	public void return06() {
 		show(lastPane);
-		if (correctCurrPane == paneResultat)
-			setDocs();
+		if (correctCurrPane == paneResultat) setDocs();
 	}
 
 	public void deleteClass() {
@@ -1480,6 +1518,112 @@ public class Controller implements Initializable {
 			rbBoursierOui05.setDisable(false);
 			rbBoursierNon05.setDisable(false);
 		}
+	}
+
+	public ArrayList<String> getConditions() {
+		ArrayList<String> conditions = new ArrayList<>();
+		// TODO: SET CONDITIONS
+		conditions.add(Lang.getEquiv("Condition 1"));
+		conditions.add(Lang.getEquiv("Condition 2"));
+		conditions.add(Lang.getEquiv("Condition 3"));
+		conditions.add(Lang.getEquiv("Condition 4"));
+		return conditions;
+	}
+
+	public String getCondInFrench(String s) {
+		// TODO: SET CONDITIONS
+		switch (s) {
+			case "الحالة 1":
+			case "Condition En 1":
+				return "Condition 1";
+			case "الحالة 2":
+			case "Condition En 2":
+				return "Condition 2";
+			case "الحالة 3":
+			case "Condition En 3":
+				return "Condition 3";
+			case "الحالة 4":
+			case "Condition En 4":
+				return "Condition 4";
+			default:
+				return s;
+		}
+	}
+
+	public void setEquivCond() {
+		// TODO - SET CONDITIONS
+		// TODO - OPTIMIZE IT
+		setCB(currCond04, cbCond04);
+		setCB(currCond05, cbCond05);
+	}
+
+	private void setCB(String currCond05, ComboBox<String> cbCond05) {
+		if(currCond05 == null) cbCond05.setValue(null);
+		else switch (currCond05) {
+				case "Condition 1":
+				case "الحالة 1":
+				case "Condition En 1":
+					switch (lang) {
+						case "french":
+							cbCond05.setValue("Condition 1");
+							break;
+						case "arabic":
+							cbCond05.setValue("الحالة 1");
+							break;
+						case "english":
+							cbCond05.setValue("Condition En 1");
+							break;
+					}
+					break;
+
+				case "Condition 2":
+				case "الحالة 2":
+				case "Condition En 2":
+					switch (lang) {
+						case "french":
+							cbCond05.setValue("Condition 2");
+							break;
+						case "arabic":
+							cbCond05.setValue("الحالة 2");
+							break;
+						case "english":
+							cbCond05.setValue("Condition En 2");
+							break;
+					}
+					break;
+
+				case "Condition 3":
+				case "الحالة 3":
+				case "Condition En 3":
+					switch (lang) {
+						case "french":
+							cbCond05.setValue("Condition 3");
+							break;
+						case "arabic":
+							cbCond05.setValue("الحالة 3");
+							break;
+						case "english":
+							cbCond05.setValue("Condition En 3");
+							break;
+					}
+					break;
+
+				case "Condition 4":
+				case "الحالة 4":
+				case "Condition En 4":
+					switch (lang) {
+						case "french":
+							cbCond05.setValue("Condition 4");
+							break;
+						case "arabic":
+							cbCond05.setValue("الحالة 4");
+							break;
+						case "english":
+							cbCond05.setValue("Condition En 4");
+							break;
+					}
+					break;
+			}
 	}
 
 	private class DocumentHBox extends HBox {
@@ -1628,10 +1772,14 @@ public class Controller implements Initializable {
 			txtNom05.setText(etudiant.getNom());
 			txtPrenom05.setText(etudiant.getPrenom());
 			cbClasse05.setValue(etudiant.getClasse());
-			txtCond05.setText(etudiant.getCond());
+			cbCond05.setValue(etudiant.getCond());
 			setSelectedBoursier05(etudiant.isBoursier() ? Boursier.OUI : Boursier.NON);
 			disableInputs05(true);
 			setDocs();
+			System.out.println("---");
+			currCond05 = cbCond05.getValue();
+			System.out.println(currCond05);
+			setEquivCond();
 		}
 	}
 }
