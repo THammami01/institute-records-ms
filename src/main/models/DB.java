@@ -1,5 +1,6 @@
 package main.models;
 
+import main.Controller;
 import main.Main;
 import main.useful.Logger;
 
@@ -127,7 +128,7 @@ public class DB {
 						rs.getString("prenom"),
 						rs.getString("classe"),
 						rs.getString("cond"),
-						rs.getInt("boursier") == 1
+						getTrancheAsEnum(rs.getInt("boursier"))
 				);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,7 +150,7 @@ public class DB {
 			pst.setString(4, e1.getPrenom());
 			pst.setString(5, e1.getClasse());
 			pst.setString(6, e1.getCond());
-			pst.setInt(7, e1.isBoursier() ? 1 : 0);
+			pst.setInt(7, getTrancheAsInt(e1.isTranche()));
 			if (pst.executeUpdate() > 0)
 				return true;
 		} catch (Exception e) {
@@ -168,7 +169,7 @@ public class DB {
 			pst.setString(3, e1.getPrenom());
 			pst.setString(4, e1.getClasse());
 			pst.setString(5, e1.getCond());
-			pst.setInt(6, e1.isBoursier() ? 1 : 0);
+			pst.setInt(6, getTrancheAsInt(e1.isTranche()));
 			pst.setInt(7, e1.getCin());
 			if (pst.executeUpdate() > 0)
 				return true;
@@ -325,7 +326,7 @@ public class DB {
 
 	public static ArrayList<Etudiant> getStudentsByClass(String classe) {
 		ArrayList<Etudiant> etudiants = new ArrayList<>();
-		query = "SELECT * FROM Etudiant WHERE classe = ? ORDER BY nom, prenom;";
+		query = "SELECT * FROM Etudiant WHERE classe = ? ORDER BY prenom, nom, cin;";
 		try {
 			pst = connection.prepareStatement(query);
 			pst.setString(1, classe);
@@ -339,7 +340,7 @@ public class DB {
 				etudiant.setPrenom(rs.getString("prenom"));
 				etudiant.setClasse(rs.getString("classe"));
 				etudiant.setCond(rs.getString("cond"));
-				etudiant.setBoursier(rs.getInt("boursier") == 1);
+				etudiant.setTranche(getTrancheAsEnum(rs.getInt("boursier")));
 				etudiants.add(etudiant);
 			}
 			return etudiants;
@@ -399,6 +400,32 @@ public class DB {
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getCause();
+		}
+	}
+
+	public static int getTrancheAsInt(Controller.Tranche2 tranche) {
+		switch (tranche) {
+			case BOURSE:
+				return 0;
+			case PRET:
+				return 1;
+			case PAYEE:
+				return 2;
+			default:
+				return 3;
+		}
+	}
+
+	public static Controller.Tranche2 getTrancheAsEnum(int tranche) {
+		switch (tranche) {
+			case 0:
+				return Controller.Tranche2.BOURSE;
+			case 1:
+				return Controller.Tranche2.PRET;
+			case 2:
+				return Controller.Tranche2.PAYEE;
+			default:
+				return Controller.Tranche2.NON_PAYEE;
 		}
 	}
 }

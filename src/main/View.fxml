@@ -212,7 +212,7 @@
                         </VBox>
                         <VBox fx:id="vboxArchive0511" spacing="5.0">
                            <children>
-                              <Label fx:id="lblBoursier04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Boursier:">
+                              <Label fx:id="lblTranche04" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="2ème Tranche Payée:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -222,8 +222,22 @@
                               </Label>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="25.0" spacing="10.0">
                                  <children>
-                                    <RadioButton fx:id="rbBoursierOui04" mnemonicParsing="false" selected="true" text="Oui" />
-                                    <RadioButton fx:id="rbBoursierNon04" mnemonicParsing="false" text="Non" />
+                                    <RadioButton fx:id="rbTrancheBourse04" mnemonicParsing="false" selected="true" text="Bourse">
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor></RadioButton>
+                                    <RadioButton fx:id="rbTranchePret04" mnemonicParsing="false" text="Kardh">
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor></RadioButton>
+                                    <RadioButton fx:id="rbTranchePayee04" layoutX="85.0" layoutY="14.0" mnemonicParsing="false" text="Oui">
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor></RadioButton>
+                                    <RadioButton fx:id="rbTrancheNonPayee04" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Non">
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor></RadioButton>
                                  </children>
                               </HBox>
                            </children>
@@ -271,7 +285,10 @@
                                     <Insets left="4.0" right="4.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="cbClasse04" prefWidth="150.0" />
+                              <ComboBox fx:id="cbClasse04" prefWidth="150.0">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor></ComboBox>
                            </children>
                         </VBox>
                         <VBox fx:id="vboxCond04" layoutX="369.0" layoutY="10.0" spacing="5.0">
@@ -284,7 +301,10 @@
                                     <Insets left="4.0" right="4.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="cbCond04" prefWidth="150.0" />
+                              <ComboBox fx:id="cbCond04" prefWidth="150.0">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor></ComboBox>
                            </children>
                         </VBox>
                      </children>
@@ -292,6 +312,14 @@
                   <HBox fx:id="thirdRow04" alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="687.0" spacing="10.0">
                      <children>
                         <Label fx:id="lblAjouter04" styleClass="lblPrimary" text="Ajouter">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblInitialiser04" layoutX="10.0" layoutY="10.0" styleClass="lblPrimary" text="Initialiser">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -397,7 +425,7 @@
                         </VBox>
                         <VBox fx:id="vboxBoursier05" spacing="5.0">
                            <children>
-                              <Label fx:id="lblBoursier05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="Boursier:">
+                              <Label fx:id="lblTranche05" alignment="TOP_LEFT" contentDisplay="BOTTOM" graphicTextGap="10.0" maxWidth="-Infinity" prefWidth="149.0" text="2ème Tranche Payée:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -407,8 +435,10 @@
                               </Label>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="25.0" spacing="10.0">
                                  <children>
-                                    <RadioButton fx:id="rbBoursierOui05" mnemonicParsing="false" selected="true" text="Oui" />
-                                    <RadioButton fx:id="rbBoursierNon05" mnemonicParsing="false" text="Non" />
+                                    <RadioButton fx:id="rbTrancheBourse05" mnemonicParsing="false" selected="true" text="Bourse" />
+                                    <RadioButton fx:id="rbTranchePret05" mnemonicParsing="false" text="Kardh" />
+                                    <RadioButton fx:id="rbTranchePayee05" layoutX="85.0" layoutY="14.0" mnemonicParsing="false" text="Oui" />
+                                    <RadioButton fx:id="rbTrancheNonPayee05" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Non" />
                                  </children>
                               </HBox>
                            </children>

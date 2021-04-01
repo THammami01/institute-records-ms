@@ -10,20 +10,20 @@ public class Etudiant {
 	private String prenom;
 	private String classe;
 	private String cond;
-	private boolean boursier;
+	private Controller.Tranche2 tranche;
 
 	public Etudiant() {
 
 	}
 
-	public Etudiant(int cin, String archive, String nom, String prenom, String classe, String cond, boolean boursier) {
+	public Etudiant(int cin, String archive, String nom, String prenom, String classe, String cond, Controller.Tranche2 tranche) {
 		this.cin = cin;
 		this.archive = archive;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.classe = classe;
 		this.cond = cond;
-		this.boursier = boursier;
+		this.tranche = tranche;
 	}
 
 	public int getCin() {
@@ -74,12 +74,12 @@ public class Etudiant {
 		this.cond = cond;
 	}
 
-	public boolean isBoursier() {
-		return boursier;
+	public Controller.Tranche2 isTranche() {
+		return tranche;
 	}
 
-	public void setBoursier(boolean boursier) {
-		this.boursier = boursier;
+	public void setTranche(Controller.Tranche2 tranche) {
+		this.tranche = tranche;
 	}
 
 	@Override
@@ -88,30 +88,30 @@ public class Etudiant {
 			case "arabic":
 				return String.format("رقم بطاقة التعريف: %08d", cin) +
 						"\nالأرشيف: " + archive +
-						"\nاللقب: " + nom +
 						"\nالإسم: " + prenom +
+						"\nاللقب: " + nom +
 						"\nالقسم: " + classe +
 						"\nالحالة: " + Lang.getEquiv(cond) +
-						"\nمتحصّل على منحة: " + (boursier ? "نعم" : "لا") +
-						"\nعدد الوثائق: " + DB.getNbDocs(cin);
+						"\nعدد الوثائق: " + DB.getNbDocs(cin) +
+						"\nالقسط الثّاني: " + getTrancheTextIn("arabic");
 			case "english":
 				return String.format("ID Card Number: %08d", cin) +
 						"\nArchive: " + archive +
-						"\nLast Name: " + nom +
 						"\nFirst Name: " + prenom +
+						"\nLast Name: " + nom +
 						"\nClass: " + classe +
 						"\nCondition: " + Lang.getEquiv(cond) +
-						"\nHas Scholarship: " + (boursier ? "Yes" : "No") +
-						"\nNumber of documents: " + DB.getNbDocs(cin);
+						"\nNumber of Documents: " + DB.getNbDocs(cin) +
+						"\n2nd Payment: " + getTrancheTextIn("english");
 			default:
 				return String.format("CIN: %08d", cin) +
 						"\nArchive: " + archive +
-						"\nNom: " + nom +
 						"\nPrénom: " + prenom +
+						"\nNom: " + nom +
 						"\nClasse: " + classe +
 						"\nCondition: " + Lang.getEquiv(cond) +
-						"\nBoursier: " + (boursier ? "Oui" : "Non") +
-						"\nNombre de documents: " + DB.getNbDocs(cin);
+						"\nNombre de documents: " + DB.getNbDocs(cin) +
+						"\n2ème Tranche: " + getTrancheTextIn("french");
 		}
 	}
 
@@ -126,4 +126,45 @@ public class Etudiant {
 //				", cond='" + cond + '\'' +
 //				'}';
 //	}
+
+	public String getTrancheTextIn(String language) {
+		switch (tranche) {
+			case BOURSE:
+				switch (language) {
+					case "arabic":
+						return "منحة";
+					case "english":
+						return "Scholarship";
+					default:
+						return "Bourse";
+				}
+			case PRET:
+				switch (language) {
+					case "arabic":
+						return "قرض";
+					case "english":
+						return "Loan";
+					default:
+						return "Prêt";
+				}
+			case PAYEE:
+				switch (language) {
+					case "arabic":
+						return "مدفوع";
+					case "english":
+						return "Paid";
+					default:
+						return "Payée";
+				}
+		}
+
+		switch (language) {
+			case "arabic":
+				return "غير مدفوع";
+			case "english":
+				return "Not Paid";
+			default:
+				return "Non payée";
+		}
+	}
 }

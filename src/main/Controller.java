@@ -87,22 +87,30 @@ public class Controller implements Initializable {
 	@FXML
 	private Label lblLangue06;
 
-	// PANE 04 & 05 | BOURSIER
+	// PANE 04 & 05 | TRANCHE 2
 	@FXML
-	private Label lblBoursier04;
+	private Label lblTranche04;
 	@FXML
-	private RadioButton rbBoursierOui04;
+	private RadioButton rbTrancheBourse04;
 	@FXML
-	private RadioButton rbBoursierNon04;
+	private RadioButton rbTranchePret04;
 	@FXML
-	private Label lblBoursier05;
+	private RadioButton rbTranchePayee04;
 	@FXML
-	private RadioButton rbBoursierOui05;
+	private RadioButton rbTrancheNonPayee04;
 	@FXML
-	private RadioButton rbBoursierNon05;
+	private Label lblTranche05;
+	@FXML
+	private RadioButton rbTrancheBourse05;
+	@FXML
+	private RadioButton rbTranchePret05;
+	@FXML
+	private RadioButton rbTranchePayee05;
+	@FXML
+	private RadioButton rbTrancheNonPayee05;
 
-	private enum Boursier {
-		OUI, NON, NONE
+	public enum Tranche2 {
+		BOURSE, PRET, PAYEE, NON_PAYEE, NONE
 	}
 
 	// PANE 07
@@ -202,6 +210,8 @@ public class Controller implements Initializable {
 	private ComboBox<String> cbCond04;
 	@FXML
 	private Label lblAjouter04;
+	@FXML
+	private Label lblInitialiser04;
 	@FXML
 	private Label lblRetourner04;
 	@FXML
@@ -326,6 +336,8 @@ public class Controller implements Initializable {
 		lblValider03.setOnMouseClicked(e -> search());
 
 		lblAjouter04.setOnMouseClicked(e -> addStudent());
+
+		lblInitialiser04.setOnMouseClicked(e -> initStudent());
 
 		lblAjouterDoc05.setOnMouseClicked(e -> {
 			lblMsg05.setText("");
@@ -466,6 +478,21 @@ public class Controller implements Initializable {
 		});
 	}
 
+	private void initStudent() {
+		txtCIN04.setText("");
+		txtArchive04.setText("");
+		txtPrenom04.setText("");
+		txtNom04.setText("");
+		rbTrancheBourse04.setSelected(false);
+		rbTranchePret04.setSelected(false);
+		rbTranchePayee04.setSelected(false);
+		rbTrancheNonPayee04.setSelected(false);
+		cbClasse04.setValue(null);
+		cbCond04.setValue(null);
+		lblMsg04.setText("");
+		lblMsgAC04.setText("");
+	}
+
 	private void initThings() {
 		lastPane = paneWelcome;
 		currPane = paneWelcome;
@@ -480,16 +507,27 @@ public class Controller implements Initializable {
 
 		lblBienvenue01.setText(getWelcomeMsg());
 
-		ToggleGroup boursier04 = new ToggleGroup();
-		rbBoursierOui04.setToggleGroup(boursier04);
-		rbBoursierNon04.setToggleGroup(boursier04);
+		ToggleGroup tgTranche04 = new ToggleGroup();
+		rbTrancheBourse04.setToggleGroup(tgTranche04);
+		rbTranchePret04.setToggleGroup(tgTranche04);
+		rbTranchePayee04.setToggleGroup(tgTranche04);
+		rbTrancheNonPayee04.setToggleGroup(tgTranche04);
 
-		rbBoursierOui04.setSelected(false);
-		rbBoursierNon04.setSelected(false);
+		rbTrancheBourse04.setSelected(false);
+		rbTranchePret04.setSelected(false);
+		rbTranchePayee04.setSelected(false);
+		rbTrancheNonPayee04.setSelected(false);
 
-		ToggleGroup boursier05 = new ToggleGroup();
-		rbBoursierOui05.setToggleGroup(boursier05);
-		rbBoursierNon05.setToggleGroup(boursier05);
+		ToggleGroup tgTranche05 = new ToggleGroup();
+		rbTrancheBourse05.setToggleGroup(tgTranche05);
+		rbTranchePret05.setToggleGroup(tgTranche05);
+		rbTranchePayee05.setToggleGroup(tgTranche05);
+		rbTrancheNonPayee05.setToggleGroup(tgTranche05);
+
+		rbTrancheBourse05.setSelected(false);
+		rbTranchePret05.setSelected(false);
+		rbTranchePayee05.setSelected(false);
+		rbTrancheNonPayee05.setSelected(false);
 
 		// CONDITIONS
 		ArrayList<String> conditions = getConditions();
@@ -507,8 +545,8 @@ public class Controller implements Initializable {
 	private String getWelcomeMsg() {
 		int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		if (h > 3 && h < 12) return Lang.getEquiv("Bonjour !");
-		else if (h >= 12 && h < 18) return Lang.getEquiv("Bon après-midi !");
-		else return Lang.getEquiv("Bonsoir !");
+		if (h >= 12 && h < 18) return Lang.getEquiv("Bon après-midi !");
+		return Lang.getEquiv("Bonsoir !");
 	}
 
 	public void show(Pane pane) {
@@ -676,11 +714,19 @@ public class Controller implements Initializable {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
-		rbBoursierOui04.setOnAction(e -> {
+		rbTrancheBourse04.setOnAction(e -> {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
-		rbBoursierNon04.setOnAction(e -> {
+		rbTranchePret04.setOnAction(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		rbTranchePayee04.setOnAction(e -> {
+			lblMsg04.setText("");
+			lblMsgAC04.setText("");
+		});
+		rbTrancheNonPayee04.setOnAction(e -> {
 			lblMsg04.setText("");
 			lblMsgAC04.setText("");
 		});
@@ -694,8 +740,10 @@ public class Controller implements Initializable {
 		txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
 		cbClasse05.setOnAction(e -> lblMsg05.setText(""));
 		cbCond05.setOnAction(e -> lblMsg05.setText(""));
-		rbBoursierOui05.setOnAction(e -> lblMsg05.setText(""));
-		rbBoursierNon05.setOnAction(e -> lblMsg05.setText(""));
+		rbTrancheBourse05.setOnAction(e -> lblMsg05.setText(""));
+		rbTranchePret05.setOnAction(e -> lblMsg05.setText(""));
+		rbTranchePayee05.setOnAction(e -> lblMsg05.setText(""));
+		rbTrancheNonPayee05.setOnAction(e -> lblMsg05.setText(""));
 		rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
 		rbFrench06.setOnMouseClicked(e -> lblMsg06.setText(""));
 		rbEnglish06.setOnMouseClicked(e -> lblMsg06.setText(""));
@@ -780,6 +828,7 @@ public class Controller implements Initializable {
 //			vboxNom05.toFront();
 
 			lblRetourner04.toFront();
+			lblInitialiser04.toFront();
 			lblAjouter04.toFront();
 
 			lblRetourner05.toFront();
@@ -877,6 +926,7 @@ public class Controller implements Initializable {
 //			vboxClasse05.toFront();
 //			vboxCond05.toFront();
 
+			lblInitialiser04.toFront();
 			lblRetourner04.toFront();
 			lblMsg04.toFront();
 
@@ -959,6 +1009,8 @@ public class Controller implements Initializable {
 				lblClasse04.setText("القسم:");
 				lblCond04.setText("الحالة:");
 				lblAjouter04.setText("إضافة");
+				// TODO: INITIALIZE IN ARABIC
+				lblInitialiser04.setText("إعادة");
 				lblRetourner04.setText("رجوع");
 
 				// PANE 04: ADD CLASS
@@ -989,13 +1041,17 @@ public class Controller implements Initializable {
 				lblSupprimer07.setText("حذف");
 				lblRetourner07.setText("رجوع");
 
-				// PANE 04 & 05 | BOURSIER
-				lblBoursier04.setText("متحصّل على منحة:");
-				rbBoursierOui04.setText("نعم");
-				rbBoursierNon04.setText("لا");
-				lblBoursier05.setText("متحصّل على منحة:");
-				rbBoursierOui05.setText("نعم");
-				rbBoursierNon05.setText("لا");
+				// TODO: PANE 04 & 05 | TRANCHE
+				lblTranche04.setText("القسط الثّاني:");
+				rbTrancheBourse04.setText("منحة");
+				rbTranchePret04.setText("قرض");
+				rbTranchePayee04.setText("مدفوع");
+				rbTrancheNonPayee04.setText("غير مدفوع");
+				lblTranche05.setText("القسط الثّاني:");
+				rbTrancheBourse05.setText("منحة");
+				rbTranchePret05.setText("قرض");
+				rbTranchePayee05.setText("مدفوع");
+				rbTrancheNonPayee05.setText("غير مدفوع");
 				break;
 
 			case "french":
@@ -1019,6 +1075,7 @@ public class Controller implements Initializable {
 				lblClasse04.setText("Classe:");
 				lblCond04.setText("Condition:");
 				lblAjouter04.setText("Ajouter");
+				lblInitialiser04.setText("Réinitialiser");
 				lblRetourner04.setText("Retourner");
 
 				// PANE 04: ADD CLASS
@@ -1050,14 +1107,17 @@ public class Controller implements Initializable {
 				lblSupprimer07.setText("Supprimer");
 				lblRetourner07.setText("Retourner");
 
-				// PANE 04 & 05 | BOURSIER
-				lblBoursier04.setText("Boursier:");
-				rbBoursierOui04.setText("Oui");
-				rbBoursierNon04.setText("Non");
-				lblBoursier05.setText("Boursier:");
-				rbBoursierOui05.setText("Oui");
-				rbBoursierNon05.setText("Non");
-
+				// TODO: PANE 04 & 05 | TRANCHE
+				lblTranche04.setText("2ème Tranche:");
+				rbTrancheBourse04.setText("Bourse");
+				rbTranchePret04.setText("Prêt");
+				rbTranchePayee04.setText("Payée");
+				rbTrancheNonPayee04.setText("Non payée");
+				lblTranche05.setText("2ème Tranche:");
+				rbTrancheBourse05.setText("Bourse");
+				rbTranchePret05.setText("Prêt");
+				rbTranchePayee05.setText("Payée");
+				rbTrancheNonPayee05.setText("Non payée");
 				break;
 
 			case "english":
@@ -1081,6 +1141,7 @@ public class Controller implements Initializable {
 				lblClasse04.setText("Class:");
 				lblCond04.setText("Condition:");
 				lblAjouter04.setText("Add");
+				lblInitialiser04.setText("Reset");
 				lblRetourner04.setText("Return");
 
 				// PANE 04: ADD CLASS
@@ -1112,14 +1173,17 @@ public class Controller implements Initializable {
 				lblSelClasse07.setText("Select Class.");
 				lblRetourner07.setText("Return");
 
-				// PANE 04 & 05 | BOURSIER
-				lblBoursier04.setText("Has Scholarship:");
-				rbBoursierOui04.setText("Yes");
-				rbBoursierNon04.setText("No");
-				lblBoursier05.setText("Has Scholarship:");
-				rbBoursierOui05.setText("Yes");
-				rbBoursierNon05.setText("No");
-
+				// TODO: PANE 04 & 05 | TRANCHE
+				lblTranche04.setText("2nd Payment:");
+				rbTrancheBourse04.setText("Scholarship");
+				rbTranchePret04.setText("Loan");
+				rbTranchePayee04.setText("Paid");
+				rbTrancheNonPayee04.setText("Not Paid");
+				lblTranche05.setText("2nd Payment:");
+				rbTrancheBourse05.setText("Scholarship");
+				rbTranchePret05.setText("Loan");
+				rbTranchePayee05.setText("Paid");
+				rbTrancheNonPayee05.setText("Not Paid");
 				break;
 		}
 
@@ -1213,12 +1277,10 @@ public class Controller implements Initializable {
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
 				cbCond05.setValue(e1.getCond());
-				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
+				setSelectedBoursier05(e1.isTranche());
 				disableInputs05(true);
 				setDocs();
-				System.out.println("---");
 				currCond05 = cbCond05.getValue();
-				System.out.println(currCond05);
 				setEquivCond();
 			}
 		} catch (Exception e2) {
@@ -1231,6 +1293,8 @@ public class Controller implements Initializable {
 	}
 
 	private void addStudent() {
+		lblMsgAC04.setText("");
+
 		if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
 				txtPrenom04.getText().isEmpty()) {
 			lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
@@ -1254,7 +1318,7 @@ public class Controller implements Initializable {
 			return;
 		}
 
-		if (getSelectedBoursier04() == Boursier.NONE) {
+		if (getSelectedBoursier04() == Tranche2.NONE) {
 			lblMsg04.setText(Lang.getEquiv("Sélectionner boursier ou non."));
 			return;
 		}
@@ -1281,7 +1345,7 @@ public class Controller implements Initializable {
 					txtPrenom04.getText(),
 					cbClasse04.getValue().toUpperCase(),
 					getCondInFrench(cbCond04.getValue()),
-					getSelectedBoursier04() == Boursier.OUI
+					getSelectedBoursier04()
 			);
 			if (DB.addEtudiant(e1)) {
 				lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
@@ -1294,6 +1358,8 @@ public class Controller implements Initializable {
 	}
 
 	private void addClass() {
+		lblMsg04.setText("");
+
 		if (txtNomClasse04.getText().isEmpty()) {
 			lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
 			return;
@@ -1323,7 +1389,7 @@ public class Controller implements Initializable {
 			lblMsg05.setText("");
 			disableInputs05(false);
 
-//				lblAjouterDoc05.setDisable(false);
+//			lblAjouterDoc05.setDisable(false);
 		} else {
 			if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
 					txtPrenom05.getText().isEmpty()) {
@@ -1341,7 +1407,6 @@ public class Controller implements Initializable {
 				return;
 			}
 
-
 //			if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
 //				lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 //				return;
@@ -1355,7 +1420,7 @@ public class Controller implements Initializable {
 						txtPrenom05.getText(),
 						cbClasse05.getValue().toUpperCase(),
 						getCondInFrench(cbCond05.getValue()),
-						getSelectedBoursier05() == Boursier.OUI
+						getSelectedBoursier05()
 				);
 
 				if (DB.modifyEtudiant(e1)) {
@@ -1387,8 +1452,14 @@ public class Controller implements Initializable {
 
 		try {
 			if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-				show(paneRechercher);
-				lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
+				if (isLastClassesPane) {
+					show(paneClasses);
+					lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
+				} else {
+					show(paneRechercher);
+					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
+				};
+
 			} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
 		} catch (Exception e1) {
 			lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
@@ -1409,15 +1480,13 @@ public class Controller implements Initializable {
 				txtPrenom05.setText(e1.getPrenom());
 				cbClasse05.setValue(e1.getClasse());
 				cbCond05.setValue(e1.getCond());
-				setSelectedBoursier05(e1.isBoursier() ? Boursier.OUI : Boursier.NON);
+				setSelectedBoursier05(e1.isTranche());
 			}
 			lblModifier05.setText(Lang.getEquiv("Modifier"));
 			lblRetourner05.setText(Lang.getEquiv("Retourner"));
 			setDocs();
 			disableInputs05(true);
-			System.out.println("---");
 			currCond05 = cbCond05.getValue();
-			System.out.println(currCond05);
 			setEquivCond();
 		}
 	}
@@ -1479,26 +1548,39 @@ public class Controller implements Initializable {
 		show(paneRechercher);
 	}
 
-	public Boursier getSelectedBoursier04() {
-		if (rbBoursierNon04.isSelected()) return Boursier.NON;
-		if (rbBoursierOui04.isSelected()) return Boursier.OUI;
-		return Boursier.NONE;
+	public Tranche2 getSelectedBoursier04() {
+		if (rbTranchePret04.isSelected()) return Tranche2.PRET;
+		if (rbTrancheBourse04.isSelected()) return Tranche2.BOURSE;
+		if (rbTranchePayee04.isSelected()) return Tranche2.PAYEE;
+		if (rbTrancheNonPayee04.isSelected()) return Tranche2.NON_PAYEE;
+		return Tranche2.NONE;
 	}
 
-	public Boursier getSelectedBoursier05() {
-		if (rbBoursierOui05.isSelected()) return Boursier.OUI;
-		return Boursier.NON;
+	public Tranche2 getSelectedBoursier05() {
+		if (rbTranchePret05.isSelected()) return Tranche2.PRET;
+		if (rbTrancheBourse05.isSelected()) return Tranche2.BOURSE;
+		if (rbTranchePayee05.isSelected()) return Tranche2.PAYEE;
+		if (rbTrancheNonPayee05.isSelected()) return Tranche2.NON_PAYEE;
+		return Tranche2.NONE;
 	}
 
-	public void setSelectedBoursier05(Boursier b) {
-		rbBoursierNon05.setSelected(false);
-		rbBoursierOui05.setSelected(false);
+	public void setSelectedBoursier05(Tranche2 b) {
+		rbTranchePret05.setSelected(false);
+		rbTrancheBourse05.setSelected(false);
+		rbTranchePayee05.setSelected(false);
+		rbTrancheNonPayee05.setSelected(false);
 		switch (b) {
-			case OUI:
-				rbBoursierOui05.setSelected(true);
+			case BOURSE:
+				rbTrancheBourse05.setSelected(true);
 				break;
-			case NON:
-				rbBoursierNon05.setSelected(true);
+			case PRET:
+				rbTranchePret05.setSelected(true);
+				break;
+			case PAYEE:
+				rbTranchePayee05.setSelected(true);
+				break;
+			case NON_PAYEE:
+				rbTrancheNonPayee05.setSelected(true);
 				break;
 		}
 	}
@@ -1506,120 +1588,133 @@ public class Controller implements Initializable {
 	public void disableInputs05(boolean b) {
 		if (b) {
 			txtCIN05.setDisable(false);
-			if (getSelectedBoursier05() == Boursier.OUI) {
-				rbBoursierOui05.setDisable(false);
-				rbBoursierNon05.setDisable(true);
-			} else {
-				rbBoursierOui05.setDisable(true);
-				rbBoursierNon05.setDisable(false);
+
+			rbTrancheBourse05.setDisable(true);
+			rbTranchePret05.setDisable(true);
+			rbTranchePayee05.setDisable(true);
+			rbTrancheNonPayee05.setDisable(true);
+
+			switch (getSelectedBoursier05()) {
+				case BOURSE:
+					rbTrancheBourse05.setDisable(false);
+					break;
+				case PRET:
+					rbTranchePret05.setDisable(false);
+					break;
+				case PAYEE:
+					rbTranchePayee05.setDisable(false);
+					break;
+				case NON_PAYEE:
+					rbTrancheNonPayee05.setDisable(false);
+					break;
 			}
+
 		} else {
 			txtCIN05.setDisable(true);
-			rbBoursierOui05.setDisable(false);
-			rbBoursierNon05.setDisable(false);
+			rbTrancheBourse05.setDisable(false);
+			rbTranchePret05.setDisable(false);
+			rbTranchePayee05.setDisable(false);
+			rbTrancheNonPayee05.setDisable(false);
 		}
 	}
 
 	public ArrayList<String> getConditions() {
 		ArrayList<String> conditions = new ArrayList<>();
-		// TODO: SET CONDITIONS
-		conditions.add(Lang.getEquiv("Condition 1"));
-		conditions.add(Lang.getEquiv("Condition 2"));
-		conditions.add(Lang.getEquiv("Condition 3"));
-		conditions.add(Lang.getEquiv("Condition 4"));
+		conditions.add(Lang.getEquiv("Réussi"));
+		conditions.add(Lang.getEquiv("Débranché"));
+		conditions.add(Lang.getEquiv("Enregistrement retiré"));
+		conditions.add(Lang.getEquiv("Parti"));
 		return conditions;
 	}
 
 	public String getCondInFrench(String s) {
-		// TODO: SET CONDITIONS
 		switch (s) {
-			case "الحالة 1":
-			case "Condition En 1":
-				return "Condition 1";
-			case "الحالة 2":
-			case "Condition En 2":
-				return "Condition 2";
-			case "الحالة 3":
-			case "Condition En 3":
-				return "Condition 3";
-			case "الحالة 4":
-			case "Condition En 4":
-				return "Condition 4";
+			case "ناجح":
+			case "Succeded":
+				return "Réussi";
+			case "منقطع":
+			case "Dropout":
+				return "Débranché";
+			case "سحب تسجيل":
+			case "Record Withdrawn":
+				return "Enregistrement retiré";
+			case "مغادر":
+			case "Departed":
+				return "Parti";
 			default:
 				return s;
 		}
 	}
 
 	public void setEquivCond() {
-		// TODO - SET CONDITIONS
-		// TODO - OPTIMIZE IT
 		setCB(currCond04, cbCond04);
 		setCB(currCond05, cbCond05);
 	}
 
 	private void setCB(String currCond05, ComboBox<String> cbCond05) {
+		// TODO: OPTIMIZE IT
 		if(currCond05 == null) cbCond05.setValue(null);
 		else switch (currCond05) {
-				case "Condition 1":
-				case "الحالة 1":
-				case "Condition En 1":
+				case "Réussi":
+				case "ناجح":
+				case "Succeded":
 					switch (lang) {
 						case "french":
-							cbCond05.setValue("Condition 1");
+							cbCond05.setValue("Réussi");
 							break;
 						case "arabic":
-							cbCond05.setValue("الحالة 1");
+							cbCond05.setValue("ناجح");
 							break;
 						case "english":
-							cbCond05.setValue("Condition En 1");
+							cbCond05.setValue("Succeded");
 							break;
 					}
 					break;
 
-				case "Condition 2":
-				case "الحالة 2":
-				case "Condition En 2":
+				case "Débranché":
+				case "منقطع":
+				case "Dropout":
 					switch (lang) {
 						case "french":
-							cbCond05.setValue("Condition 2");
+							cbCond05.setValue("Débranché");
 							break;
 						case "arabic":
-							cbCond05.setValue("الحالة 2");
+							cbCond05.setValue("منقطع");
 							break;
 						case "english":
-							cbCond05.setValue("Condition En 2");
+							cbCond05.setValue("Dropout");
 							break;
 					}
 					break;
 
-				case "Condition 3":
-				case "الحالة 3":
-				case "Condition En 3":
+				case "Enregistrement retiré":
+				case "سحب تسجيل":
+				case "Record Withdrawn":
 					switch (lang) {
 						case "french":
-							cbCond05.setValue("Condition 3");
+							cbCond05.setValue("Enregistrement retiré");
 							break;
 						case "arabic":
-							cbCond05.setValue("الحالة 3");
+							cbCond05.setValue("سحب تسجيل");
 							break;
 						case "english":
-							cbCond05.setValue("Condition En 3");
+							cbCond05.setValue("Record Withdrawn");
 							break;
 					}
 					break;
 
-				case "Condition 4":
-				case "الحالة 4":
-				case "Condition En 4":
+				case "Parti":
+				case "مغادر":
+				case "Departed":
 					switch (lang) {
 						case "french":
-							cbCond05.setValue("Condition 4");
+							cbCond05.setValue("Parti");
 							break;
 						case "arabic":
-							cbCond05.setValue("الحالة 4");
+							cbCond05.setValue("مغادر");
 							break;
 						case "english":
-							cbCond05.setValue("Condition En 4");
+							cbCond05.setValue("Departed");
 							break;
 					}
 					break;
@@ -1773,12 +1868,10 @@ public class Controller implements Initializable {
 			txtPrenom05.setText(etudiant.getPrenom());
 			cbClasse05.setValue(etudiant.getClasse());
 			cbCond05.setValue(etudiant.getCond());
-			setSelectedBoursier05(etudiant.isBoursier() ? Boursier.OUI : Boursier.NON);
+			setSelectedBoursier05(etudiant.isTranche());
 			disableInputs05(true);
 			setDocs();
-			System.out.println("---");
 			currCond05 = cbCond05.getValue();
-			System.out.println(currCond05);
 			setEquivCond();
 		}
 	}

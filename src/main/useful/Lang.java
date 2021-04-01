@@ -530,34 +530,33 @@ public class Lang {
 					case "english":
 						return "No Selected Condition.";
 				}
-			// TODO: SET CONDITIONS
-			case "Condition 1":
+			case "Réussi":
 				switch(lang) {
 					case "arabic":
-						return "الحالة 1";
+						return "ناجح";
 					case "english":
-						return "Condition En 1";
+						return "Succeded";
 				}
-			case "Condition 2":
+			case "Débranché":
 				switch(lang) {
 					case "arabic":
-						return "الحالة 2";
+						return "منقطع";
 					case "english":
-						return "Condition En 2";
+						return "Dropout";
 				}
-			case "Condition 3":
+			case "Enregistrement retiré":
 				switch(lang) {
 					case "arabic":
-						return "الحالة 3";
+						return "سحب تسجيل";
 					case "english":
-						return "Condition En 3";
+						return "Record Withdrawn";
 				}
-			case "Condition 4":
+			case "Parti":
 				switch(lang) {
 					case "arabic":
-						return "الحالة 4";
+						return "مغادر";
 					case "english":
-						return "Condition En 4";
+						return "Departed";
 				}
 		}
 
