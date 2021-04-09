@@ -27,6 +27,9 @@ Software can be tested using "SGRN.exe".
 - Key Event Listeners Added
 - Key Events Work Properly, Boursier Field Added
 - Bugs Fixed
+- Field Condition Modified
+- Field Tranche Modified
+- Final Commit
 
 ## Todos
 

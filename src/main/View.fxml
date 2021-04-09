@@ -32,17 +32,17 @@
             </ImageView>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="lblInst01" text="Institut Supérieur des Langues Appliquées et Informatique de Béja">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
                   <Label fx:id="lblMinis01" layoutX="147.0" layoutY="60.0" text="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                   <Label fx:id="lblUniv01" text="Université de Jendouba">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblInst01" text="Institut Supérieur des Langues Appliquées et Informatique de Béja">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

@@ -32,569 +32,572 @@ import java.util.*;
 // TODO: IN SETTINGS: ACTIVATE/DEACTIVATE DELETE, BACKUP, EXPORT ALL DATA, ABOUT ME
 
 public class Controller implements Initializable {
-	@FXML
-	private Label lblInst01;
-	@FXML
-	private Label lblMinis01;
-	@FXML
-	private Label lblUniv01;
-	@FXML
-	private Label lblSG01;
-	@FXML
-	private Label lblCIN03;
-	@FXML
-	private HBox firstRow04;
-	@FXML
-	private HBox secondRow04;
-	@FXML
-	private HBox thirdRow04;
-	@FXML
-	private Label lblCIN04;
-	@FXML
-	private Label lblArchive04;
-	@FXML
-	private Label lblNom04;
-	@FXML
-	private Label lblPrenom04;
-	@FXML
-	private Label lblClasse04;
-	@FXML
-	private Label lblCond04;
-	@FXML
-	private HBox firstRow05;
-	@FXML
-	private HBox secondRow05;
-	@FXML
-	private VBox thirdRow05;
-	@FXML
-	private HBox fourthRow05;
-	@FXML
-	private Label lblCIN05;
-	@FXML
-	private Label lblArchive05;
-	@FXML
-	private Label lblNom05;
-	@FXML
-	private Label lblPrenom05;
-	@FXML
-	private Label lblClasse05;
-	@FXML
-	private Label lblCond05;
-	@FXML
-	private Label lblDocuments05;
-	@FXML
-	private Label lblAucunDoc05;
-	@FXML
-	private Label lblLangue06;
+    @FXML
+    private Label lblInst01;
+    @FXML
+    private Label lblMinis01;
+    @FXML
+    private Label lblUniv01;
+    @FXML
+    private Label lblSG01;
+    @FXML
+    private Label lblCIN03;
+    @FXML
+    private HBox firstRow04;
+    @FXML
+    private HBox secondRow04;
+    @FXML
+    private HBox thirdRow04;
+    @FXML
+    private Label lblCIN04;
+    @FXML
+    private Label lblArchive04;
+    @FXML
+    private Label lblNom04;
+    @FXML
+    private Label lblPrenom04;
+    @FXML
+    private Label lblClasse04;
+    @FXML
+    private Label lblCond04;
+    @FXML
+    private HBox firstRow05;
+    @FXML
+    private HBox secondRow05;
+    @FXML
+    private VBox thirdRow05;
+    @FXML
+    private HBox fourthRow05;
+    @FXML
+    private Label lblCIN05;
+    @FXML
+    private Label lblArchive05;
+    @FXML
+    private Label lblNom05;
+    @FXML
+    private Label lblPrenom05;
+    @FXML
+    private Label lblClasse05;
+    @FXML
+    private Label lblCond05;
+    @FXML
+    private Label lblDocuments05;
+    @FXML
+    private Label lblAucunDoc05;
+    @FXML
+    private Label lblLangue06;
 
-	// PANE 04 & 05 | TRANCHE 2
-	@FXML
-	private Label lblTranche04;
-	@FXML
-	private RadioButton rbTrancheBourse04;
-	@FXML
-	private RadioButton rbTranchePret04;
-	@FXML
-	private RadioButton rbTranchePayee04;
-	@FXML
-	private RadioButton rbTrancheNonPayee04;
-	@FXML
-	private Label lblTranche05;
-	@FXML
-	private RadioButton rbTrancheBourse05;
-	@FXML
-	private RadioButton rbTranchePret05;
-	@FXML
-	private RadioButton rbTranchePayee05;
-	@FXML
-	private RadioButton rbTrancheNonPayee05;
+    // PANE 04 & 05 | TRANCHE 2
+    @FXML
+    private Label lblTranche04;
+    @FXML
+    private RadioButton rbTrancheBourse04;
+    @FXML
+    private RadioButton rbTranchePret04;
+    @FXML
+    private RadioButton rbTranchePayee04;
+    @FXML
+    private RadioButton rbTrancheNonPayee04;
+    @FXML
+    private Label lblTranche05;
+    @FXML
+    private RadioButton rbTrancheBourse05;
+    @FXML
+    private RadioButton rbTranchePret05;
+    @FXML
+    private RadioButton rbTranchePayee05;
+    @FXML
+    private RadioButton rbTrancheNonPayee05;
 
-	public enum Tranche2 {
-		BOURSE, PRET, PAYEE, NON_PAYEE, NONE
-	}
+    public enum Tranche2 {
+        BOURSE, PRET, PAYEE, NON_PAYEE, NONE
+    }
 
-	// PANE 07
-	@FXML
-	private Label lblClasse07;
-	@FXML
-	private Label lblSelClasse07;
-	@FXML
-	private VBox allEtudiants07;
-	@FXML
-	private HBox firstRow07;
-	@FXML
-	private ScrollPane secondRow07;
-	@FXML
-	private HBox thirdRow07;
-	@FXML
-	private Label lblSupprimer07;
-	@FXML
-	private Label lblMsg07;
-	@FXML
-	private ComboBox cbClasse07;
-	@FXML
-	private Label lblRetourner07;
+    // PANE 07
+    @FXML
+    private Label lblClasse07;
+    @FXML
+    private Label lblSelClasse07;
+    @FXML
+    private VBox allEtudiants07;
+    @FXML
+    private HBox firstRow07;
+    @FXML
+    private ScrollPane secondRow07;
+    @FXML
+    private HBox thirdRow07;
+    @FXML
+    private Label lblSupprimer07;
+    @FXML
+    private Label lblMsg07;
+    @FXML
+    private ComboBox cbClasse07;
+    @FXML
+    private Label lblRetourner07;
 
-	@FXML
-	private VBox vboxCIN04;
-	@FXML
-	private VBox vboxNom04;
-	@FXML
-	private VBox vboxPrenom04;
-	@FXML
-	private VBox vboxClasse04;
-	@FXML
-	private VBox vboxCond04;
-	@FXML
-	private VBox vboxCIN05;
-	@FXML
-	private VBox vboxNom05;
-	@FXML
-	private VBox vboxPrenom05;
-	@FXML
-	private VBox vboxClasse05;
-	@FXML
-	private VBox vboxCond05;
-	@FXML
-	private HBox innerHBoxDocs05;
+    @FXML
+    private VBox vboxCIN04;
+    @FXML
+    private VBox vboxNom04;
+    @FXML
+    private VBox vboxPrenom04;
+    @FXML
+    private VBox vboxClasse04;
+    @FXML
+    private VBox vboxCond04;
+    @FXML
+    private VBox vboxCIN05;
+    @FXML
+    private VBox vboxNom05;
+    @FXML
+    private VBox vboxPrenom05;
+    @FXML
+    private VBox vboxClasse05;
+    @FXML
+    private VBox vboxCond05;
+    @FXML
+    private HBox innerHBoxDocs05;
 
-	@FXML
-	private VBox paneWelcome;
-	@FXML
-	private HBox paneMain;
-	@FXML
-	private VBox paneRechercher;
-	@FXML
-	private VBox paneAjouter;
-	@FXML
-	private VBox paneResultat;
-	@FXML
-	private VBox paneSettings;
-	@FXML
-	private VBox paneClasses;
-	@FXML
-	private Label lblEnactusNYear;
+    @FXML
+    private VBox paneWelcome;
+    @FXML
+    private HBox paneMain;
+    @FXML
+    private VBox paneRechercher;
+    @FXML
+    private VBox paneAjouter;
+    @FXML
+    private VBox paneResultat;
+    @FXML
+    private VBox paneSettings;
+    @FXML
+    private VBox paneClasses;
+    @FXML
+    private Label lblEnactusNYear;
 
-	@FXML
-	private Label lblBienvenue01;
-	@FXML
-	private Button btnContinuer01;
+    @FXML
+    private Label lblBienvenue01;
+    @FXML
+    private Button btnContinuer01;
 
-	@FXML
-	private Label btnRechercher02;
-	@FXML
-	private Label btnAjouter02;
+    @FXML
+    private Label btnRechercher02;
+    @FXML
+    private Label btnAjouter02;
 
-	@FXML
-	private TextField txtCIN03;
-	@FXML
-	private Label lblValider03;
-	@FXML
-	private Label lblRetourner03;
-	@FXML
-	private Label lblMsg03;
-	@FXML
-	private Label lblAfficherClasses03;
+    @FXML
+    private TextField txtCIN03;
+    @FXML
+    private Label lblValider03;
+    @FXML
+    private Label lblRetourner03;
+    @FXML
+    private Label lblMsg03;
+    @FXML
+    private Label lblAfficherClasses03;
 
-	@FXML
-	private TextField txtCIN04;
-	@FXML
-	private TextField txtArchive04;
-	@FXML
-	private TextField txtNom04;
-	@FXML
-	private TextField txtPrenom04;
-	@FXML
-	private ComboBox<String> cbClasse04;
-	@FXML
-	private ComboBox<String> cbCond04;
-	@FXML
-	private Label lblAjouter04;
-	@FXML
-	private Label lblInitialiser04;
-	@FXML
-	private Label lblRetourner04;
-	@FXML
-	private Label lblMsg04;
+    @FXML
+    private TextField txtCIN04;
+    @FXML
+    private TextField txtArchive04;
+    @FXML
+    private TextField txtNom04;
+    @FXML
+    private TextField txtPrenom04;
+    @FXML
+    private ComboBox<String> cbClasse04;
+    @FXML
+    private ComboBox<String> cbCond04;
+    @FXML
+    private Label lblAjouter04;
+    @FXML
+    private Label lblInitialiser04;
+    @FXML
+    private Label lblRetourner04;
+    @FXML
+    private Label lblMsg04;
 
-	@FXML
-	private HBox fourthRow04;
-	@FXML
-	private VBox vboxAC04;
-	@FXML
-	private Label lblNomClasse04;
-	@FXML
-	private TextField txtNomClasse04;
-	@FXML
-	private Label lblAjouterClasse04;
-	@FXML
-	private Label lblMsgAC04;
+    @FXML
+    private HBox fourthRow04;
+    @FXML
+    private VBox vboxAC04;
+    @FXML
+    private Label lblNomClasse04;
+    @FXML
+    private TextField txtNomClasse04;
+    @FXML
+    private Label lblAjouterClasse04;
+    @FXML
+    private Label lblMsgAC04;
 
-	@FXML
-	private TextField txtCIN05;
-	@FXML
-	private TextField txtArchive05;
-	@FXML
-	private TextField txtNom05;
-	@FXML
-	private TextField txtPrenom05;
-	@FXML
-	private ComboBox<String> cbClasse05;
-	@FXML
-	private ComboBox<String> cbCond05;
-	@FXML
-	private Label lblAjouterDoc05;
-//	@FXML
+    @FXML
+    private TextField txtCIN05;
+    @FXML
+    private TextField txtArchive05;
+    @FXML
+    private TextField txtNom05;
+    @FXML
+    private TextField txtPrenom05;
+    @FXML
+    private ComboBox<String> cbClasse05;
+    @FXML
+    private ComboBox<String> cbCond05;
+    @FXML
+    private Label lblAjouterDoc05;
+    //	@FXML
 //	private Label lblVoirTousDocs05;
-	@FXML
-	private Label lblSupprimerTousDocs05;
+    @FXML
+    private Label lblSupprimerTousDocs05;
 
-	@FXML
-	private VBox allDocuments05;
-	@FXML
-	private Label lblModifier05;
-	@FXML
-	private Label lblSupprimer05;
-	@FXML
-	private Label lblRetourner05;
-	@FXML
-	private Label lblMsg05;
+    @FXML
+    private VBox allDocuments05;
+    @FXML
+    private Label lblModifier05;
+    @FXML
+    private Label lblSupprimer05;
+    @FXML
+    private Label lblRetourner05;
+    @FXML
+    private Label lblMsg05;
 
-	@FXML
-	private ImageView imgSettings01;
-	@FXML
-	private RadioButton rbArabic06;
-	@FXML
-	private RadioButton rbFrench06;
-	@FXML
-	private RadioButton rbEnglish06;
-	@FXML
-	private Label lblEnregistrer06;
-	@FXML
-	private Label lblRetourner06;
-	@FXML
-	private Label lblMsg06;
+    @FXML
+    private ImageView imgSettings01;
+    @FXML
+    private RadioButton rbArabic06;
+    @FXML
+    private RadioButton rbFrench06;
+    @FXML
+    private RadioButton rbEnglish06;
+    @FXML
+    private Label lblEnregistrer06;
+    @FXML
+    private Label lblRetourner06;
+    @FXML
+    private Label lblMsg06;
 
-	@FXML
-	private ImageView img1;
-	@FXML
-	private ImageView img2;
+    @FXML
+    private ImageView img1;
+    @FXML
+    private ImageView img2;
 
-	private boolean isFileChooserBusy;
+    private boolean isFileChooserBusy;
 
-	EventHandler modifier05EventHandler = (EventHandler<KeyEvent>) e -> {
-		if (isFileChooserBusy) {
-			isFileChooserBusy = false;
-			return;
-		}
+    EventHandler modifier05EventHandler = (EventHandler<KeyEvent>) e -> {
+        if (isFileChooserBusy) {
+            isFileChooserBusy = false;
+            return;
+        }
 
-		if (e.getCode() == KeyCode.ENTER && !(e.getSource() instanceof ComboBox))
-			editStudent();
+        if (e.getCode() == KeyCode.ENTER && !(e.getSource() instanceof ComboBox))
+            editStudent();
 //			else if (e.getCode() == KeyCode.DELETE)
 //				deleteStudent();
-		else if (e.getCode() == KeyCode.ESCAPE)
-			return05();
-	};
+        else if (e.getCode() == KeyCode.ESCAPE)
+            return05();
+    };
 
 //	@FXML
 //	private ImageView enactus;
 
-	private static String img1URL;
-	private static String img2URL;
-	//	public static String iconURL;
-	ArrayList<String> classes;
-	public static String lang;
-	public Pane lastPane;
-	public Pane currPane;
-	public Pane correctCurrPane;
-	public boolean isLastClassesPane = false;
+    private static String img1URL;
+    private static String img2URL;
+    //	public static String iconURL;
+    ArrayList<String> classes;
+    public static String lang;
+    public Pane lastPane;
+    public Pane currPane;
+    public Pane lastPaneReserved;
+    public Pane correctCurrPane;
+    public boolean isLastClassesPane = false;
 
-	private String lastLang;
-	private String currCond04;
-	private String currCond05;
+    private String lastLang;
+    private String currCond04;
+    private String currCond05;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		initLang();
-		setUpLang();
-		initThings();
-		setOnToUpdateMsgs();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initLang();
+        setUpLang();
+        initThings();
+        setOnToUpdateMsgs();
 
-		btnContinuer01.setOnMouseClicked(e -> proceedToMain());
+        btnContinuer01.setOnMouseClicked(e -> proceedToMain());
 
-		btnRechercher02.setOnMouseClicked(e -> show(paneRechercher));
+        btnRechercher02.setOnMouseClicked(e -> show(paneRechercher));
 
-		btnAjouter02.setOnMouseClicked(e -> show(paneAjouter));
+        btnAjouter02.setOnMouseClicked(e -> show(paneAjouter));
 
-		lblRetourner03.setOnMouseClicked(e -> return03());
+        lblRetourner03.setOnMouseClicked(e -> return03());
 
-		lblRetourner04.setOnMouseClicked(e -> return04());
+        lblRetourner04.setOnMouseClicked(e -> return04());
 
-		lblRetourner05.setOnMouseClicked(e -> return05());
+        lblRetourner05.setOnMouseClicked(e -> return05());
 
-		// STARTING LOGIC
-		lblValider03.setOnMouseClicked(e -> search());
+        // STARTING LOGIC
+        lblValider03.setOnMouseClicked(e -> search());
 
-		lblAjouter04.setOnMouseClicked(e -> addStudent());
+        lblAjouter04.setOnMouseClicked(e -> addStudent());
 
-		lblInitialiser04.setOnMouseClicked(e -> initStudent());
+        lblInitialiser04.setOnMouseClicked(e -> initStudent());
 
-		lblAjouterDoc05.setOnMouseClicked(e -> {
-			lblMsg05.setText("");
-			addDoc();
-			setDocs();
-		});
+        lblAjouterDoc05.setOnMouseClicked(e -> {
+            lblMsg05.setText("");
+            addDoc();
+            setDocs();
+        });
 
 //		lblVoirTousDocs05.setOnMouseClicked(e -> openDocsDir());
 
-		lblSupprimerTousDocs05.setOnMouseClicked(e -> delAllDocs());
+        lblSupprimerTousDocs05.setOnMouseClicked(e -> delAllDocs());
 
-		lblModifier05.setOnMouseClicked(e -> editStudent());
+        lblModifier05.setOnMouseClicked(e -> editStudent());
 
-		lblSupprimer05.setOnMouseClicked(e -> deleteStudent());
+        lblSupprimer05.setOnMouseClicked(e -> deleteStudent());
 
-		imgSettings01.setOnMouseClicked(e -> {
-			if (currPane == paneSettings)
-				return06();
-			else {
-				lastPane = currPane;
-				show(paneSettings);
-			}
-		});
+        imgSettings01.setOnMouseClicked(e -> {
+            if (currPane == paneSettings)
+                return06();
+            else {
+                lastPane = currPane;
+                show(paneSettings);
+            }
+        });
 
-		lblEnregistrer06.setOnMouseClicked(e -> saveSettings());
+        lblEnregistrer06.setOnMouseClicked(e -> saveSettings());
 
-		lblRetourner06.setOnMouseClicked(e -> return06());
+        lblRetourner06.setOnMouseClicked(e -> return06());
 
-		lblRetourner07.setOnMouseClicked(e -> return07());
+        lblRetourner07.setOnMouseClicked(e -> return07());
 
-		lblAfficherClasses03.setOnMouseClicked(e -> show(paneClasses));
+        lblAfficherClasses03.setOnMouseClicked(e -> show(paneClasses));
 
-		cbClasse07.setOnAction(e -> {
-			lblMsg07.setText("");
-			setStudentsByClass();
-		});
+        cbClasse07.setOnAction(e -> {
+            lblMsg07.setText("");
+            setStudentsByClass();
+        });
 
-		lblSupprimer07.setOnMouseClicked(e -> deleteClass());
+        lblSupprimer07.setOnMouseClicked(e -> deleteClass());
 
-		lblAjouterClasse04.setOnMouseClicked(e -> addClass());
+        lblAjouterClasse04.setOnMouseClicked(e -> addClass());
 
-		btnContinuer01.setOnKeyReleased(e -> {
-			if (e.getCode() == KeyCode.ENTER)
-				proceedToMain();
-		});
+        btnContinuer01.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.ENTER)
+                proceedToMain();
+        });
 
-		txtCIN03.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				search();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return03();
-		});
+        txtCIN03.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                search();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return03();
+        });
 
-		txtCIN04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		txtArchive04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		txtNom04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		txtPrenom04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addStudent();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		cbClasse04.setOnKeyReleased((e) -> {
+        txtCIN04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                addStudent();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        txtArchive04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                addStudent();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        txtNom04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                addStudent();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        txtPrenom04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                addStudent();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        cbClasse04.setOnKeyReleased((e) -> {
 //			if (e.getCode() == KeyCode.ENTER)
 //				addStudent();
 //			else
-			if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		cbCond04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        cbCond04.setOnKeyReleased((e) -> {
 //			if (e.getCode() == KeyCode.ENTER)
 //				addStudent();
 //			else
-			if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
-		txtNomClasse04.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				addClass();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return04();
-		});
+            if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
+        txtNomClasse04.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                addClass();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return04();
+        });
 
-		txtCIN05.setOnKeyReleased(modifier05EventHandler);
-		txtArchive05.setOnKeyReleased(modifier05EventHandler);
-		txtNom05.setOnKeyReleased(modifier05EventHandler);
-		txtPrenom05.setOnKeyReleased(modifier05EventHandler);
-		cbClasse05.setOnKeyReleased(modifier05EventHandler);
-		cbCond05.setOnKeyReleased(modifier05EventHandler);
+        txtCIN05.setOnKeyReleased(modifier05EventHandler);
+        txtArchive05.setOnKeyReleased(modifier05EventHandler);
+        txtNom05.setOnKeyReleased(modifier05EventHandler);
+        txtPrenom05.setOnKeyReleased(modifier05EventHandler);
+        cbClasse05.setOnKeyReleased(modifier05EventHandler);
+        cbCond05.setOnKeyReleased(modifier05EventHandler);
 
-		rbArabic06.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				saveSettings();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return06();
-		});
-		rbFrench06.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				saveSettings();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return06();
-		});
-		rbEnglish06.setOnKeyReleased((e) -> {
-			if (e.getCode() == KeyCode.ENTER)
-				saveSettings();
-			else if (e.getCode() == KeyCode.ESCAPE)
-				return06();
-		});
+        rbArabic06.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                saveSettings();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return06();
+        });
+        rbFrench06.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                saveSettings();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return06();
+        });
+        rbEnglish06.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ENTER)
+                saveSettings();
+            else if (e.getCode() == KeyCode.ESCAPE)
+                return06();
+        });
 
-		cbClasse07.setOnKeyReleased((e) -> {
+        cbClasse07.setOnKeyReleased((e) -> {
 //			if (e.getCode() == KeyCode.DELETE)
 //				deleteClass();
 //			else
-			if (e.getCode() == KeyCode.ESCAPE)
-				return07();
-		});
-		secondRow07.setOnKeyReleased((e) -> {
+            if (e.getCode() == KeyCode.ESCAPE)
+                return07();
+        });
+        secondRow07.setOnKeyReleased((e) -> {
 //			if (e.getCode() == KeyCode.DELETE)
 //				deleteClass();
 //			else
-			if (e.getCode() == KeyCode.ESCAPE)
-				return07();
-		});
-	}
+            if (e.getCode() == KeyCode.ESCAPE)
+                return07();
+        });
+    }
 
-	private void initStudent() {
-		txtCIN04.setText("");
-		txtArchive04.setText("");
-		txtPrenom04.setText("");
-		txtNom04.setText("");
-		rbTrancheBourse04.setSelected(false);
-		rbTranchePret04.setSelected(false);
-		rbTranchePayee04.setSelected(false);
-		rbTrancheNonPayee04.setSelected(false);
-		cbClasse04.setValue(null);
-		cbCond04.setValue(null);
-		lblMsg04.setText("");
-		lblMsgAC04.setText("");
-	}
+    private void initStudent() {
+        txtCIN04.setText("");
+        txtArchive04.setText("");
+        txtPrenom04.setText("");
+        txtNom04.setText("");
+        rbTrancheBourse04.setSelected(false);
+        rbTranchePret04.setSelected(false);
+        rbTranchePayee04.setSelected(false);
+        rbTrancheNonPayee04.setSelected(false);
+        cbClasse04.setValue(null);
+        cbCond04.setValue(null);
+        lblMsg04.setText("");
+        lblMsgAC04.setText("");
+    }
 
-	private void initThings() {
-		lastPane = paneWelcome;
-		currPane = paneWelcome;
+    private void initThings() {
+        lastPane = paneWelcome;
+        currPane = paneWelcome;
 
-		img1URL = img1.getImage().getUrl();
-		img2URL = img2.getImage().getUrl();
+        img1URL = img1.getImage().getUrl();
+        img2URL = img2.getImage().getUrl();
 //		iconURL = enactus.getImage().getUrl();
 
-		setClasses();
+        setClasses();
 
-		lblEnactusNYear.setText("ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
+        lblEnactusNYear.setText("ISLAI Béja - " + Calendar.getInstance().get(Calendar.YEAR));
 
-		lblBienvenue01.setText(getWelcomeMsg());
+        lblBienvenue01.setText(getWelcomeMsg());
 
-		ToggleGroup tgTranche04 = new ToggleGroup();
-		rbTrancheBourse04.setToggleGroup(tgTranche04);
-		rbTranchePret04.setToggleGroup(tgTranche04);
-		rbTranchePayee04.setToggleGroup(tgTranche04);
-		rbTrancheNonPayee04.setToggleGroup(tgTranche04);
+        ToggleGroup tgTranche04 = new ToggleGroup();
+        rbTrancheBourse04.setToggleGroup(tgTranche04);
+        rbTranchePret04.setToggleGroup(tgTranche04);
+        rbTranchePayee04.setToggleGroup(tgTranche04);
+        rbTrancheNonPayee04.setToggleGroup(tgTranche04);
 
-		rbTrancheBourse04.setSelected(false);
-		rbTranchePret04.setSelected(false);
-		rbTranchePayee04.setSelected(false);
-		rbTrancheNonPayee04.setSelected(false);
+        rbTrancheBourse04.setSelected(false);
+        rbTranchePret04.setSelected(false);
+        rbTranchePayee04.setSelected(false);
+        rbTrancheNonPayee04.setSelected(false);
 
-		ToggleGroup tgTranche05 = new ToggleGroup();
-		rbTrancheBourse05.setToggleGroup(tgTranche05);
-		rbTranchePret05.setToggleGroup(tgTranche05);
-		rbTranchePayee05.setToggleGroup(tgTranche05);
-		rbTrancheNonPayee05.setToggleGroup(tgTranche05);
+        ToggleGroup tgTranche05 = new ToggleGroup();
+        rbTrancheBourse05.setToggleGroup(tgTranche05);
+        rbTranchePret05.setToggleGroup(tgTranche05);
+        rbTranchePayee05.setToggleGroup(tgTranche05);
+        rbTrancheNonPayee05.setToggleGroup(tgTranche05);
 
-		rbTrancheBourse05.setSelected(false);
-		rbTranchePret05.setSelected(false);
-		rbTranchePayee05.setSelected(false);
-		rbTrancheNonPayee05.setSelected(false);
+        rbTrancheBourse05.setSelected(false);
+        rbTranchePret05.setSelected(false);
+        rbTranchePayee05.setSelected(false);
+        rbTrancheNonPayee05.setSelected(false);
 
-		// CONDITIONS
-		ArrayList<String> conditions = getConditions();
-		cbCond04.getItems().clear();
-		cbCond04.getItems().addAll(conditions);
-		cbCond05.getItems().clear();
-		cbCond05.getItems().addAll(conditions);
+        // CONDITIONS
+        ArrayList<String> conditions = getConditions();
+        cbCond04.getItems().clear();
+        cbCond04.getItems().addAll(conditions);
+        cbCond05.getItems().clear();
+        cbCond05.getItems().addAll(conditions);
 
-		ToggleGroup language = new ToggleGroup();
-		rbArabic06.setToggleGroup(language);
-		rbFrench06.setToggleGroup(language);
-		rbEnglish06.setToggleGroup(language);
-	}
+        ToggleGroup language = new ToggleGroup();
+        rbArabic06.setToggleGroup(language);
+        rbFrench06.setToggleGroup(language);
+        rbEnglish06.setToggleGroup(language);
+    }
 
-	private String getWelcomeMsg() {
-		int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-		if (h > 3 && h < 12) return Lang.getEquiv("Bonjour !");
-		if (h >= 12 && h < 18) return Lang.getEquiv("Bon après-midi !");
-		return Lang.getEquiv("Bonsoir !");
-	}
+    private String getWelcomeMsg() {
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if (h > 3 && h < 12) return Lang.getEquiv("Bonjour !");
+        if (h >= 12 && h < 18) return Lang.getEquiv("Bon après-midi !");
+        return Lang.getEquiv("Bonsoir !");
+    }
 
-	public void show(Pane pane) {
-		currPane = pane;
+    public void show(Pane pane) {
+        if (currPane != paneSettings)
+            lastPaneReserved = currPane;
+        currPane = pane;
 
-		paneWelcome.setVisible(false);
-		paneMain.setVisible(false);
-		paneRechercher.setVisible(false);
-		paneAjouter.setVisible(false);
-		paneResultat.setVisible(false);
-		paneSettings.setVisible(false);
-		paneClasses.setVisible(false);
+        paneWelcome.setVisible(false);
+        paneMain.setVisible(false);
+        paneRechercher.setVisible(false);
+        paneAjouter.setVisible(false);
+        paneResultat.setVisible(false);
+        paneSettings.setVisible(false);
+        paneClasses.setVisible(false);
 
-		lblMsg03.setText("");
-		lblMsg04.setText("");
-		lblMsgAC04.setText("");
-		lblMsg05.setText("");
-		lblMsg06.setText("");
-		lblMsg07.setText("");
+        lblMsg03.setText("");
+        lblMsg04.setText("");
+        lblMsgAC04.setText("");
+        lblMsg05.setText("");
+        lblMsg06.setText("");
+        lblMsg07.setText("");
 
-		txtArchive05.setEditable(false);
-		txtNom05.setEditable(false);
-		txtPrenom05.setEditable(false);
+        txtArchive05.setEditable(false);
+        txtNom05.setEditable(false);
+        txtPrenom05.setEditable(false);
 //		cbClasse05.setEditable(false);
 //		txtCond05.setEditable(false);
 //		lblAjouterDoc05.setDisable(true);
-		initDocs();
-		lblModifier05.setText(Lang.getEquiv("Modifier"));
-		disableInputs05(true);
+        initDocs();
+        lblModifier05.setText(Lang.getEquiv("Modifier"));
+        disableInputs05(true);
 
-		if (pane == paneSettings)
-			initLang();
-		if (pane == paneClasses && cbClasse07.getValue() != null)
-			setStudentsByClass();
-		if (pane != paneSettings && pane != paneResultat)
-			isLastClassesPane = false;
+        if (pane == paneSettings)
+            initLang();
+        if (pane == paneClasses && cbClasse07.getValue() != null)
+            setStudentsByClass();
+        if (pane != paneSettings && pane != paneResultat)
+            isLastClassesPane = false;
 
-		requestFocus(txtCIN04);
-		requestFocus(txtCIN05);
+        requestFocus(txtCIN04);
+        requestFocus(txtCIN05);
 
-		isFileChooserBusy = false;
+        isFileChooserBusy = false;
 
-		pane.setVisible(true);
-		if (pane != paneSettings)
-			correctCurrPane = pane;
-	}
+        pane.setVisible(true);
+        if (pane != paneSettings)
+            correctCurrPane = pane;
+    }
 
-	public void addDoc() {
+    public void addDoc() {
 //		txtCIN05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 //		txtArchive05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 //		txtNom05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
@@ -602,35 +605,35 @@ public class Controller implements Initializable {
 //		cbClasse05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 //		txtCond05.removeEventHandler(KeyEvent.KEY_RELEASED, pane05EventHandler);
 
-		isFileChooserBusy = true;
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle(Lang.getEquiv("Choisir Document"));
-		List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
+        isFileChooserBusy = true;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Lang.getEquiv("Choisir Document"));
+        List<File> files = fileChooser.showOpenMultipleDialog(Main.primaryStage);
 
-		if (files == null || files.size() == 0)
-			lblMsg05.setText(Lang.getEquiv("Aucun fichier selectionné."));
-		else {
-			for (File file : files) {
-				Document doc = new Document(Integer.parseInt(txtCIN05.getText()), file.getName());
-				if (!DB.addDoc(doc)) {
-					lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
-					return;
-				}
-			}
+        if (files == null || files.size() == 0)
+            lblMsg05.setText(Lang.getEquiv("Aucun fichier selectionné."));
+        else {
+            for (File file : files) {
+                Document doc = new Document(Integer.parseInt(txtCIN05.getText()), file.getName());
+                if (!DB.addDoc(doc)) {
+                    lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
+                    return;
+                }
+            }
 
-			for (File file : files) {
-				String command = String.format("copy \"%s\" \"%s%s\"", file.getPath(), Main.docsDir, txtCIN05.getText());
-				try {
-					Runtime.getRuntime().exec("cmd /c " + command);
-				} catch (Exception e) {
-					lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
-					return;
-				}
-			}
+            for (File file : files) {
+                String command = String.format("copy \"%s\" \"%s%s\"", file.getPath(), Main.docsDir, txtCIN05.getText());
+                try {
+                    Runtime.getRuntime().exec("cmd /c " + command);
+                } catch (Exception e) {
+                    lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ajout des documents."));
+                    return;
+                }
+            }
 
-			String wordEnd = files.size() == 0 || files.size() == 1 ? "" : "s";
-			lblMsg05.setText(files.size() + Lang.getEquiv(" document" + wordEnd + " ajouté" + wordEnd + " avec succès."));
-		}
+            String wordEnd = files.size() == 0 || files.size() == 1 ? "" : "s";
+            lblMsg05.setText(files.size() + Lang.getEquiv(" document" + wordEnd + " ajouté" + wordEnd + " avec succès."));
+        }
 
 //		txtCIN05.setOnKeyReleased(pane05EventHandler);
 //		txtArchive05.setOnKeyReleased(pane05EventHandler);
@@ -638,163 +641,163 @@ public class Controller implements Initializable {
 //		txtPrenom05.setOnKeyReleased(pane05EventHandler);
 //		cbClasse05.setOnKeyReleased(pane05EventHandler);
 //		txtCond05.setOnKeyReleased(pane05EventHandler);
-	}
+    }
 
-	public void openDocsDir() {
-		lblMsg05.setText("");
-		String command = String.format("start %s\"%s\"", Main.docsDir, txtCIN05.getText());
-		try {
-			Runtime.getRuntime().exec("cmd /c " + command);
-			lblMsg05.setText("");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public void openDocsDir() {
+        lblMsg05.setText("");
+        String command = String.format("start %s\"%s\"", Main.docsDir, txtCIN05.getText());
+        try {
+            Runtime.getRuntime().exec("cmd /c " + command);
+            lblMsg05.setText("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void initDocs() {
-		allDocuments05.getChildren().clear();
-		allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
-		lblSupprimerTousDocs05.setDisable(true);
-	}
+    public void initDocs() {
+        allDocuments05.getChildren().clear();
+        allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
+        lblSupprimerTousDocs05.setDisable(true);
+    }
 
-	public void setDocs() {
-		ArrayList<String> currDocs;
-		try {
-			currDocs = DB.getDocs(Integer.parseInt(txtCIN05.getText()));
-		} catch (Exception e) {
-			return;
-		}
+    public void setDocs() {
+        ArrayList<String> currDocs;
+        try {
+            currDocs = DB.getDocs(Integer.parseInt(txtCIN05.getText()));
+        } catch (Exception e) {
+            return;
+        }
 
-		allDocuments05.getChildren().clear();
+        allDocuments05.getChildren().clear();
 
-		if (currDocs == null || currDocs.size() == 0) {
-			lblSupprimerTousDocs05.setDisable(true);
-			allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
-		} else {
-			for (String d : currDocs) {
-				lblSupprimerTousDocs05.setDisable(false);
-				allDocuments05.getChildren().add(new DocumentHBox(new Document(Integer.parseInt(txtCIN05.getText()), d)));
-			}
-		}
-	}
+        if (currDocs == null || currDocs.size() == 0) {
+            lblSupprimerTousDocs05.setDisable(true);
+            allDocuments05.getChildren().add(new DocumentHBox(Lang.getEquiv("Aucun document.")));
+        } else {
+            for (String d : currDocs) {
+                lblSupprimerTousDocs05.setDisable(false);
+                allDocuments05.getChildren().add(new DocumentHBox(new Document(Integer.parseInt(txtCIN05.getText()), d)));
+            }
+        }
+    }
 
-	public void delAllDocs() {
-		lblMsg05.setText("");
-		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Tous Documents"), Lang.getEquiv("Voulez-vous vraiment supprimer tous les documents de cet étudiant ?")))
-			return;
+    public void delAllDocs() {
+        lblMsg05.setText("");
+        if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Tous Documents"), Lang.getEquiv("Voulez-vous vraiment supprimer tous les documents de cet étudiant ?")))
+            return;
 
-		if (DB.delDocs(Integer.parseInt(txtCIN05.getText()))) {
-			lblMsg05.setText(Lang.getEquiv("Tous les documents sont supprimés avec succès."));
-			setDocs();
-		} else {
-			lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression de tous les documents."));
-		}
-	}
+        if (DB.delDocs(Integer.parseInt(txtCIN05.getText()))) {
+            lblMsg05.setText(Lang.getEquiv("Tous les documents sont supprimés avec succès."));
+            setDocs();
+        } else {
+            lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression de tous les documents."));
+        }
+    }
 
-	public void setOnToUpdateMsgs() {
-		txtCIN03.setOnKeyTyped(e -> lblMsg03.setText(""));
-		txtCIN04.setOnKeyTyped(e -> lblMsg04.setText(""));
-		txtArchive04.setOnKeyTyped(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		txtNom04.setOnKeyTyped(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		txtPrenom04.setOnKeyTyped(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		cbClasse04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		cbCond04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		rbTrancheBourse04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		rbTranchePret04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		rbTranchePayee04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		rbTrancheNonPayee04.setOnAction(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		txtNomClasse04.setOnKeyTyped(e -> {
-			lblMsg04.setText("");
-			lblMsgAC04.setText("");
-		});
-		txtCIN05.setOnKeyTyped(e -> lblMsg05.setText(""));
-		txtArchive05.setOnKeyTyped(e -> lblMsg05.setText(""));
-		txtNom05.setOnKeyTyped(e -> lblMsg05.setText(""));
-		txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
-		cbClasse05.setOnAction(e -> lblMsg05.setText(""));
-		cbCond05.setOnAction(e -> lblMsg05.setText(""));
-		rbTrancheBourse05.setOnAction(e -> lblMsg05.setText(""));
-		rbTranchePret05.setOnAction(e -> lblMsg05.setText(""));
-		rbTranchePayee05.setOnAction(e -> lblMsg05.setText(""));
-		rbTrancheNonPayee05.setOnAction(e -> lblMsg05.setText(""));
-		rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
-		rbFrench06.setOnMouseClicked(e -> lblMsg06.setText(""));
-		rbEnglish06.setOnMouseClicked(e -> lblMsg06.setText(""));
-	}
+    public void setOnToUpdateMsgs() {
+        txtCIN03.setOnKeyTyped(e -> lblMsg03.setText(""));
+        txtCIN04.setOnKeyTyped(e -> lblMsg04.setText(""));
+        txtArchive04.setOnKeyTyped(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        txtNom04.setOnKeyTyped(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        txtPrenom04.setOnKeyTyped(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        cbClasse04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        cbCond04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        rbTrancheBourse04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        rbTranchePret04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        rbTranchePayee04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        rbTrancheNonPayee04.setOnAction(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        txtNomClasse04.setOnKeyTyped(e -> {
+            lblMsg04.setText("");
+            lblMsgAC04.setText("");
+        });
+        txtCIN05.setOnKeyTyped(e -> lblMsg05.setText(""));
+        txtArchive05.setOnKeyTyped(e -> lblMsg05.setText(""));
+        txtNom05.setOnKeyTyped(e -> lblMsg05.setText(""));
+        txtPrenom05.setOnKeyTyped(e -> lblMsg05.setText(""));
+        cbClasse05.setOnAction(e -> lblMsg05.setText(""));
+        cbCond05.setOnAction(e -> lblMsg05.setText(""));
+        rbTrancheBourse05.setOnAction(e -> lblMsg05.setText(""));
+        rbTranchePret05.setOnAction(e -> lblMsg05.setText(""));
+        rbTranchePayee05.setOnAction(e -> lblMsg05.setText(""));
+        rbTrancheNonPayee05.setOnAction(e -> lblMsg05.setText(""));
+        rbArabic06.setOnMouseClicked(e -> lblMsg06.setText(""));
+        rbFrench06.setOnMouseClicked(e -> lblMsg06.setText(""));
+        rbEnglish06.setOnMouseClicked(e -> lblMsg06.setText(""));
+    }
 
-	public void initLang() {
-		Setting langSetting = DB.getSetting("language");
-		if (langSetting == null) {
-			rbFrench06.setSelected(true);
-			lang = "french";
-		} else {
-			switch (langSetting.getValue()) {
-				case "arabic":
-					rbArabic06.setSelected(true);
-					lang = "arabic";
-					break;
-				case "french":
-					rbFrench06.setSelected(true);
-					lang = "french";
-					break;
-				case "english":
-					rbEnglish06.setSelected(true);
-					lang = "english";
-					break;
-			}
-		}
-	}
+    public void initLang() {
+        Setting langSetting = DB.getSetting("language");
+        if (langSetting == null) {
+            rbFrench06.setSelected(true);
+            lang = "french";
+        } else {
+            switch (langSetting.getValue()) {
+                case "arabic":
+                    rbArabic06.setSelected(true);
+                    lang = "arabic";
+                    break;
+                case "french":
+                    rbFrench06.setSelected(true);
+                    lang = "french";
+                    break;
+                case "english":
+                    rbEnglish06.setSelected(true);
+                    lang = "english";
+                    break;
+            }
+        }
+    }
 
-	public void setUpLang() {
-		Main.primaryStage.setTitle(Lang.getEquiv("SG des Relevés de Notes"));
-		setDocs();
-		setStudentsByClass();
+    public void setUpLang() {
+        Main.primaryStage.setTitle(Lang.getEquiv("SG des Relevés de Notes"));
+        setDocs();
+        setStudentsByClass();
 
 //		DocumentHBox etudiantsHBox = (DocumentHBox) allDocuments05.getChildren().get(0);
 //		Label lbl = (Label) dhbox.getChildren().get(0);
 //		lbl.setAlignment(Pos.TOP_RIGHT);
 
-		if (lang.equals("arabic")) {
-			firstRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-			secondRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-			firstRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-			secondRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-			firstRow07.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        if (lang.equals("arabic")) {
+            firstRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            secondRow04.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            firstRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            secondRow05.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            firstRow07.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 
 //			firstRow04.setAlignment(Pos.TOP_RIGHT);
-			secondRow04.setAlignment(Pos.TOP_RIGHT);
-			thirdRow04.setAlignment(Pos.BOTTOM_RIGHT);
+            secondRow04.setAlignment(Pos.TOP_RIGHT);
+            thirdRow04.setAlignment(Pos.BOTTOM_RIGHT);
 //			firstRow05.setAlignment(Pos.TOP_RIGHT);
-			secondRow05.setAlignment(Pos.TOP_RIGHT);
-			thirdRow05.setAlignment(Pos.TOP_RIGHT);
-			fourthRow05.setAlignment(Pos.BOTTOM_RIGHT);
+            secondRow05.setAlignment(Pos.TOP_RIGHT);
+            thirdRow05.setAlignment(Pos.TOP_RIGHT);
+            fourthRow05.setAlignment(Pos.BOTTOM_RIGHT);
 
 //			lblCIN04.setAlignment(Pos.TOP_RIGHT);
 //			lblArchive04.setAlignment(Pos.TOP_RIGHT);
@@ -809,12 +812,12 @@ public class Controller implements Initializable {
 //			lblClasse05.setAlignment(Pos.TOP_RIGHT);
 //			lblCond05.setAlignment(Pos.TOP_RIGHT);
 
-			btnRechercher02.toFront();
+            btnRechercher02.toFront();
 
-			lblValider03.toFront();
+            lblValider03.toFront();
 
-			lblLangue06.toFront();
-			lblEnregistrer06.toFront();
+            lblLangue06.toFront();
+            lblEnregistrer06.toFront();
 
 //			vboxCIN04.toFront();
 //			vboxCIN05.toFront();
@@ -827,22 +830,22 @@ public class Controller implements Initializable {
 //			vboxPrenom05.toFront();
 //			vboxNom05.toFront();
 
-			lblRetourner04.toFront();
-			lblInitialiser04.toFront();
-			lblAjouter04.toFront();
+            lblRetourner04.toFront();
+            lblInitialiser04.toFront();
+            lblAjouter04.toFront();
 
-			lblRetourner05.toFront();
-			lblSupprimer05.toFront();
-			lblModifier05.toFront();
+            lblRetourner05.toFront();
+            lblSupprimer05.toFront();
+            lblModifier05.toFront();
 
-			// PANE 07
-			lblRetourner07.toFront();
-			lblSupprimer07.toFront();
+            // PANE 07
+            lblRetourner07.toFront();
+            lblSupprimer07.toFront();
 
 //			lblVoirTousDocs05.toFront();
-			lblAjouterDoc05.toFront();
-			lblDocuments05.toFront();
-			lblDocuments05.setPadding(new Insets(0, 0, 0, 15));
+            lblAjouterDoc05.toFront();
+            lblDocuments05.toFront();
+            lblDocuments05.setPadding(new Insets(0, 0, 0, 15));
 
 //			for (Node d : allDocuments05.getChildren()) {
 //				Label lbl = (Label) ((HBox) d).getChildren().get(0);
@@ -865,35 +868,35 @@ public class Controller implements Initializable {
 //			txtCond05.setAlignment(Pos.TOP_RIGHT);
 
 
-			// PANE 07
+            // PANE 07
 //			firstRow07.setAlignment(Pos.TOP_RIGHT);
-			thirdRow07.setAlignment(Pos.BOTTOM_RIGHT);
+            thirdRow07.setAlignment(Pos.BOTTOM_RIGHT);
 //			lblClasse07.setAlignment(Pos.TOP_RIGHT);
-			allEtudiants07.setAlignment(Pos.TOP_RIGHT);
+            allEtudiants07.setAlignment(Pos.TOP_RIGHT);
 
 
-			// PANE 04: ADD CLASS
-			fourthRow04.setAlignment(Pos.BOTTOM_RIGHT);
-			lblNomClasse04.setAlignment(Pos.TOP_RIGHT);
-			lblAjouterClasse04.toFront();
-			vboxAC04.toFront();
-			txtNomClasse04.setAlignment(Pos.TOP_RIGHT);
+            // PANE 04: ADD CLASS
+            fourthRow04.setAlignment(Pos.BOTTOM_RIGHT);
+            lblNomClasse04.setAlignment(Pos.TOP_RIGHT);
+            lblAjouterClasse04.toFront();
+            vboxAC04.toFront();
+            txtNomClasse04.setAlignment(Pos.TOP_RIGHT);
 
 
-		} else {
-			firstRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-			secondRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-			firstRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-			secondRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-			firstRow07.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        } else {
+            firstRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            secondRow04.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            firstRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            secondRow05.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            firstRow07.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
 //			firstRow04.setAlignment(Pos.TOP_LEFT);
-			secondRow04.setAlignment(Pos.TOP_LEFT);
-			thirdRow04.setAlignment(Pos.BOTTOM_LEFT);
+            secondRow04.setAlignment(Pos.TOP_LEFT);
+            thirdRow04.setAlignment(Pos.BOTTOM_LEFT);
 //			firstRow05.setAlignment(Pos.TOP_LEFT);
-			secondRow05.setAlignment(Pos.TOP_LEFT);
-			thirdRow05.setAlignment(Pos.TOP_LEFT);
-			fourthRow05.setAlignment(Pos.BOTTOM_LEFT);
+            secondRow05.setAlignment(Pos.TOP_LEFT);
+            thirdRow05.setAlignment(Pos.TOP_LEFT);
+            fourthRow05.setAlignment(Pos.BOTTOM_LEFT);
 
 //			lblCIN04.setAlignment(Pos.TOP_LEFT);
 //			lblArchive04.setAlignment(Pos.TOP_LEFT);
@@ -908,12 +911,12 @@ public class Controller implements Initializable {
 //			lblClasse05.setAlignment(Pos.TOP_LEFT);
 //			lblCond05.setAlignment(Pos.TOP_LEFT);
 
-			btnRechercher02.toBack();
+            btnRechercher02.toBack();
 
-			lblValider03.toBack();
+            lblValider03.toBack();
 
-			lblLangue06.toBack();
-			lblEnregistrer06.toBack();
+            lblLangue06.toBack();
+            lblEnregistrer06.toBack();
 
 //			vboxCIN04.toBack();
 //			vboxCIN05.toBack();
@@ -926,36 +929,36 @@ public class Controller implements Initializable {
 //			vboxClasse05.toFront();
 //			vboxCond05.toFront();
 
-			lblInitialiser04.toFront();
-			lblRetourner04.toFront();
-			lblMsg04.toFront();
+            lblInitialiser04.toFront();
+            lblRetourner04.toFront();
+            lblMsg04.toFront();
 
-			lblRetourner05.toFront();
-			lblSupprimer05.toFront();
-			lblModifier05.toFront();
+            lblRetourner05.toFront();
+            lblSupprimer05.toFront();
+            lblModifier05.toFront();
 
-			lblSupprimer05.toFront();
-			lblRetourner05.toFront();
-			lblMsg05.toFront();
-
-
-			// PANE 07
-			lblRetourner07.toFront();
-			lblMsg07.toFront();
+            lblSupprimer05.toFront();
+            lblRetourner05.toFront();
+            lblMsg05.toFront();
 
 
-			// PANE 04: ADD CLASS
-			fourthRow04.setAlignment(Pos.BOTTOM_LEFT);
-			lblNomClasse04.setAlignment(Pos.TOP_LEFT);
-			lblAjouterClasse04.toFront();
-			lblMsgAC04.toFront();
-			txtNomClasse04.setAlignment(Pos.TOP_LEFT);
+            // PANE 07
+            lblRetourner07.toFront();
+            lblMsg07.toFront();
 
 
-			lblAjouterDoc05.toFront();
+            // PANE 04: ADD CLASS
+            fourthRow04.setAlignment(Pos.BOTTOM_LEFT);
+            lblNomClasse04.setAlignment(Pos.TOP_LEFT);
+            lblAjouterClasse04.toFront();
+            lblMsgAC04.toFront();
+            txtNomClasse04.setAlignment(Pos.TOP_LEFT);
+
+
+            lblAjouterDoc05.toFront();
 //			lblVoirTousDocs05.toFront();
-			lblSupprimerTousDocs05.toFront();
-			lblDocuments05.setPadding(new Insets(0, 15, 0, 0));
+            lblSupprimerTousDocs05.toFront();
+            lblDocuments05.setPadding(new Insets(0, 15, 0, 0));
 
 //			for (Node d : allDocuments05.getChildren()) {
 //				Label lbl = (Label) ((HBox) d).getChildren().get(0);
@@ -978,901 +981,924 @@ public class Controller implements Initializable {
 //			txtCond05.setAlignment(Pos.TOP_LEFT);
 
 
-			// PANE 07
+            // PANE 07
 //			firstRow07.setAlignment(Pos.TOP_LEFT);
-			thirdRow07.setAlignment(Pos.BOTTOM_LEFT);
+            thirdRow07.setAlignment(Pos.BOTTOM_LEFT);
 //			lblClasse07.setAlignment(Pos.TOP_LEFT);
-			allEtudiants07.setAlignment(Pos.TOP_LEFT);
-		}
+            allEtudiants07.setAlignment(Pos.TOP_LEFT);
+        }
 
-		lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
+        lblSG01.setText(Lang.getEquiv("SG des Relevés de Notes") + " (v1.0.0)");
 
-		switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(staticLang: true) MIGHT BE BETTER
-			case "arabic":
-				lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباجة");
-				lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
-				lblUniv01.setText("جامعة جندوبة");
-				btnContinuer01.setText("واصل");
+        switch (lang) { // THE USE OF OVERLOADED Lang.getEquiv(staticLang: true) MIGHT BE BETTER
+            case "arabic":
+                lblInst01.setText("المعهد العالي للّغات التطبيقيّة والإعلاميّة بباجة");
+                lblMinis01.setText("وزارة التعليم العالي والبحث العلمي");
+                lblUniv01.setText("جامعة جندوبة");
+                btnContinuer01.setText("واصل");
 
-				btnRechercher02.setText("البحث");
-				btnAjouter02.setText("المزيد");
+                btnRechercher02.setText("البحث");
+                btnAjouter02.setText("المزيد");
 
-				lblCIN03.setText("رقم بطاقة التعريف:");
-				lblValider03.setText("بحث");
-				lblRetourner03.setText("رجوع");
-				lblAfficherClasses03.setText("عرض الطلاب حسب القسم");
+                lblCIN03.setText("رقم بطاقة التعريف:");
+                lblValider03.setText("بحث");
+                lblRetourner03.setText("رجوع");
+                lblAfficherClasses03.setText("عرض الطلاب حسب القسم");
 
-				lblCIN04.setText("رقم بطاقة التعريف:");
-				lblArchive04.setText("الأرشيف:");
-				lblNom04.setText("اللقب:");
-				lblPrenom04.setText("الإسم:");
-				lblClasse04.setText("القسم:");
-				lblCond04.setText("الحالة:");
-				lblAjouter04.setText("إضافة");
-				// TODO: INITIALIZE IN ARABIC
-				lblInitialiser04.setText("إعادة");
-				lblRetourner04.setText("رجوع");
+                lblCIN04.setText("رقم بطاقة التعريف:");
+                lblArchive04.setText("الأرشيف:");
+                lblNom04.setText("اللقب:");
+                lblPrenom04.setText("الإسم:");
+                lblClasse04.setText("القسم:");
+                lblCond04.setText("الحالة:");
+                lblAjouter04.setText("إضافة");
+                // TODO: INITIALIZE IN ARABIC
+                lblInitialiser04.setText("إعادة");
+                lblRetourner04.setText("رجوع");
 
-				// PANE 04: ADD CLASS
-				lblNomClasse04.setText("إسم القسم:");
-				lblAjouterClasse04.setText("إضافة");
+                // PANE 04: ADD CLASS
+                lblNomClasse04.setText("إسم القسم:");
+                lblAjouterClasse04.setText("إضافة");
 
-				lblCIN05.setText("رقم بطاقة التعريف:");
-				lblArchive05.setText("الأرشيف:");
-				lblNom05.setText("اللقب:");
-				lblPrenom05.setText("الإسم:");
-				lblClasse05.setText("القسم:");
-				lblCond05.setText("الحالة:");
-				lblDocuments05.setText("الوثائق:");
-				lblAucunDoc05.setText("لا يوجد أي وثيقة.");
-				lblAjouterDoc05.setText("إضافة وثائق");
+                lblCIN05.setText("رقم بطاقة التعريف:");
+                lblArchive05.setText("الأرشيف:");
+                lblNom05.setText("اللقب:");
+                lblPrenom05.setText("الإسم:");
+                lblClasse05.setText("القسم:");
+                lblCond05.setText("الحالة:");
+                lblDocuments05.setText("الوثائق:");
+                lblAucunDoc05.setText("لا يوجد أي وثيقة.");
+                lblAjouterDoc05.setText("إضافة وثائق");
 //				lblVoirTousDocs05.setText("رؤية جميع الوثائق");
-				lblSupprimerTousDocs05.setText("حذف جميع الوثائق");
-				lblSupprimer05.setText("حذف");
-				lblRetourner05.setText("رجوع");
+                lblSupprimerTousDocs05.setText("حذف جميع الوثائق");
+                lblSupprimer05.setText("حذف");
+                lblRetourner05.setText("رجوع");
 
-				lblLangue06.setText("اللغة:");
-				lblEnregistrer06.setText("تسجيل");
-				lblRetourner06.setText("رجوع");
+                lblLangue06.setText("اللغة:");
+                lblEnregistrer06.setText("تسجيل");
+                lblRetourner06.setText("رجوع");
 
-				// PANE 07
-				lblClasse07.setText("القسم:");
-				lblSelClasse07.setText("إختر القسم.");
-				lblSupprimer07.setText("حذف");
-				lblRetourner07.setText("رجوع");
+                // PANE 07
+                lblClasse07.setText("القسم:");
+                lblSelClasse07.setText("إختر القسم.");
+                lblSupprimer07.setText("حذف");
+                lblRetourner07.setText("رجوع");
 
-				// TODO: PANE 04 & 05 | TRANCHE
-				lblTranche04.setText("القسط الثّاني:");
-				rbTrancheBourse04.setText("منحة");
-				rbTranchePret04.setText("قرض");
-				rbTranchePayee04.setText("مدفوع");
-				rbTrancheNonPayee04.setText("غير مدفوع");
-				lblTranche05.setText("القسط الثّاني:");
-				rbTrancheBourse05.setText("منحة");
-				rbTranchePret05.setText("قرض");
-				rbTranchePayee05.setText("مدفوع");
-				rbTrancheNonPayee05.setText("غير مدفوع");
-				break;
+                // TODO: PANE 04 & 05 | TRANCHE
+                lblTranche04.setText("القسط الثّاني:");
+                rbTrancheBourse04.setText("منحة");
+                rbTranchePret04.setText("قرض");
+                rbTranchePayee04.setText("مدفوع");
+                rbTrancheNonPayee04.setText("غير مدفوع");
+                lblTranche05.setText("القسط الثّاني:");
+                rbTrancheBourse05.setText("منحة");
+                rbTranchePret05.setText("قرض");
+                rbTranchePayee05.setText("مدفوع");
+                rbTrancheNonPayee05.setText("غير مدفوع");
+                break;
 
-			case "french":
-				lblInst01.setText("Institut Supérieur des Langues Appliquées et Informatique de Béja");
-				lblMinis01.setText("Ministère de l'Enseignement Supérieur et de la Recherche Scientifique");
-				lblUniv01.setText("Université de Jendouba");
-				btnContinuer01.setText("Continuer");
+            case "french":
+                lblInst01.setText("Institut Supérieur des Langues Appliquées et Informatique de Béja");
+                lblMinis01.setText("Ministère de l'Enseignement Supérieur et de la Recherche Scientifique");
+                lblUniv01.setText("Université de Jendouba");
+                btnContinuer01.setText("Continuer");
 
-				btnRechercher02.setText("Rechercher");
-				btnAjouter02.setText("Plus");
+                btnRechercher02.setText("Rechercher");
+                btnAjouter02.setText("Plus");
 
-				lblCIN03.setText("CIN:");
-				lblValider03.setText("Valider");
-				lblRetourner03.setText("Retourner");
-				lblAfficherClasses03.setText("Afficher étudiants par classe");
+                lblCIN03.setText("CIN:");
+                lblValider03.setText("Valider");
+                lblRetourner03.setText("Retourner");
+                lblAfficherClasses03.setText("Afficher étudiants par classe");
 
-				lblCIN04.setText("CIN:");
-				lblArchive04.setText("Archive:");
-				lblNom04.setText("Nom:");
-				lblPrenom04.setText("Prénom:");
-				lblClasse04.setText("Classe:");
-				lblCond04.setText("Condition:");
-				lblAjouter04.setText("Ajouter");
-				lblInitialiser04.setText("Réinitialiser");
-				lblRetourner04.setText("Retourner");
+                lblCIN04.setText("CIN:");
+                lblArchive04.setText("Archive:");
+                lblNom04.setText("Nom:");
+                lblPrenom04.setText("Prénom:");
+                lblClasse04.setText("Classe:");
+                lblCond04.setText("Condition:");
+                lblAjouter04.setText("Ajouter");
+                lblInitialiser04.setText("Réinitialiser");
+                lblRetourner04.setText("Retourner");
 
-				// PANE 04: ADD CLASS
-				lblNomClasse04.setText("Nom Classe :");
-				lblAjouterClasse04.setText("Ajouter");
+                // PANE 04: ADD CLASS
+                lblNomClasse04.setText("Nom Classe :");
+                lblAjouterClasse04.setText("Ajouter");
 
-				lblCIN05.setText("CIN:");
-				lblArchive05.setText("Archive:");
-				lblNom05.setText("Nom:");
-				lblPrenom05.setText("Prénom:");
-				lblClasse05.setText("Classe:");
-				lblCond05.setText("Condition:");
-				lblDocuments05.setText("Documents:");
-				lblAucunDoc05.setText("Aucun document.");
-				lblAjouterDoc05.setText("Ajouter");
+                lblCIN05.setText("CIN:");
+                lblArchive05.setText("Archive:");
+                lblNom05.setText("Nom:");
+                lblPrenom05.setText("Prénom:");
+                lblClasse05.setText("Classe:");
+                lblCond05.setText("Condition:");
+                lblDocuments05.setText("Documents:");
+                lblAucunDoc05.setText("Aucun document.");
+                lblAjouterDoc05.setText("Ajouter");
 //				lblVoirTousDocs05.setText("Voir tous");
-				lblSupprimerTousDocs05.setText("Supprimer tous");
-				lblSupprimer05.setText("Supprimer");
-				lblRetourner05.setText("Retourner");
+                lblSupprimerTousDocs05.setText("Supprimer tous");
+                lblSupprimer05.setText("Supprimer");
+                lblRetourner05.setText("Retourner");
 
-				lblLangue06.setText("Langue:");
-				lblEnregistrer06.setText("Enregistrer");
-				lblRetourner06.setText("Retourner");
+                lblLangue06.setText("Langue:");
+                lblEnregistrer06.setText("Enregistrer");
+                lblRetourner06.setText("Retourner");
 
 
-				// PANE 07
-				lblClasse07.setText("Classe:");
-				lblSelClasse07.setText("Sélectionner une classe.");
-				lblSupprimer07.setText("Supprimer");
-				lblRetourner07.setText("Retourner");
+                // PANE 07
+                lblClasse07.setText("Classe:");
+                lblSelClasse07.setText("Sélectionner une classe.");
+                lblSupprimer07.setText("Supprimer");
+                lblRetourner07.setText("Retourner");
 
-				// TODO: PANE 04 & 05 | TRANCHE
-				lblTranche04.setText("2ème Tranche:");
-				rbTrancheBourse04.setText("Bourse");
-				rbTranchePret04.setText("Prêt");
-				rbTranchePayee04.setText("Payée");
-				rbTrancheNonPayee04.setText("Non payée");
-				lblTranche05.setText("2ème Tranche:");
-				rbTrancheBourse05.setText("Bourse");
-				rbTranchePret05.setText("Prêt");
-				rbTranchePayee05.setText("Payée");
-				rbTrancheNonPayee05.setText("Non payée");
-				break;
+                // TODO: PANE 04 & 05 | TRANCHE
+                lblTranche04.setText("2ème Tranche:");
+                rbTrancheBourse04.setText("Bourse");
+                rbTranchePret04.setText("Prêt");
+                rbTranchePayee04.setText("Payée");
+                rbTrancheNonPayee04.setText("Non payée");
+                lblTranche05.setText("2ème Tranche:");
+                rbTrancheBourse05.setText("Bourse");
+                rbTranchePret05.setText("Prêt");
+                rbTranchePayee05.setText("Payée");
+                rbTrancheNonPayee05.setText("Non payée");
+                break;
 
-			case "english":
-				lblInst01.setText("Higher Institute of Applied Languages and Computer Science of Beja");
-				lblMinis01.setText("Ministry of Higher Education and Scientific Research");
-				lblUniv01.setText("University of Jendouba");
-				btnContinuer01.setText("Continue");
+            case "english":
+                lblInst01.setText("Higher Institute of Applied Languages and Computer Science of Beja");
+                lblMinis01.setText("Ministry of Higher Education and Scientific Research");
+                lblUniv01.setText("University of Jendouba");
+                btnContinuer01.setText("Continue");
 
-				btnRechercher02.setText("Search");
-				btnAjouter02.setText("More");
+                btnRechercher02.setText("Search");
+                btnAjouter02.setText("More");
 
-				lblCIN03.setText("ID Card Number:");
-				lblValider03.setText("Validate");
-				lblRetourner03.setText("Return");
-				lblAfficherClasses03.setText("Show Students by Class");
+                lblCIN03.setText("ID Card Number:");
+                lblValider03.setText("Validate");
+                lblRetourner03.setText("Return");
+                lblAfficherClasses03.setText("Show Students by Class");
 
-				lblCIN04.setText("ID Card Number:");
-				lblArchive04.setText("Archive:");
-				lblNom04.setText("Last Name:");
-				lblPrenom04.setText("First Name:");
-				lblClasse04.setText("Class:");
-				lblCond04.setText("Condition:");
-				lblAjouter04.setText("Add");
-				lblInitialiser04.setText("Reset");
-				lblRetourner04.setText("Return");
+                lblCIN04.setText("ID Card Number:");
+                lblArchive04.setText("Archive:");
+                lblNom04.setText("Last Name:");
+                lblPrenom04.setText("First Name:");
+                lblClasse04.setText("Class:");
+                lblCond04.setText("Condition:");
+                lblAjouter04.setText("Add");
+                lblInitialiser04.setText("Reset");
+                lblRetourner04.setText("Return");
 
-				// PANE 04: ADD CLASS
-				lblNomClasse04.setText("Class Name :");
-				lblAjouterClasse04.setText("Add");
+                // PANE 04: ADD CLASS
+                lblNomClasse04.setText("Class Name :");
+                lblAjouterClasse04.setText("Add");
 
-				lblCIN05.setText("ID Card Number:");
-				lblArchive05.setText("Archive:");
-				lblNom05.setText("Last Name:");
-				lblPrenom05.setText("First Name:");
-				lblClasse05.setText("Class:");
-				lblCond05.setText("Condition:");
-				lblDocuments05.setText("Documents:");
-				lblAucunDoc05.setText("No Document.");
-				lblAjouterDoc05.setText("Add");
+                lblCIN05.setText("ID Card Number:");
+                lblArchive05.setText("Archive:");
+                lblNom05.setText("Last Name:");
+                lblPrenom05.setText("First Name:");
+                lblClasse05.setText("Class:");
+                lblCond05.setText("Condition:");
+                lblDocuments05.setText("Documents:");
+                lblAucunDoc05.setText("No Document.");
+                lblAjouterDoc05.setText("Add");
 //				lblVoirTousDocs05.setText("View All");
-				lblSupprimerTousDocs05.setText("Delete All");
-				lblSupprimer05.setText("Delete");
-				lblRetourner05.setText("Return");
+                lblSupprimerTousDocs05.setText("Delete All");
+                lblSupprimer05.setText("Delete");
+                lblRetourner05.setText("Return");
 
-				lblLangue06.setText("Language:");
-				lblEnregistrer06.setText("Save");
-				lblSupprimer07.setText("Delete");
-				lblRetourner06.setText("Return");
+                lblLangue06.setText("Language:");
+                lblEnregistrer06.setText("Save");
+                lblSupprimer07.setText("Delete");
+                lblRetourner06.setText("Return");
 
 
-				// PANE 07
-				lblClasse07.setText("Class:");
-				lblSelClasse07.setText("Select Class.");
-				lblRetourner07.setText("Return");
+                // PANE 07
+                lblClasse07.setText("Class:");
+                lblSelClasse07.setText("Select Class.");
+                lblRetourner07.setText("Return");
 
-				// TODO: PANE 04 & 05 | TRANCHE
-				lblTranche04.setText("2nd Payment:");
-				rbTrancheBourse04.setText("Scholarship");
-				rbTranchePret04.setText("Loan");
-				rbTranchePayee04.setText("Paid");
-				rbTrancheNonPayee04.setText("Not Paid");
-				lblTranche05.setText("2nd Payment:");
-				rbTrancheBourse05.setText("Scholarship");
-				rbTranchePret05.setText("Loan");
-				rbTranchePayee05.setText("Paid");
-				rbTrancheNonPayee05.setText("Not Paid");
-				break;
-		}
+                // TODO: PANE 04 & 05 | TRANCHE
+                lblTranche04.setText("2nd Payment:");
+                rbTrancheBourse04.setText("Scholarship");
+                rbTranchePret04.setText("Loan");
+                rbTranchePayee04.setText("Paid");
+                rbTrancheNonPayee04.setText("Not Paid");
+                lblTranche05.setText("2nd Payment:");
+                rbTrancheBourse05.setText("Scholarship");
+                rbTranchePret05.setText("Loan");
+                rbTranchePayee05.setText("Paid");
+                rbTrancheNonPayee05.setText("Not Paid");
+                break;
+        }
 
-		// CONDITIONS
-		ArrayList<String> conditions = getConditions();
-		cbCond04.getItems().clear();
-		cbCond04.getItems().addAll(conditions);
-		cbCond05.getItems().clear();
-		cbCond05.getItems().addAll(conditions);
-	}
+        // CONDITIONS
+        ArrayList<String> conditions = getConditions();
+        cbCond04.getItems().clear();
+        cbCond04.getItems().addAll(conditions);
+        cbCond05.getItems().clear();
+        cbCond05.getItems().addAll(conditions);
+    }
 
-	public void requestFocus(Node node) {
-		requestFocus(node, 3);
-	}
+    public void requestFocus(Node node) {
+        requestFocus(node, 3);
+    }
 
-	private void requestFocus(final Node node, final int max) {
-		if (max > 0) {
-			Platform.runLater(
-				() -> {
-					if (!node.isFocused()) {
-						node.requestFocus();
-						requestFocus(node, max - 1);
-					}
-				}
-			);
-		}
-	}
+    private void requestFocus(final Node node, final int max) {
+        if (max > 0) {
+            Platform.runLater(
+                    () -> {
+                        if (!node.isFocused()) {
+                            node.requestFocus();
+                            requestFocus(node, max - 1);
+                        }
+                    }
+            );
+        }
+    }
 
-	private void setStudentsByClass() {
-		allEtudiants07.getChildren().clear();
+    private void setStudentsByClass() {
+        allEtudiants07.getChildren().clear();
 
-		if (cbClasse07.getValue() == null) {
-			allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Sélectionner une classe.")));
-			return;
-		}
+        if (cbClasse07.getValue() == null) {
+            allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Sélectionner une classe.")));
+            return;
+        }
 
-		ArrayList<Etudiant> etudiants = DB.getStudentsByClass(cbClasse07.getValue().toString());
+        ArrayList<Etudiant> etudiants = DB.getStudentsByClass(cbClasse07.getValue().toString());
 
-		if (etudiants == null || etudiants.size() == 0)
-			allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Aucun étudiant.")));
-		else {
-			int nb = 0;
-			for (Etudiant etudiant : etudiants) {
-				nb++;
-				allEtudiants07.getChildren().add(new EtudiantHBox(nb, etudiant));
-			}
-		}
-	}
+        if (etudiants == null || etudiants.size() == 0)
+            allEtudiants07.getChildren().add(new EtudiantHBox(Lang.getEquiv("Aucun étudiant.")));
+        else {
+            int nb = 0;
+            for (Etudiant etudiant : etudiants) {
+                nb++;
+                allEtudiants07.getChildren().add(new EtudiantHBox(nb, etudiant));
+            }
+        }
+    }
 
-	private void setClasses() {
-		classes = DB.getClasses();
-		if (classes != null) {
-			cbClasse04.getItems().clear();
-			cbClasse04.getItems().addAll(classes);
-			cbClasse05.getItems().clear();
-			cbClasse05.getItems().addAll(classes);
-			cbClasse07.getItems().clear();
-			cbClasse07.getItems().addAll(classes);
-		}
-	}
+    private void setClasses() {
+        classes = DB.getClasses();
+        if (classes != null) {
+            cbClasse04.getItems().clear();
+            cbClasse04.getItems().addAll(classes);
+            cbClasse05.getItems().clear();
+            cbClasse05.getItems().addAll(classes);
+            cbClasse07.getItems().clear();
+            cbClasse07.getItems().addAll(classes);
+        }
+    }
 
-	private void proceedToMain() {
-		show(paneMain);
-	}
+    private void proceedToMain() {
+        show(paneMain);
+    }
 
-	private void search() {
-		Etudiant e1;
+    private void search() {
+        Etudiant e1;
 
-		if (txtCIN03.getText().isEmpty()) {
-			lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN d'abord."));
-			return;
-		}
+        if (txtCIN03.getText().isEmpty()) {
+            lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN d'abord."));
+            return;
+        }
 
-		int cin;
-		try {
-			cin = Integer.parseInt(txtCIN03.getText());
-		} catch (Exception e2) {
-			lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN valide."));
-			return;
-		}
+        int cin;
+        try {
+            cin = Integer.parseInt(txtCIN03.getText());
+        } catch (Exception e2) {
+            lblMsg03.setText(Lang.getEquiv("Entrer un numéro de CIN valide."));
+            return;
+        }
 
-		try {
-			e1 = DB.getEtudiant(cin);
-			if (e1 == null) {
-				lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
-			} else {
-				show(paneResultat);
-				txtCIN05.setText(String.format("%08d", e1.getCin()));
-				txtArchive05.setText(e1.getArchive());
-				txtNom05.setText(e1.getNom());
-				txtPrenom05.setText(e1.getPrenom());
-				cbClasse05.setValue(e1.getClasse());
-				cbCond05.setValue(e1.getCond());
-				setSelectedBoursier05(e1.isTranche());
-				disableInputs05(true);
-				setDocs();
-				currCond05 = cbCond05.getValue();
-				setEquivCond();
-			}
-		} catch (Exception e2) {
-			lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
-		}
-	}
+        try {
+            e1 = DB.getEtudiant(cin);
+            if (e1 == null) {
+                lblMsg03.setText(Lang.getEquiv("Aucun étudiant enregistré avec ce numéro de CIN."));
+            } else {
+                show(paneResultat);
+                txtCIN05.setText(String.format("%08d", e1.getCin()));
+                txtArchive05.setText(e1.getArchive());
+                txtNom05.setText(e1.getNom());
+                txtPrenom05.setText(e1.getPrenom());
+                cbClasse05.setValue(e1.getClasse());
+                cbCond05.setValue(e1.getCond());
+                setSelectedBoursier05(e1.isTranche());
+                disableInputs05(true);
+                setDocs();
+                currCond05 = cbCond05.getValue();
+                setEquivCondFor05Only();
+            }
+        } catch (Exception e2) {
+            lblMsg03.setText(Lang.getEquiv("Erreur lors de la recherche."));
+        }
+    }
 
-	private void return03() {
-		show(paneMain);
-	}
+    private void return03() {
+        show(paneMain);
+    }
 
-	private void addStudent() {
-		lblMsgAC04.setText("");
+    private void addStudent() {
+        lblMsgAC04.setText("");
 
-		if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
-				txtPrenom04.getText().isEmpty()) {
-			lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
-			return;
-		}
+        if (txtCIN04.getText().isEmpty() || txtArchive04.getText().isEmpty() || txtNom04.getText().isEmpty() ||
+                txtPrenom04.getText().isEmpty()) {
+            lblMsg04.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
+            return;
+        }
 
-		if (txtCIN04.getText().length() != 8) {
-			lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-			return;
-		}
+        if (txtCIN04.getText().length() != 8) {
+            lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+            return;
+        }
 
-		int cin;
-		try {
-			cin = Integer.parseInt(txtCIN04.getText());
-			if (cin < 0 || cin > 99999999) {
-				lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-				return;
-			}
-		} catch (Exception e1) {
-			lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
-			return;
-		}
+        int cin;
+        try {
+            cin = Integer.parseInt(txtCIN04.getText());
+            if (cin < 0 || cin > 99999999) {
+                lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+                return;
+            }
+        } catch (Exception e1) {
+            lblMsg04.setText(Lang.getEquiv("Numéro de CIN invalide."));
+            return;
+        }
 
-		if (getSelectedBoursier04() == Tranche2.NONE) {
-			lblMsg04.setText(Lang.getEquiv("Sélectionner boursier ou non."));
-			return;
-		}
+        if (getSelectedBoursier04() == Tranche2.NONE) {
+            lblMsg04.setText(Lang.getEquiv("Sélectionner boursier ou non."));
+            return;
+        }
 
-		if (cbClasse04.getValue() == null) {
-			lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
-			return;
-		}
+        if (cbClasse04.getValue() == null) {
+            lblMsg04.setText(Lang.getEquiv("Aucune classe selectionnée."));
+            return;
+        }
 
-		if (cbCond04.getValue() == null) {
-			lblMsg04.setText(Lang.getEquiv("Aucune condition selectionnée."));
-			return;
-		}
+        if (cbCond04.getValue() == null) {
+            lblMsg04.setText(Lang.getEquiv("Aucune condition selectionnée."));
+            return;
+        }
 
 //		if (!classes.contains(cbClasse04.getValue().toUpperCase())) {
 //			lblMsg04.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 //			return;
 //		}
 
-		try {
-			Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()),
-					txtArchive04.getText(),
-					txtNom04.getText(),
-					txtPrenom04.getText(),
-					cbClasse04.getValue().toUpperCase(),
-					getCondInFrench(cbCond04.getValue()),
-					getSelectedBoursier04()
-			);
-			if (DB.addEtudiant(e1)) {
-				lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
-			} else {
-				lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-			}
-		} catch (Exception e2) {
-			lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-		}
-	}
+        try {
+            Etudiant e1 = new Etudiant(Integer.parseInt(txtCIN04.getText()),
+                    txtArchive04.getText(),
+                    txtNom04.getText(),
+                    txtPrenom04.getText(),
+                    cbClasse04.getValue().toUpperCase(),
+                    getCondInFrench(cbCond04.getValue()),
+                    getSelectedBoursier04()
+            );
+            if (DB.getEtudiant(e1.getCin()) != null) {
+                if (Dialog.confirm(
+                        Lang.getEquiv("CIN Existante"),
+                        Lang.getEquiv("Il existe un étudiant avec la même CIN. Voulez-vous modifier ses informations ?")
+                )) {
+                    show(paneRechercher);
+                    txtCIN03.setText(String.format("%08d", e1.getCin()));
+					lblMsg03.setText(Lang.getEquiv("Cliquer sur Valider pour modifier les informations de l'étudiant."));
+//					setEquivCond(); BRXX1
+                } else {
+                    lblMsg04.setText(Lang.getEquiv("Il existe un étudiant avec la même CIN."));
+                }
+                return;
+            }
+            if (DB.addEtudiant(e1)) {
+                lblMsg04.setText(Lang.getEquiv("Ajouté avec succès."));
+            } else {
+                lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+            }
+        } catch (Exception e2) {
+            lblMsg04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+        }
+    }
 
-	private void addClass() {
-		lblMsg04.setText("");
+    private void addClass() {
+        lblMsg04.setText("");
 
-		if (txtNomClasse04.getText().isEmpty()) {
-			lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
-			return;
-		}
+        if (txtNomClasse04.getText().isEmpty()) {
+            lblMsgAC04.setText(Lang.getEquiv("Entrer le nom de la classe d'abord."));
+            return;
+        }
 
-		if (DB.addClasse(txtNomClasse04.getText().toUpperCase())) {
-			setClasses();
-			lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
-		} else {
-			lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
-		}
-	}
+        if (DB.addClasse(txtNomClasse04.getText().toUpperCase())) {
+            setClasses();
+            lblMsgAC04.setText(Lang.getEquiv("Ajouté avec succès."));
+        } else {
+            lblMsgAC04.setText(Lang.getEquiv("Erreur lors de l'ajout."));
+        }
+    }
 
-	private void return04() {
-		show(paneMain);
-	}
+    private void return04() {
+        show(paneMain);
+    }
 
-	private void editStudent() {
-		if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-			txtArchive05.setEditable(true);
-			txtNom05.setEditable(true);
-			txtPrenom05.setEditable(true);
+    private void editStudent() {
+        if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
+            txtArchive05.setEditable(true);
+            txtNom05.setEditable(true);
+            txtPrenom05.setEditable(true);
 //			cbClasse05.setEditable(true);
 //			txtCond05.setEditable(true);
-			lblModifier05.setText(Lang.getEquiv("Enregistrer"));
-			lblRetourner05.setText(Lang.getEquiv("Annuler"));
-			lblMsg05.setText("");
-			disableInputs05(false);
+            lblModifier05.setText(Lang.getEquiv("Enregistrer"));
+            lblRetourner05.setText(Lang.getEquiv("Annuler"));
+            lblMsg05.setText("");
+            disableInputs05(false);
 
 //			lblAjouterDoc05.setDisable(false);
-		} else {
-			if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
-					txtPrenom05.getText().isEmpty()) {
-				lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
-				return;
-			}
+        } else {
+            if (txtArchive05.getText().isEmpty() || txtNom05.getText().isEmpty() ||
+                    txtPrenom05.getText().isEmpty()) {
+                lblMsg05.setText(Lang.getEquiv("Tous les champs doivent être remplis."));
+                return;
+            }
 
-			if (cbClasse05.getValue() == null) {
-				lblMsg05.setText(Lang.getEquiv("Aucune classe selectionnée."));
-				return;
-			}
+            if (cbClasse05.getValue() == null) {
+                lblMsg05.setText(Lang.getEquiv("Aucune classe selectionnée."));
+                return;
+            }
 
-			if (cbCond05.getValue() == null) {
-				lblMsg05.setText(Lang.getEquiv("Aucune condition selectionnée."));
-				return;
-			}
+            if (cbCond05.getValue() == null) {
+                lblMsg05.setText(Lang.getEquiv("Aucune condition selectionnée."));
+                return;
+            }
 
 //			if (!classes.contains(cbClasse05.getValue().toUpperCase())) {
 //				lblMsg05.setText(Lang.getEquiv("La classe entrée n'existe pas."));
 //				return;
 //			}
 
-			try {
-				Etudiant e1 = new Etudiant(
-						Integer.parseInt(txtCIN05.getText()),
-						txtArchive05.getText(),
-						txtNom05.getText(),
-						txtPrenom05.getText(),
-						cbClasse05.getValue().toUpperCase(),
-						getCondInFrench(cbCond05.getValue()),
-						getSelectedBoursier05()
-				);
+            try {
+                Etudiant e1 = new Etudiant(
+                        Integer.parseInt(txtCIN05.getText()),
+                        txtArchive05.getText(),
+                        txtNom05.getText(),
+                        txtPrenom05.getText(),
+                        cbClasse05.getValue().toUpperCase(),
+                        getCondInFrench(cbCond05.getValue()),
+                        getSelectedBoursier05()
+                );
 
-				if (DB.modifyEtudiant(e1)) {
-					lblMsg05.setText(Lang.getEquiv("Modifié avec succès."));
-				} else {
-					lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
-				}
-			} catch (Exception e2) {
-				lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
-			}
+                if (DB.modifyEtudiant(e1)) {
+                    lblMsg05.setText(Lang.getEquiv("Modifié avec succès."));
+                } else {
+                    lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
+                }
+            } catch (Exception e2) {
+                lblMsg05.setText(Lang.getEquiv("Erreur lors de la modification."));
+            }
 
-			txtArchive05.setEditable(false);
-			txtNom05.setEditable(false);
-			txtPrenom05.setEditable(false);
+            txtArchive05.setEditable(false);
+            txtNom05.setEditable(false);
+            txtPrenom05.setEditable(false);
 //			cbClasse05.setEditable(false);
 //			txtCond05.setEditable(false);
 //			lblAjouterDoc05.setDisable(true);
-			disableInputs05(true);
-			lblModifier05.setText(Lang.getEquiv("Modifier"));
-			lblRetourner05.setText(Lang.getEquiv("Retourner"));
-		}
-	}
+            disableInputs05(true);
+            lblModifier05.setText(Lang.getEquiv("Modifier"));
+            lblRetourner05.setText(Lang.getEquiv("Retourner"));
+        }
+    }
 
-	private void deleteStudent() {
-		lblMsg05.setText("");
-		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
-			return;
-		}
+    private void deleteStudent() {
+        lblMsg05.setText("");
+        if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Étudiant"), Lang.getEquiv("Voulez-vous vraiment supprimer cet étudiant ?"))) {
+            return;
+        }
 
-		try {
-			if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
-				if (isLastClassesPane) {
-					show(paneClasses);
-					lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
-				} else {
-					show(paneRechercher);
-					lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
-				};
+        try {
+            if (DB.deleteEtudiant(Integer.parseInt(txtCIN05.getText()))) {
+                if (isLastClassesPane) {
+                    show(paneClasses);
+                    lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
+                } else {
+                    show(paneRechercher);
+                    lblMsg03.setText(Lang.getEquiv("Supprimé avec succès."));
+                }
+                ;
 
-			} else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
-		} catch (Exception e1) {
-			lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
-		}
-	}
+            } else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
+        } catch (Exception e1) {
+            lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression."));
+        }
+    }
 
-	public void return05() {
-		if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
-			if (isLastClassesPane) show(paneClasses);
-			else show(paneRechercher);
-		} else {
-			show(paneResultat);
-			Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN05.getText()));
-			if (e1 != null) {
-				txtCIN05.setText(String.format("%08d", e1.getCin()));
-				txtArchive05.setText(e1.getArchive());
-				txtNom05.setText(e1.getNom());
-				txtPrenom05.setText(e1.getPrenom());
-				cbClasse05.setValue(e1.getClasse());
-				cbCond05.setValue(e1.getCond());
-				setSelectedBoursier05(e1.isTranche());
-			}
-			lblModifier05.setText(Lang.getEquiv("Modifier"));
-			lblRetourner05.setText(Lang.getEquiv("Retourner"));
-			setDocs();
-			disableInputs05(true);
-			currCond05 = cbCond05.getValue();
-			setEquivCond();
-		}
-	}
+    public void return05() {
+        if (lblModifier05.getText().equals(Lang.getEquiv("Modifier"))) {
+            if (lastPaneReserved == paneAjouter) {
+//			    setEquivCond();  BRXX2
+//			    show(paneAjouter);
+//				System.out.println(currCond04);
+            } else if (isLastClassesPane) show(paneClasses);
+            else show(paneRechercher);
+        } else {
+            show(paneResultat);
+            Etudiant e1 = DB.getEtudiant(Integer.parseInt(txtCIN05.getText()));
+            if (e1 != null) {
+                txtCIN05.setText(String.format("%08d", e1.getCin()));
+                txtArchive05.setText(e1.getArchive());
+                txtNom05.setText(e1.getNom());
+                txtPrenom05.setText(e1.getPrenom());
+                cbClasse05.setValue(e1.getClasse());
+                cbCond05.setValue(e1.getCond());
+                setSelectedBoursier05(e1.isTranche());
+            }
+            lblModifier05.setText(Lang.getEquiv("Modifier"));
+            lblRetourner05.setText(Lang.getEquiv("Retourner"));
+            setDocs();
+            disableInputs05(true);
+            currCond05 = cbCond05.getValue();
+            setEquivCondFor05Only();
+        }
+    }
 
-	public void saveSettings() {
-		String currSelectedLang;
-		if (rbArabic06.isSelected()) currSelectedLang = "arabic";
-		else if (rbFrench06.isSelected()) currSelectedLang = "french";
-		else if (rbEnglish06.isSelected()) currSelectedLang = "english";
-		else {
-			lblMsg06.setText(Lang.getEquiv("Aucune langue sélectionnée."));
-			return;
-		}
+    public void saveSettings() {
+        String currSelectedLang;
+        if (rbArabic06.isSelected()) currSelectedLang = "arabic";
+        else if (rbFrench06.isSelected()) currSelectedLang = "french";
+        else if (rbEnglish06.isSelected()) currSelectedLang = "english";
+        else {
+            lblMsg06.setText(Lang.getEquiv("Aucune langue sélectionnée."));
+            return;
+        }
 
-		if (DB.saveSetting(new Setting("language", currSelectedLang))) {
-			lang = currSelectedLang;
-			if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
-			currCond04 = cbCond04.getValue();
-			currCond05 = cbCond05.getValue();
-			setUpLang();
-			if (lastPane == paneResultat || lastPane == paneAjouter) {
-				setEquivCond();
-			}
-			lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
-		} else {
-			lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
-		}
-	}
+        if (DB.saveSetting(new Setting("language", currSelectedLang))) {
+            lang = currSelectedLang;
+            if (lastPane == paneWelcome) lblBienvenue01.setText(getWelcomeMsg());
+            currCond04 = cbCond04.getValue();
+            currCond05 = cbCond05.getValue();
+            setUpLang();
+            if (lastPane == paneResultat || lastPane == paneAjouter) {
+                setEquivCond();
+            }
+            lblMsg06.setText(Lang.getEquiv("Langue enregistrée."));
+        } else {
+            lblMsg06.setText(Lang.getEquiv("Erreur lors de l'enregistrement."));
+        }
+    }
 
-	public void return06() {
-		show(lastPane);
-		if (correctCurrPane == paneResultat) setDocs();
-	}
+    public void return06() {
+        show(lastPane);
+        if (correctCurrPane == paneResultat) setDocs();
+    }
 
-	public void deleteClass() {
-		lblMsg07.setText("");
-		if (cbClasse07.getValue() == null) {
-			lblMsg07.setText(Lang.getEquiv("Sélectionner une classe."));
-			return;
-		}
+    public void deleteClass() {
+        lblMsg07.setText("");
+        if (cbClasse07.getValue() == null) {
+            lblMsg07.setText(Lang.getEquiv("Sélectionner une classe."));
+            return;
+        }
 
-		if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Classe"), Lang.getEquiv("Voulez-vous vraiment supprimer cette classe avec tous ses données ?"))) {
+        if (!main.useful.Dialog.confirm(Lang.getEquiv("Supprimer Classe"), Lang.getEquiv("Voulez-vous vraiment supprimer cette classe avec tous ses données ?"))) {
 //				lblMsg07.setText(Lang.getEquiv("Aucun classe supprimé."));
-			return;
-		}
+            return;
+        }
 
-		try {
-			if (DB.delClasse(cbClasse07.getValue().toString())) {
-				setClasses();
-				setStudentsByClass();
-				lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
-			} else lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
-		} catch (Exception e1) {
-			lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
-		}
-	}
+        try {
+            if (DB.delClasse(cbClasse07.getValue().toString())) {
+                setClasses();
+                setStudentsByClass();
+                lblMsg07.setText(Lang.getEquiv("Supprimé avec succès."));
+            } else lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+        } catch (Exception e1) {
+            lblMsg07.setText(Lang.getEquiv("Erreur lors de la suppression."));
+        }
+    }
 
-	public void return07() {
-		show(paneRechercher);
-	}
+    public void return07() {
+        show(paneRechercher);
+    }
 
-	public Tranche2 getSelectedBoursier04() {
-		if (rbTranchePret04.isSelected()) return Tranche2.PRET;
-		if (rbTrancheBourse04.isSelected()) return Tranche2.BOURSE;
-		if (rbTranchePayee04.isSelected()) return Tranche2.PAYEE;
-		if (rbTrancheNonPayee04.isSelected()) return Tranche2.NON_PAYEE;
-		return Tranche2.NONE;
-	}
+    public Tranche2 getSelectedBoursier04() {
+        if (rbTranchePret04.isSelected()) return Tranche2.PRET;
+        if (rbTrancheBourse04.isSelected()) return Tranche2.BOURSE;
+        if (rbTranchePayee04.isSelected()) return Tranche2.PAYEE;
+        if (rbTrancheNonPayee04.isSelected()) return Tranche2.NON_PAYEE;
+        return Tranche2.NONE;
+    }
 
-	public Tranche2 getSelectedBoursier05() {
-		if (rbTranchePret05.isSelected()) return Tranche2.PRET;
-		if (rbTrancheBourse05.isSelected()) return Tranche2.BOURSE;
-		if (rbTranchePayee05.isSelected()) return Tranche2.PAYEE;
-		if (rbTrancheNonPayee05.isSelected()) return Tranche2.NON_PAYEE;
-		return Tranche2.NONE;
-	}
+    public Tranche2 getSelectedBoursier05() {
+        if (rbTranchePret05.isSelected()) return Tranche2.PRET;
+        if (rbTrancheBourse05.isSelected()) return Tranche2.BOURSE;
+        if (rbTranchePayee05.isSelected()) return Tranche2.PAYEE;
+        if (rbTrancheNonPayee05.isSelected()) return Tranche2.NON_PAYEE;
+        return Tranche2.NONE;
+    }
 
-	public void setSelectedBoursier05(Tranche2 b) {
-		rbTranchePret05.setSelected(false);
-		rbTrancheBourse05.setSelected(false);
-		rbTranchePayee05.setSelected(false);
-		rbTrancheNonPayee05.setSelected(false);
-		switch (b) {
-			case BOURSE:
-				rbTrancheBourse05.setSelected(true);
-				break;
-			case PRET:
-				rbTranchePret05.setSelected(true);
-				break;
-			case PAYEE:
-				rbTranchePayee05.setSelected(true);
-				break;
-			case NON_PAYEE:
-				rbTrancheNonPayee05.setSelected(true);
-				break;
-		}
-	}
+    public void setSelectedBoursier05(Tranche2 b) {
+        rbTranchePret05.setSelected(false);
+        rbTrancheBourse05.setSelected(false);
+        rbTranchePayee05.setSelected(false);
+        rbTrancheNonPayee05.setSelected(false);
+        switch (b) {
+            case BOURSE:
+                rbTrancheBourse05.setSelected(true);
+                break;
+            case PRET:
+                rbTranchePret05.setSelected(true);
+                break;
+            case PAYEE:
+                rbTranchePayee05.setSelected(true);
+                break;
+            case NON_PAYEE:
+                rbTrancheNonPayee05.setSelected(true);
+                break;
+        }
+    }
 
-	public void disableInputs05(boolean b) {
-		if (b) {
-			txtCIN05.setDisable(false);
+    public void disableInputs05(boolean b) {
+        if (b) {
+            txtCIN05.setDisable(false);
 
-			rbTrancheBourse05.setDisable(true);
-			rbTranchePret05.setDisable(true);
-			rbTranchePayee05.setDisable(true);
-			rbTrancheNonPayee05.setDisable(true);
+            rbTrancheBourse05.setDisable(true);
+            rbTranchePret05.setDisable(true);
+            rbTranchePayee05.setDisable(true);
+            rbTrancheNonPayee05.setDisable(true);
 
-			switch (getSelectedBoursier05()) {
-				case BOURSE:
-					rbTrancheBourse05.setDisable(false);
-					break;
-				case PRET:
-					rbTranchePret05.setDisable(false);
-					break;
-				case PAYEE:
-					rbTranchePayee05.setDisable(false);
-					break;
-				case NON_PAYEE:
-					rbTrancheNonPayee05.setDisable(false);
-					break;
-			}
+            switch (getSelectedBoursier05()) {
+                case BOURSE:
+                    rbTrancheBourse05.setDisable(false);
+                    break;
+                case PRET:
+                    rbTranchePret05.setDisable(false);
+                    break;
+                case PAYEE:
+                    rbTranchePayee05.setDisable(false);
+                    break;
+                case NON_PAYEE:
+                    rbTrancheNonPayee05.setDisable(false);
+                    break;
+            }
 
-		} else {
-			txtCIN05.setDisable(true);
-			rbTrancheBourse05.setDisable(false);
-			rbTranchePret05.setDisable(false);
-			rbTranchePayee05.setDisable(false);
-			rbTrancheNonPayee05.setDisable(false);
-		}
-	}
+        } else {
+            txtCIN05.setDisable(true);
+            rbTrancheBourse05.setDisable(false);
+            rbTranchePret05.setDisable(false);
+            rbTranchePayee05.setDisable(false);
+            rbTrancheNonPayee05.setDisable(false);
+        }
+    }
 
-	public ArrayList<String> getConditions() {
-		ArrayList<String> conditions = new ArrayList<>();
-		conditions.add(Lang.getEquiv("Réussi"));
-		conditions.add(Lang.getEquiv("Débranché"));
-		conditions.add(Lang.getEquiv("Enregistrement retiré"));
-		conditions.add(Lang.getEquiv("Parti"));
-		return conditions;
-	}
+    public ArrayList<String> getConditions() {
+        ArrayList<String> conditions = new ArrayList<>();
+        conditions.add(Lang.getEquiv("Réussi"));
+        conditions.add(Lang.getEquiv("Débranché"));
+        conditions.add(Lang.getEquiv("Enregistrement retiré"));
+        conditions.add(Lang.getEquiv("Parti"));
+        return conditions;
+    }
 
-	public String getCondInFrench(String s) {
-		switch (s) {
-			case "ناجح":
-			case "Succeded":
-				return "Réussi";
-			case "منقطع":
-			case "Dropout":
-				return "Débranché";
-			case "سحب تسجيل":
-			case "Record Withdrawn":
-				return "Enregistrement retiré";
-			case "مغادر":
-			case "Departed":
-				return "Parti";
-			default:
-				return s;
-		}
-	}
+    public String getCondInFrench(String s) {
+        switch (s) {
+            case "ناجح":
+            case "Succeded":
+                return "Réussi";
+            case "منقطع":
+            case "Dropout":
+                return "Débranché";
+            case "سحب تسجيل":
+            case "Record Withdrawn":
+                return "Enregistrement retiré";
+            case "مغادر":
+            case "Departed":
+                return "Parti";
+            default:
+                return s;
+        }
+    }
 
-	public void setEquivCond() {
-		setCB(currCond04, cbCond04);
-		setCB(currCond05, cbCond05);
-	}
+    public void setEquivCond() {
+        setCB(currCond04, cbCond04);
+        setCB(currCond05, cbCond05);
+    }
 
-	private void setCB(String currCond05, ComboBox<String> cbCond05) {
-		// TODO: OPTIMIZE IT
-		if(currCond05 == null) cbCond05.setValue(null);
-		else switch (currCond05) {
-				case "Réussi":
-				case "ناجح":
-				case "Succeded":
-					switch (lang) {
-						case "french":
-							cbCond05.setValue("Réussi");
-							break;
-						case "arabic":
-							cbCond05.setValue("ناجح");
-							break;
-						case "english":
-							cbCond05.setValue("Succeded");
-							break;
-					}
-					break;
+    public void setEquivCondFor05Only() {
+        setCB(currCond05, cbCond05);
+    }
 
-				case "Débranché":
-				case "منقطع":
-				case "Dropout":
-					switch (lang) {
-						case "french":
-							cbCond05.setValue("Débranché");
-							break;
-						case "arabic":
-							cbCond05.setValue("منقطع");
-							break;
-						case "english":
-							cbCond05.setValue("Dropout");
-							break;
-					}
-					break;
+    private void setCB(String currCond, ComboBox<String> cbCond) {
+        // TODO: OPTIMIZE IT
+        if (currCond == null) cbCond.setValue(null);
+        else switch (currCond) {
+            case "Réussi":
+            case "ناجح":
+            case "Succeded":
+                switch (lang) {
+                    case "french":
+                        cbCond.setValue("Réussi");
+                        break;
+                    case "arabic":
+                        cbCond.setValue("ناجح");
+                        break;
+                    case "english":
+                        cbCond.setValue("Succeded");
+                        break;
+                }
+                break;
 
-				case "Enregistrement retiré":
-				case "سحب تسجيل":
-				case "Record Withdrawn":
-					switch (lang) {
-						case "french":
-							cbCond05.setValue("Enregistrement retiré");
-							break;
-						case "arabic":
-							cbCond05.setValue("سحب تسجيل");
-							break;
-						case "english":
-							cbCond05.setValue("Record Withdrawn");
-							break;
-					}
-					break;
+            case "Débranché":
+            case "منقطع":
+            case "Dropout":
+                switch (lang) {
+                    case "french":
+                        cbCond.setValue("Débranché");
+                        break;
+                    case "arabic":
+                        cbCond.setValue("منقطع");
+                        break;
+                    case "english":
+                        cbCond.setValue("Dropout");
+                        break;
+                }
+                break;
 
-				case "Parti":
-				case "مغادر":
-				case "Departed":
-					switch (lang) {
-						case "french":
-							cbCond05.setValue("Parti");
-							break;
-						case "arabic":
-							cbCond05.setValue("مغادر");
-							break;
-						case "english":
-							cbCond05.setValue("Departed");
-							break;
-					}
-					break;
-			}
-	}
+            case "Enregistrement retiré":
+            case "سحب تسجيل":
+            case "Record Withdrawn":
+                switch (lang) {
+                    case "french":
+                        cbCond.setValue("Enregistrement retiré");
+                        break;
+                    case "arabic":
+                        cbCond.setValue("سحب تسجيل");
+                        break;
+                    case "english":
+                        cbCond.setValue("Record Withdrawn");
+                        break;
+                }
+                break;
 
-	private class DocumentHBox extends HBox {
-		public DocumentHBox(String nomDoc) {
-			Label singleDocLabel = new Label(nomDoc);
-			singleDocLabel.getStyleClass().add("singleDocLabel");
-			singleDocLabel.setMinWidth(USE_COMPUTED_SIZE);
-			singleDocLabel.setPrefWidth(USE_COMPUTED_SIZE);
-			singleDocLabel.setMaxWidth(USE_COMPUTED_SIZE);
+            case "Parti":
+            case "مغادر":
+            case "Departed":
+                switch (lang) {
+                    case "french":
+                        cbCond.setValue("Parti");
+                        break;
+                    case "arabic":
+                        cbCond.setValue("مغادر");
+                        break;
+                    case "english":
+                        cbCond.setValue("Departed");
+                        break;
+                }
+                break;
+        }
+    }
+
+    private class DocumentHBox extends HBox {
+        public DocumentHBox(String nomDoc) {
+            Label singleDocLabel = new Label(nomDoc);
+            singleDocLabel.getStyleClass().add("singleDocLabel");
+            singleDocLabel.setMinWidth(USE_COMPUTED_SIZE);
+            singleDocLabel.setPrefWidth(USE_COMPUTED_SIZE);
+            singleDocLabel.setMaxWidth(USE_COMPUTED_SIZE);
 //			if(lang.equals("arabic")) singleDocLabel.setAlignment(Pos.TOP_RIGHT);
 //			else singleDocLabel.setAlignment(Pos.TOP_LEFT);
-			if (nomDoc.equals("لا يوجد أي وثيقة."))
-				singleDocLabel.setAlignment(Pos.TOP_RIGHT);
-			else
-				singleDocLabel.setAlignment(Pos.TOP_LEFT);
+            if (nomDoc.equals("لا يوجد أي وثيقة."))
+                singleDocLabel.setAlignment(Pos.TOP_RIGHT);
+            else
+                singleDocLabel.setAlignment(Pos.TOP_LEFT);
 
-			setMinWidth(USE_COMPUTED_SIZE);
-			setPrefWidth(375);
-			setMaxWidth(USE_PREF_SIZE);
-			singleDocLabel.getStyleClass().add("singleDocHBox");
+            setMinWidth(USE_COMPUTED_SIZE);
+            setPrefWidth(375);
+            setMaxWidth(USE_PREF_SIZE);
+            singleDocLabel.getStyleClass().add("singleDocHBox");
 
-			setPrefHeight(25);
-			getChildren().addAll(singleDocLabel);
-		}
+            setPrefHeight(25);
+            getChildren().addAll(singleDocLabel);
+        }
 
-		public DocumentHBox(Document doc) {
-			this(doc.getNomDoc());
+        public DocumentHBox(Document doc) {
+            this(doc.getNomDoc());
 
-			ImageView viewSingleDocImg = new ImageView(img1URL);
-			viewSingleDocImg.setFitWidth(25);
-			viewSingleDocImg.setFitHeight(25);
-			viewSingleDocImg.getStyleClass().add("viewSingleDocImg");
-			viewSingleDocImg.setOnMouseClicked(e -> openDocFile(doc));
+            ImageView viewSingleDocImg = new ImageView(img1URL);
+            viewSingleDocImg.setFitWidth(25);
+            viewSingleDocImg.setFitHeight(25);
+            viewSingleDocImg.getStyleClass().add("viewSingleDocImg");
+            viewSingleDocImg.setOnMouseClicked(e -> openDocFile(doc));
 
-			ImageView delSingleDocImg = new ImageView(img2URL);
-			delSingleDocImg.setFitWidth(25);
-			delSingleDocImg.setFitHeight(25);
-			delSingleDocImg.getStyleClass().add("delSingleDocImg");
-			delSingleDocImg.setOnMouseClicked(e -> delDocFile(doc));
+            ImageView delSingleDocImg = new ImageView(img2URL);
+            delSingleDocImg.setFitWidth(25);
+            delSingleDocImg.setFitHeight(25);
+            delSingleDocImg.getStyleClass().add("delSingleDocImg");
+            delSingleDocImg.setOnMouseClicked(e -> delDocFile(doc));
 
-			getChildren().addAll(viewSingleDocImg, delSingleDocImg);
-		}
+            getChildren().addAll(viewSingleDocImg, delSingleDocImg);
+        }
 
-		public void openDocFile(Document doc) {
-			lblMsg05.setText("");
-			String command = String.format("start %s\"%08d\"\\\"%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
-			try {
-				Runtime.getRuntime().exec("cmd /c " + command);
-				lblMsg05.setText("");
-			} catch (Exception e) {
-				lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ouverture du document."));
-				e.printStackTrace();
-			}
-			setDocs();
-		}
+        public void openDocFile(Document doc) {
+            lblMsg05.setText("");
+            String command = String.format("start %s\"%08d\"\\\"%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
+            try {
+                Runtime.getRuntime().exec("cmd /c " + command);
+                lblMsg05.setText("");
+            } catch (Exception e) {
+                lblMsg05.setText(Lang.getEquiv("Erreur lors de l'ouverture du document."));
+                e.printStackTrace();
+            }
+            setDocs();
+        }
 
-		public void delDocFile(Document doc) {
-			lblMsg05.setText("");
-			if (!Dialog.confirm(Lang.getEquiv("Supprimer Document"), Lang.getEquiv("Voulez-vous vraiment supprimer cet document ?"))) {
-				return;
-			}
+        public void delDocFile(Document doc) {
+            lblMsg05.setText("");
+            if (!Dialog.confirm(Lang.getEquiv("Supprimer Document"), Lang.getEquiv("Voulez-vous vraiment supprimer cet document ?"))) {
+                return;
+            }
 
-			String command = String.format("del \"%s%08d\\%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
-			try {
-				Runtime.getRuntime().exec("cmd /c " + command);
-				if (DB.delDoc(doc)) lblMsg05.setText(Lang.getEquiv("1 document supprimé avec succès."));
-				else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
-			} catch (Exception e) {
-				lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
-				e.printStackTrace();
-			}
-			setDocs();
-		}
-	}
+            String command = String.format("del \"%s%08d\\%s\"", Main.docsDir, doc.getCinDoc(), doc.getNomDoc());
+            try {
+                Runtime.getRuntime().exec("cmd /c " + command);
+                if (DB.delDoc(doc)) lblMsg05.setText(Lang.getEquiv("1 document supprimé avec succès."));
+                else lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
+            } catch (Exception e) {
+                lblMsg05.setText(Lang.getEquiv("Erreur lors de la suppression du document."));
+                e.printStackTrace();
+            }
+            setDocs();
+        }
+    }
 
-	private class EtudiantHBox extends HBox {
-		private final Etudiant etudiant;
+    private class EtudiantHBox extends HBox {
+        private final Etudiant etudiant;
 
-		public EtudiantHBox(String s) {
-			init();
-			etudiant = null;
+        public EtudiantHBox(String s) {
+            init();
+            etudiant = null;
 
-			Label lblAucun = new Label(s);
-			if ("arabic".equals(lang)) lblAucun.setPadding(new Insets(3, 5, 0, 0));
-			else lblAucun.setPadding(new Insets(3, 0, 0, 0));
+            Label lblAucun = new Label(s);
+            if ("arabic".equals(lang)) lblAucun.setPadding(new Insets(3, 5, 0, 0));
+            else lblAucun.setPadding(new Insets(3, 0, 0, 0));
 
 //			setAlignment(Pos.CENTER_LEFT);
 //			setPrefHeight(25);
-			setPrefWidth(USE_COMPUTED_SIZE);
-			getChildren().add(lblAucun);
-		}
+            setPrefWidth(USE_COMPUTED_SIZE);
+            getChildren().add(lblAucun);
+        }
 
-		public EtudiantHBox(int nb, Etudiant e) {
-			init();
-			etudiant = e;
+        public EtudiantHBox(int nb, Etudiant e) {
+            init();
+            etudiant = e;
 
-			Label lblNb = new Label(String.format(Lang.getEquiv("Étudiant") + " %02d:", nb));
-			TextArea txtDetails = new TextArea(e.toString());
-			txtDetails.setEditable(false);
-			txtDetails.setPrefRowCount(8);
-			txtDetails.setPrefWidth(350);
-			txtDetails.setMinHeight(USE_PREF_SIZE);
-			txtDetails.setOnKeyReleased((e1) -> {
-				if (e1.getCode() == KeyCode.ESCAPE)
-					return07();
-				else if (e1.getCode() == KeyCode.ENTER)
-					viewStudent();
-			});
+            Label lblNb = new Label(String.format(Lang.getEquiv("Étudiant") + " %02d:", nb));
+            TextArea txtDetails = new TextArea(e.toString());
+            txtDetails.setEditable(false);
+            txtDetails.setPrefRowCount(8);
+            txtDetails.setPrefWidth(350);
+            txtDetails.setMinHeight(USE_PREF_SIZE);
+            txtDetails.setOnKeyReleased((e1) -> {
+                if (e1.getCode() == KeyCode.ESCAPE)
+                    return07();
+                else if (e1.getCode() == KeyCode.ENTER)
+                    viewStudent();
+            });
 
-			ImageView imgView = new ImageView(img1URL);
-			imgView.setFitWidth(25);
-			imgView.setFitHeight(25);
-			imgView.setOnMouseClicked(e1 -> viewStudent());
-			imgView.setCursor(Cursor.HAND);
+            ImageView imgView = new ImageView(img1URL);
+            imgView.setFitWidth(25);
+            imgView.setFitHeight(25);
+            imgView.setOnMouseClicked(e1 -> viewStudent());
+            imgView.setCursor(Cursor.HAND);
 
-			setSpacing(5);
-			setPrefWidth(USE_COMPUTED_SIZE);
-			setPrefHeight(45);
+            setSpacing(5);
+            setPrefWidth(USE_COMPUTED_SIZE);
+            setPrefHeight(45);
 
-			if ("arabic".equals(lang)) {
-				lblNb.setPadding(new Insets(3, 5, 0, 5));
-				txtDetails.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-				getChildren().addAll(imgView, txtDetails, lblNb);
-			} else {
-				lblNb.setPadding(new Insets(3, 5, 0, 0));
-				txtDetails.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-				getChildren().addAll(lblNb, txtDetails, imgView);
-			}
-		}
+            if ("arabic".equals(lang)) {
+                lblNb.setPadding(new Insets(3, 5, 0, 5));
+                txtDetails.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+                getChildren().addAll(imgView, txtDetails, lblNb);
+            } else {
+                lblNb.setPadding(new Insets(3, 5, 0, 0));
+                txtDetails.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+                getChildren().addAll(lblNb, txtDetails, imgView);
+            }
+        }
 
-		public void init() {
-			if ("arabic".equals(lang)) setAlignment(Pos.TOP_RIGHT);
-			else setAlignment(Pos.TOP_LEFT);
-		}
+        public void init() {
+            if ("arabic".equals(lang)) setAlignment(Pos.TOP_RIGHT);
+            else setAlignment(Pos.TOP_LEFT);
+        }
 
-		public Etudiant getEtudiant() {
-			return etudiant;
-		}
+        public Etudiant getEtudiant() {
+            return etudiant;
+        }
 
-		public void viewStudent() {
-			// txtCIN03.setText(String.format("%08d", e.getCin()));
-			isLastClassesPane = true;
-			show(paneResultat);
-			txtCIN05.setText(String.format("%08d", etudiant.getCin()));
-			txtArchive05.setText(etudiant.getArchive());
-			txtNom05.setText(etudiant.getNom());
-			txtPrenom05.setText(etudiant.getPrenom());
-			cbClasse05.setValue(etudiant.getClasse());
-			cbCond05.setValue(etudiant.getCond());
-			setSelectedBoursier05(etudiant.isTranche());
-			disableInputs05(true);
-			setDocs();
-			currCond05 = cbCond05.getValue();
-			setEquivCond();
-		}
-	}
+        public void viewStudent() {
+            // txtCIN03.setText(String.format("%08d", e.getCin()));
+            isLastClassesPane = true;
+            show(paneResultat);
+            txtCIN05.setText(String.format("%08d", etudiant.getCin()));
+            txtArchive05.setText(etudiant.getArchive());
+            txtNom05.setText(etudiant.getNom());
+            txtPrenom05.setText(etudiant.getPrenom());
+            cbClasse05.setValue(etudiant.getClasse());
+            cbCond05.setValue(etudiant.getCond());
+            setSelectedBoursier05(etudiant.isTranche());
+            disableInputs05(true);
+            setDocs();
+            currCond05 = cbCond05.getValue();
+            setEquivCondFor05Only();
+        }
+    }
 }
