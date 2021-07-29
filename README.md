@@ -35,3 +35,20 @@ Software can be tested using "SGRN.exe".
 
 - Custom Show All (Do Not Use Windows Explorer)
 - In Settings: Export All Data to .txt File, Lock Add/Update/Delete Operations, About Me
+
+## Video Screenshots
+
+![GIF01](/Screenshots/01.gif)<br>
+![GIF02](/Screenshots/02.gif)<br>
+![GIF03](/Screenshots/03.gif)<br>
+![GIF04](/Screenshots/04.gif)<br>
+![GIF05](/Screenshots/05.gif)<br>
+![GIF06](/Screenshots/06.gif)<br>
+![GIF07](/Screenshots/07.gif)<br>
+![GIF08](/Screenshots/08.gif)<br>
+![GIF09](/Screenshots/09.gif)<br>
+![GIF10](/Screenshots/10.gif)<br>
+![GIF11](/Screenshots/11.gif)<br>
+![GIF12](/Screenshots/12.gif)<br>
+![GIF13](/Screenshots/13.gif)<br>
+![GIF14](/Screenshots/14.gif)<br>
